@@ -29,6 +29,11 @@ public class TestDummyDesign {
 	}
 	
 	@Test
+	public void testIntegrante4() {
+		Assert.assertEquals(4, unObjeto.integrante4());
+	}
+	
+	@Test
 	public void testIntegrante5() {
 		
 		Assert.assertEquals(5, unObjeto.integrante5());
