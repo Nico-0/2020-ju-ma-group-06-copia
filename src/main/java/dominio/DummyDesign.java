@@ -11,6 +11,10 @@ public class DummyDesign {
 		return 1;
 	}
 	
+	public int integrante2() {
+		return 2;
+	}
+	
 	public int integrante5() {
 		return 5;
 	}
