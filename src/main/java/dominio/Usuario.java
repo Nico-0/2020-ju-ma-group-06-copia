@@ -1,5 +1,5 @@
 package dominio;
 
-public class Usuario {
+public interface Usuario {
 
 }
