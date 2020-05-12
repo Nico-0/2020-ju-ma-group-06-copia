@@ -10,7 +10,10 @@ public class Compra {
 	public MedioPago medio_pago;
 	public DocumentoComercial doc_comercial; //puede ser nulo
 	public java.util.Date fecha = new java.util.Date();
-	public float valor_total; //no deberia ser un metodo que retorne la sumatoria de los valores totales de los items?
 	public Entidad entidad;
+	
+	public int valor_total(){    
+		return items.stream().mapToInt(item -> item.get_valor_total()).sum();
+	}
 	
 }
