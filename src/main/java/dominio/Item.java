@@ -3,17 +3,20 @@ package dominio;
 public class Item {
 
 	private String descripcion;
-	private int valorTotal;         //lo cambié por ahora de int a float por la precisión
-	
-	public int get_valor_total(){
-		return valorTotal;
+	private int cantidad;
+	private double valorUnitario;         //lo cambié por ahora de int a float por la precisión
+										//cambio a double, no existe "mapToFloat"
+	public double get_valor_total(){
+		return valorUnitario * cantidad;
 	}
 	
-	public Item(String descripcion, int valorTotal) throws PreconditionFailed {
+	public Item(String descripcion, float valorUnitario, int cantidad) throws PreconditionFailed {
 		Preconditions.validateNotNull(descripcion,"descripcion faltante");
-		Preconditions.validateNotNull(valorTotal,"valor total faltante");
+		Preconditions.validateNotNull(valorUnitario,"valor total faltante");
+		Preconditions.validateNotNull(cantidad, "cantidad faltante");
 		this.descripcion = descripcion;
-		this.valorTotal = valorTotal;
+		this.valorUnitario = valorUnitario;
+		this.cantidad = cantidad;
 	}
 	
 }

@@ -1,12 +1,13 @@
 package dominio;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class EntidadJuridica implements Entidad {
 
 	private List<EntidadBase> entidades_base = new ArrayList<EntidadBase>();	//puede ser vacia
-	private List<Compra> compras = new ArrayList<Compra>();
+	public List<Compra> compras = new ArrayList<Compra>();
 	private String razonSocial;
 	private String nombreFicticio;
 	private String cuit;
@@ -26,4 +27,13 @@ public abstract class EntidadJuridica implements Entidad {
 	public void setCodigoInscripcion(String codigoInscripcion) {
 		this.codigoInscripcion = codigoInscripcion;
 	}
+	
+	public void realizarCompra(List<Item> items, Proveedor proveedor, MedioPago medioPago) throws PreconditionFailed {
+		LocalDate fecha = LocalDate.now();
+		Compra miCompra = new Compra(proveedor, medioPago, fecha, this);
+		
+		compras.add(miCompra);
+	}
+	
+	
 }

@@ -13,8 +13,8 @@ public class Compra {
 	private LocalDate fecha;
 	private Entidad entidad;
 	
-	public int valor_total(){    
-		return items.stream().mapToInt(item -> item.get_valor_total()).sum();
+	public double valor_total(){    
+		return items.stream().mapToDouble(item -> item.get_valor_total()).sum();
 	}
 	
 	public Compra(Proveedor proveedor, MedioPago medioPago, LocalDate fecha, Entidad entidad) throws PreconditionFailed {
