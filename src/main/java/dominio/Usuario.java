@@ -6,13 +6,10 @@ public class Usuario {
 	private String contrasenia;
 	
 	public Usuario(String usuario, String contrasenia){
-		this.usuario = usuario;
-		if(validador.esValida(contrasenia)){
-			this.contrasenia = contrasenia;
-		}
-		else {
+		if(!validador.esValida(contrasenia)){
 			//tirar una excepcion
 		}
-		
+		this.usuario = usuario;
+		this.contrasenia = contrasenia;
 	}
 }
