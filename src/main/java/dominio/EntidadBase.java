@@ -5,9 +5,9 @@ import java.util.List;
 
 public class EntidadBase implements Entidad {
 
-	public List<Compra> compras = new ArrayList<Compra>();
-	public String nombre_ficticio;
-	public String descripcion;
-	public EntidadJuridica entidad_juridica; //para mi deberia conocer a la entidad juridica si es que la tiene
+	private List<Compra> compras = new ArrayList<Compra>();
+	private String nombre_ficticio;
+	private String descripcion;
+	private EntidadJuridica entidad_juridica; //para mi deberia conocer a la entidad juridica si es que la tiene
 	
 }

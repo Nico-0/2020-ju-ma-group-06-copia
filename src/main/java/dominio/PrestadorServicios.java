@@ -2,8 +2,8 @@ package dominio;
 
 public class PrestadorServicios implements Proveedor {
 
-	public String razon_social;
-	public long cuil_o_cuit;
-	public String direccion_postal;
+	private String razon_social;
+	private long cuil_o_cuit;
+	private String direccion_postal;
 	
 }

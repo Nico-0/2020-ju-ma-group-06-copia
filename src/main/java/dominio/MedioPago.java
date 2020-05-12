@@ -1,6 +1,6 @@
 package dominio;
 
 public class MedioPago {
-	TipoPago tipoPago;
-	String identificador;
+	private TipoPago tipoPago;
+	private String identificador;
 }
