@@ -28,26 +28,29 @@ public class ValidadorDeContrasenias {
         }
         return INSTANCE;
     }
-
-	public boolean esValida(String unaContrasenia){
-		return (this.esMuyComun(unaContrasenia) && this.recomendacionUno(unaContrasenia) && this.recomendacionDos(unaContrasenia) && this.recomendacionTres(unaContrasenia));
-
+	
+	public void validarContrasenia(String unaContrasenia) throws ContraseniaEsMalaException {
+		validarContraseniaEsMala(unaContrasenia);
+		validarRecomendacionUno(unaContrasenia);
+		validarRecomendacionDos(unaContrasenia);
+		validarRecomendacionTres(unaContrasenia);
 	}
 	
-	private boolean esMuyComun(String unaContrasenia) {
-		return peoresContrasenias.contains(unaContrasenia);  //si pertenece a las 10.000 mas comunes
+	private void validarContraseniaEsMala(String unaContrasenia) throws ContraseniaEsMalaException {
+		if(peoresContrasenias.contains(unaContrasenia))
+			throw new ContraseniaEsMalaException("La contraseña pertenece al TOP 10000 de las peores contrasenias");
 	}
 	
-	private boolean recomendacionUno(String unaContrasenia) {
-		return true;
+	private void validarRecomendacionUno(String unaContrasenia) {
+		//Si no cumple, lanza excepcion
 	}
 	
-	private boolean recomendacionDos(String unaContrasenia) {
-		return true;
+	private void validarRecomendacionDos(String unaContrasenia) {
+		//Si no cumple, lanza excepcion		
 	}
 	
-	private boolean recomendacionTres(String unaContrasenia) {
-		return true;
+	private void validarRecomendacionTres(String unaContrasenia) {
+		//Si no cumple, lanza excepcion
 	}
 	
 }

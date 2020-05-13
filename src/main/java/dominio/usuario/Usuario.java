@@ -7,10 +7,8 @@ public class Usuario{
 	private String usuario;
 	private String contrasenia;
 	
-	public Usuario(String usuario, String contrasenia) throws FileNotFoundException{
-		if(!validador.esValida(contrasenia)){
-			//tirar una excepcion
-		}
+	public Usuario(String usuario, String contrasenia) throws FileNotFoundException, ContraseniaEsMalaException{
+		validador.validarContrasenia(contrasenia);
 		this.usuario = usuario;
 		this.contrasenia = contrasenia;
 	}
