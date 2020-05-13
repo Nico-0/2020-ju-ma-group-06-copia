@@ -37,7 +37,8 @@ public abstract class EntidadJuridica implements Entidad {
 	
 	public void realizarCompra(List<Item> items, Proveedor proveedor, MedioPago medioPago) throws PreconditionFailed {
 		LocalDate fecha = LocalDate.now();
-		Compra miCompra = new Compra(proveedor, medioPago, fecha, this);
+		Compra miCompra = new Compra(proveedor, medioPago, fecha);
+		miCompra.setItems(items);
 		
 		compras.add(miCompra);
 	}
