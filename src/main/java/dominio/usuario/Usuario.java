@@ -8,7 +8,7 @@ public class Usuario{
 	private String contrasenia;
 	
 	public Usuario(String usuario, String contrasenia) throws FileNotFoundException, ContraseniaEsMalaException{
-		validador.validarContrasenia(contrasenia);
+		validador.validarContrasenia(contrasenia,usuario);
 		this.usuario = usuario;
 		this.contrasenia = contrasenia;
 	}

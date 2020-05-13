@@ -14,7 +14,7 @@ public class ValidadorDeContrasenias {
 	}
 	
 	private void inicializarPeoresContrasenias() throws FileNotFoundException {
-		File file = new File("peoresContrase�as.txt");
+		File file = new File("peoresContrase�as.txt");
     	Scanner scan = new Scanner(file);
     	while(scan.hasNextLine()) {
     		peoresContrasenias.add(scan.nextLine());
@@ -29,28 +29,37 @@ public class ValidadorDeContrasenias {
         return INSTANCE;
     }
 	
-	public void validarContrasenia(String unaContrasenia) throws ContraseniaEsMalaException {
+	public void validarContrasenia(String unaContrasenia, String usuario) throws ContraseniaEsMalaException {
 		validarContraseniaEsMala(unaContrasenia);
-		validarRecomendacionUno(unaContrasenia);
-		validarRecomendacionDos(unaContrasenia);
-		validarRecomendacionTres(unaContrasenia);
+		validarCantidadCaracteres(unaContrasenia); 
+		contieneCaracteresRepetitivos(unaContrasenia);
+		contieneElNombreDeUsuario(unaContrasenia, usuario);
 	}
 	
 	private void validarContraseniaEsMala(String unaContrasenia) throws ContraseniaEsMalaException {
 		if(peoresContrasenias.contains(unaContrasenia))
-			throw new ContraseniaEsMalaException("La contrase�a pertenece al TOP 10000 de las peores contrasenias");
+			throw new ContraseniaEsMalaException("La contraseña pertenece al TOP 10000 de las peores contrasenias");
 	}
 	
-	private void validarRecomendacionUno(String unaContrasenia) {
-		//Si no cumple, lanza excepcion
+	private void validarCantidadCaracteres(String unaContrasenia) throws ContraseniaEsMalaException {
+		if(unaContrasenia.length() < 8) {
+			throw new ContraseniaEsMalaException("La contraseña debe tener al menos 8 caracteres");
+		}
 	}
 	
-	private void validarRecomendacionDos(String unaContrasenia) {
-		//Si no cumple, lanza excepcion		
+	private void contieneCaracteresRepetitivos(String unaContrasenia) throws ContraseniaEsMalaException {
+		char[] auxiliar = unaContrasenia.toCharArray();
+		for(int i = 0; i < (unaContrasenia.length() - 2); i++) {
+			if(auxiliar[i] == auxiliar[i+1] && auxiliar[i] == auxiliar[i+2]) {
+				throw new ContraseniaEsMalaException("La contraseña no puede contener más de dos caracteres iguales seguidos");
+			}
+		}
 	}
 	
-	private void validarRecomendacionTres(String unaContrasenia) {
-		//Si no cumple, lanza excepcion
-	}
+	private void contieneElNombreDeUsuario(String unaContrasenia, String usuario) throws ContraseniaEsMalaException {
+		if(unaContrasenia.indexOf(usuario) > -1) {    
+			throw new ContraseniaEsMalaException("La contraseña no puede contener el nombre de usuario");
+		}
+	}  //En el futuro puede recibir una lista de palabras clave, no solo el ususario
 	
 }
