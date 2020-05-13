@@ -1,11 +1,28 @@
 package dominio;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.List;
+import java.util.Scanner;
+
 public class ValidadorDeContrasenias {
 	private static ValidadorDeContrasenias INSTANCE = null;
-
-	private ValidadorDeContrasenias(){}
+	private List<String> peoresContrasenias;
 	
-	static public ValidadorDeContrasenias getInstance() {
+	private ValidadorDeContrasenias() throws FileNotFoundException {
+		inicializarPeoresContrasenias();
+	}
+	
+	private void inicializarPeoresContrasenias() throws FileNotFoundException {
+		File file = new File("peoresContraseñas.txt");
+    	Scanner scan = new Scanner(file);
+    	while(scan.hasNextLine()) {
+    		peoresContrasenias.add(scan.nextLine());
+    	}
+    	scan.close();
+	}
+	
+	static public ValidadorDeContrasenias getInstance() throws FileNotFoundException {
         if (INSTANCE == null) {
             INSTANCE = new ValidadorDeContrasenias();
         }
@@ -18,7 +35,7 @@ public class ValidadorDeContrasenias {
 	}
 	
 	private boolean esMuyComun(String unaContrasenia) {
-		return true;  //si pertenece a las 10.000 mas comunes
+		return peoresContrasenias.contains(unaContrasenia);  //si pertenece a las 10.000 mas comunes
 	}
 	
 	private boolean recomendacionUno(String unaContrasenia) {
