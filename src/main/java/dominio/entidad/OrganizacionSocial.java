@@ -1,4 +1,6 @@
-package dominio;
+package dominio.entidad;
+
+import dominio.PreconditionFailed;
 
 public class OrganizacionSocial extends EntidadJuridica {
 

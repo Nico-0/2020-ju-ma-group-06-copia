@@ -1,7 +1,11 @@
-package dominio;
+package dominio.entidad;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import dominio.PreconditionFailed;
+import dominio.Preconditions;
+import dominio.compra.Compra;
 
 public class EntidadBase implements Entidad {
 

@@ -1,8 +1,15 @@
-package dominio;
+package dominio.entidad;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import dominio.PreconditionFailed;
+import dominio.Preconditions;
+import dominio.compra.Compra;
+import dominio.compra.Item;
+import dominio.compra.MedioPago;
+import dominio.compra.Proveedor;
 
 public abstract class EntidadJuridica implements Entidad {
 

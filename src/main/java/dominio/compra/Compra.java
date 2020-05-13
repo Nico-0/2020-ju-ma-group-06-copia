@@ -1,8 +1,12 @@
-package dominio;
+package dominio.compra;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import dominio.PreconditionFailed;
+import dominio.Preconditions;
+import dominio.entidad.Entidad;
 
 public class Compra {
 	

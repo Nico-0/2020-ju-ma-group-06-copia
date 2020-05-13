@@ -1,4 +1,4 @@
-package dominio;
+package dominio.compra;
 
 public class PrestadorServicios implements Proveedor {
 

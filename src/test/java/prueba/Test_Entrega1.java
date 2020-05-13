@@ -8,17 +8,17 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import dominio.Compra;
-import dominio.DocumentoComercial;
-import dominio.Entidad;
-import dominio.EntidadBase;
-import dominio.EntidadJuridica;
-import dominio.Item;
-import dominio.MedioPago;
-import dominio.OrganizacionSocial;
-import dominio.PersonaProveedor;
 import dominio.PreconditionFailed;
-import dominio.TipoPago;
+import dominio.compra.Compra;
+import dominio.compra.DocumentoComercial;
+import dominio.compra.Item;
+import dominio.compra.MedioPago;
+import dominio.compra.PersonaProveedor;
+import dominio.compra.TipoPago;
+import dominio.entidad.Entidad;
+import dominio.entidad.EntidadBase;
+import dominio.entidad.EntidadJuridica;
+import dominio.entidad.OrganizacionSocial;
 
 
 public class Test_Entrega1 {

@@ -1,4 +1,7 @@
-package dominio;
+package dominio.compra;
+
+import dominio.PreconditionFailed;
+import dominio.Preconditions;
 
 public class Item {
 

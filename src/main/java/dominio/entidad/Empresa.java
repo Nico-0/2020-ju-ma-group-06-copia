@@ -1,4 +1,7 @@
-package dominio;
+package dominio.entidad;
+
+import dominio.PreconditionFailed;
+import dominio.Preconditions;
 
 public class Empresa extends EntidadJuridica {
 	private TipoEmpresa tipoEmpresa;

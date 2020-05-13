@@ -1,4 +1,4 @@
-package dominio;
+package dominio.usuario;
 
 import java.io.File;
 import java.io.FileNotFoundException;
