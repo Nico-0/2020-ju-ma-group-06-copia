@@ -1,5 +1,6 @@
 package prueba;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import dominio.entidad.Entidad;
 import dominio.entidad.EntidadBase;
 import dominio.entidad.EntidadJuridica;
 import dominio.entidad.OrganizacionSocial;
+import dominio.usuario.ValidadorDeContrasenias;
 
 
 public class Test_Entrega1 {
@@ -34,15 +36,15 @@ public class Test_Entrega1 {
 	public MedioPago medioPago;
 	public List<Item> items = new ArrayList<Item>();
 	public Item item;
-	
+	ValidadorDeContrasenias validador;
 	
 	@Before
-	public void initialize() throws PreconditionFailed {
+	public void initialize() throws PreconditionFailed, FileNotFoundException {
 		entidad = new OrganizacionSocial(razonSocial, nombreFicticio, cuit, direccionPostal);
 		proveedor = new PersonaProveedor("juancito", 45127845, "Avenida Siempreviva 123");
 		medioPago = new MedioPago(TipoPago.EFECTIVO, "Identificador");
 		item = new Item("cuaderno", 500, 2);
-				
+		validador = new ValidadorDeContrasenias();
 	}
 	
 	@Test
@@ -53,4 +55,12 @@ public class Test_Entrega1 {
 		
 		Assert.assertEquals("Error al agregar compra", size_compras + 1, entidad.compras.size());
 	}
+	
+	@Test
+	public void laContraseniaEsUnaDeLas10000Peores() {
+		String unaContrasenia = "1234";
+		
+		Assert.assertTrue(validador.peoresContrasenias.contains(unaContrasenia));
+	}
+	
 }

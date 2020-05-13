@@ -2,19 +2,20 @@ package dominio.usuario;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class ValidadorDeContrasenias {
 	private static ValidadorDeContrasenias INSTANCE = null;
-	private List<String> peoresContrasenias;
+	public List<String> peoresContrasenias = new ArrayList<String>();
 	
-	private ValidadorDeContrasenias() throws FileNotFoundException {
+	public ValidadorDeContrasenias() throws FileNotFoundException {
 		inicializarPeoresContrasenias();
 	}
 	
 	private void inicializarPeoresContrasenias() throws FileNotFoundException {
-		File file = new File("peoresContrase�as.txt");
+		File file = new File("peoresContrasenas.txt");
     	Scanner scan = new Scanner(file);
     	while(scan.hasNextLine()) {
     		peoresContrasenias.add(scan.nextLine());
