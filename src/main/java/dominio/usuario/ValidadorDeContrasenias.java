@@ -44,7 +44,7 @@ public class ValidadorDeContrasenias {
 
 	private void validarCantidadCaracteres(String unaContrasenia) {
 		if (unaContrasenia.length() < 8) {
-			throw new ContraseniaEsMalaException("La contraseña debe tener al menos 8 caracteres");
+			throw new ContraseniaEsMuyCortaException("La contraseña debe tener al menos 8 caracteres");
 		}
 	}
 
@@ -52,7 +52,7 @@ public class ValidadorDeContrasenias {
 		char[] auxiliar = unaContrasenia.toCharArray();
 		for (int i = 0; i < (unaContrasenia.length() - 2); i++) {
 			if (auxiliar[i] == auxiliar[i + 1] && auxiliar[i] == auxiliar[i + 2]) {
-				throw new ContraseniaEsMalaException(
+				throw new ContraseniaRepiteCaracteresException(
 						"La contraseña no puede contener más de dos caracteres iguales seguidos");
 			}
 		}
@@ -60,7 +60,7 @@ public class ValidadorDeContrasenias {
 
 	private void contieneElNombreDeUsuario(String unaContrasenia, String usuario) {
 		if (unaContrasenia.indexOf(usuario) > -1) {
-			throw new ContraseniaEsMalaException("La contraseña no puede contener el nombre de usuario");
+			throw new ContraseniaContieneNombreUsuarioException("La contraseña no puede contener el nombre de usuario");
 		}
 	} // En el futuro puede recibir una lista de palabras clave, no solo el ususario
 

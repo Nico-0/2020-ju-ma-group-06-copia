@@ -19,7 +19,10 @@ import dominio.compra.TipoPago;
 import dominio.entidad.Entidad;
 import dominio.entidad.EntidadBase;
 import dominio.entidad.OrganizacionSocial;
+import dominio.usuario.ContraseniaContieneNombreUsuarioException;
 import dominio.usuario.ContraseniaEsMalaException;
+import dominio.usuario.ContraseniaEsMuyCortaException;
+import dominio.usuario.ContraseniaRepiteCaracteresException;
 import dominio.usuario.ValidadorDeContrasenias;
 
 
@@ -67,6 +70,21 @@ public class Test_Entrega1 {
 	@Test(expected=ContraseniaEsMalaException.class)
 	public void laContraseniaEsUnaDeLas10000Peores() {
 		validador.validarContrasenia("1234","Nombre de Usuario");
+	}
+	
+	@Test(expected=ContraseniaEsMuyCortaException.class)
+	public void laContraseniaEsCorta() {
+		validador.validarContrasenia("Holanda","Nombre de Usuario");
+	}
+	
+	@Test(expected=ContraseniaRepiteCaracteresException.class)
+	public void laContraseniaRepiteCaracteres() {
+		validador.validarContrasenia("zaaazaaazaaa","Nombre de Usuario");
+	}
+	
+	@Test(expected=ContraseniaContieneNombreUsuarioException.class)
+	public void laContraseniaContieneElNombreDeUsuario() {
+		validador.validarContrasenia("nombreUsuario","nombreUsuario");
 	}
 	
 }
