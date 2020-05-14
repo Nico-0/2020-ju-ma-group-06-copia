@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class ValidadorDeContrasenias {
 	private static ValidadorDeContrasenias INSTANCE = null;
-	public List<String> peoresContrasenias = new ArrayList<String>();
+	private List<String> peoresContrasenias = new ArrayList<String>();
 
 	public ValidadorDeContrasenias() throws FileNotFoundException {
 		inicializarPeoresContrasenias();
