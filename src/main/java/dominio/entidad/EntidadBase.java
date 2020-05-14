@@ -1,18 +1,12 @@
 package dominio.entidad;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import dominio.PreconditionFailed;
 import dominio.Preconditions;
-import dominio.compra.Compra;
 
-public class EntidadBase implements Entidad {
+public class EntidadBase extends Entidad {
 
-	private List<Compra> compras = new ArrayList<Compra>();
-	private String nombreFicticio;
 	private String descripcion;
-	private EntidadJuridica entidadJuridica; //para mi deberia conocer a la entidad juridica si es que la tiene
+	//private Entidad entidadJuridica; //para mi deberia conocer a la entidad juridica si es que la tiene
 	
 	public EntidadBase(String nombreFicticio, String descripcion) throws PreconditionFailed {
 		Preconditions.validateNotNull(nombreFicticio, "nombre ficticio faltante");

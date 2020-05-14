@@ -18,14 +18,13 @@ import dominio.compra.PersonaProveedor;
 import dominio.compra.TipoPago;
 import dominio.entidad.Entidad;
 import dominio.entidad.EntidadBase;
-import dominio.entidad.EntidadJuridica;
 import dominio.entidad.OrganizacionSocial;
 import dominio.usuario.ValidadorDeContrasenias;
 
 
 public class Test_Entrega1 {
 
-	public EntidadJuridica entidad;
+	public Entidad entidad;
 	
 	public String razonSocial = "razonSocial";
 	String cuit= "cuit";
