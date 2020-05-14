@@ -1,6 +1,8 @@
 package prueba;
 
 import java.io.FileNotFoundException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ import dominio.usuario.ContraseniaContieneNombreUsuarioException;
 import dominio.usuario.ContraseniaEsMalaException;
 import dominio.usuario.ContraseniaEsMuyCortaException;
 import dominio.usuario.ContraseniaRepiteCaracteresException;
+import dominio.usuario.Usuario;
 import dominio.usuario.ValidadorDeContrasenias;
 
 
@@ -39,15 +42,17 @@ public class Test_Entrega1 {
 	public MedioPago medioPago;
 	public List<Item> items = new ArrayList<Item>();
 	public Item item;
+	public Usuario usuario;
 	ValidadorDeContrasenias validador;
 	
 	@Before
-	public void initialize() throws PreconditionFailed, FileNotFoundException {
+	public void initialize() throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
 		entidad = new OrganizacionSocial(razonSocial, nombreFicticio, cuit, direccionPostal);
 		proveedor = new PersonaProveedor("juancito", 45127845, "Avenida Siempreviva 123");
 		medioPago = new MedioPago(TipoPago.EFECTIVO, "Identificador");
 		item = new Item("cuaderno", 500, 2);
 		validador = new ValidadorDeContrasenias();
+		usuario = new Usuario("Carlitos","ContraseniaVerdadera");
 	}
 	
 	@Test
@@ -79,4 +84,13 @@ public class Test_Entrega1 {
 		validador.validarContrasenia("nombreUsuario","nombreUsuario");
 	}
 	
+	@Test
+	public void laContraseniaEsCorrecta() throws NoSuchAlgorithmException, InvalidKeySpecException {
+		Assert.assertTrue(usuario.laContraseniaEs("ContraseniaVerdadera"));
+	}
+	
+	@Test
+	public void laContraseniaEsIncorrecta() throws NoSuchAlgorithmException, InvalidKeySpecException {
+		Assert.assertFalse(usuario.laContraseniaEs("ContraseniaEquivocada"));
+	}
 }
