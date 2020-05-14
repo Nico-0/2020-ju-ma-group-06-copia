@@ -19,6 +19,7 @@ import dominio.compra.TipoPago;
 import dominio.entidad.Entidad;
 import dominio.entidad.EntidadBase;
 import dominio.entidad.OrganizacionSocial;
+import dominio.usuario.ContraseniaEsMalaException;
 import dominio.usuario.ValidadorDeContrasenias;
 
 
@@ -55,11 +56,17 @@ public class Test_Entrega1 {
 		Assert.assertEquals("Error al agregar compra", size_compras + 1, entidad.compras.size());
 	}
 	
+	/*
 	@Test
 	public void laContraseniaEsUnaDeLas10000Peores() {
 		String unaContrasenia = "1234";
 		
 		Assert.assertTrue(validador.peoresContrasenias.contains(unaContrasenia));
+	}*/
+	
+	@Test(expected=ContraseniaEsMalaException.class)
+	public void laContraseniaEsUnaDeLas10000Peores() {
+		validador.validarContrasenia("1234","Nombre de Usuario");
 	}
 	
 }

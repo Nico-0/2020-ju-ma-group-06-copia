@@ -1,6 +1,5 @@
 package dominio.compra;
 
-import dominio.PreconditionFailed;
 import dominio.Preconditions;
 
 public class PersonaProveedor implements Proveedor {
@@ -8,8 +7,8 @@ public class PersonaProveedor implements Proveedor {
 	private String nombre_y_apellido;
 	private long dni;
 	private String direccion_postal;
-	
-	public PersonaProveedor(String nombre_y_apellido, long dni, String direccion_postal) throws PreconditionFailed {
+
+	public PersonaProveedor(String nombre_y_apellido, long dni, String direccion_postal) {
 		Preconditions.validateNotNull(nombre_y_apellido, "nombre/apellido faltante");
 		Preconditions.validateNotNull(dni, "dni faltante");
 		Preconditions.validateNotNull(direccion_postal, "direccion_postal faltante");
@@ -17,5 +16,5 @@ public class PersonaProveedor implements Proveedor {
 		this.dni = dni;
 		this.direccion_postal = direccion_postal;
 	}
-	
+
 }

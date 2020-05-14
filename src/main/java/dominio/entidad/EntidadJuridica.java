@@ -3,18 +3,17 @@ package dominio.entidad;
 import java.util.ArrayList;
 import java.util.List;
 
-import dominio.PreconditionFailed;
 import dominio.Preconditions;
 
 public abstract class EntidadJuridica extends Entidad {
 
-	private List<EntidadBase> entidades_base = new ArrayList<EntidadBase>();	//puede ser vacia
+	private List<EntidadBase> entidades_base = new ArrayList<EntidadBase>(); // puede ser vacia
 	private String razonSocial;
 	private String cuit;
 	private String direccionPostal;
 	private String codigoInscripcion;
-	
-	public EntidadJuridica(String razonSocial, String nombreFicticio, String cuit, String direccionPostal) throws PreconditionFailed {
+
+	public EntidadJuridica(String razonSocial, String nombreFicticio, String cuit, String direccionPostal) {
 		Preconditions.validateNotNull(razonSocial, "razon social faltante");
 		Preconditions.validateNotNull(nombreFicticio, "nombre ficticio faltante");
 		Preconditions.validateNotNull(cuit, "cuit faltante");
@@ -24,6 +23,7 @@ public abstract class EntidadJuridica extends Entidad {
 		this.cuit = cuit;
 		this.direccionPostal = direccionPostal;
 	}
+
 	public void setCodigoInscripcion(String codigoInscripcion) {
 		this.codigoInscripcion = codigoInscripcion;
 	}

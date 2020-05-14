@@ -1,10 +1,8 @@
 package dominio.entidad;
 
-import dominio.PreconditionFailed;
-
 public class OrganizacionSocial extends EntidadJuridica {
 
-	public OrganizacionSocial(String razonSocial, String nombreFicticio, String cuit, String direccionPostal) throws PreconditionFailed {
+	public OrganizacionSocial(String razonSocial, String nombreFicticio, String cuit, String direccionPostal) {
 		super(razonSocial, nombreFicticio, cuit, direccionPostal);
 	}
 }
