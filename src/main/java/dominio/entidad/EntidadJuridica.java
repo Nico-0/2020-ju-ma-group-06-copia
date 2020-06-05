@@ -2,8 +2,9 @@ package dominio.entidad;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import dominio.Preconditions;
+import org.apache.commons.lang3.Validate;
 
 public abstract class EntidadJuridica extends Entidad {
 
@@ -12,20 +13,26 @@ public abstract class EntidadJuridica extends Entidad {
 	private String cuit;
 	private String direccionPostal;
 	private String codigoInscripcion;
-
-	public EntidadJuridica(String razonSocial, String nombreFicticio, String cuit, String direccionPostal) {
-		Preconditions.validateNotNull(razonSocial, "razon social faltante");
-		Preconditions.validateNotNull(nombreFicticio, "nombre ficticio faltante");
-		Preconditions.validateNotNull(cuit, "cuit faltante");
-		Preconditions.validateNotNull(direccionPostal, "direccion postal faltante");
+	private List<EntidadBase> entidades_usadas = new ArrayList<EntidadBase>();
+	
+	public EntidadJuridica(String razonSocial, String nombreFicticio, String cuit, String direccionPostal, List<EntidadBase> entidades) {
+		Validate.notNull(razonSocial, "razon social faltante");
+		Validate.notNull(nombreFicticio, "nombre ficticio faltante");
+		Validate.notNull(cuit, "cuit faltante");
+		Validate.notNull(direccionPostal, "direccion postal faltante");
 		this.razonSocial = razonSocial;
 		this.nombreFicticio = nombreFicticio;
 		this.cuit = cuit;
 		this.direccionPostal = direccionPostal;
+		this.entidades_base = this.tomarEntidadesDisponibles(entidades);
+		this.entidades_base.stream().forEach(entidad -> this.entidades_usadas.add(entidad));
 	}
 
 	public void setCodigoInscripcion(String codigoInscripcion) {
 		this.codigoInscripcion = codigoInscripcion;
 	}
-
+	
+	public List<EntidadBase> tomarEntidadesDisponibles(List<EntidadBase> entidades){
+		return entidades.stream().filter(entidad->!entidades_usadas.contains(entidad)).collect(Collectors.toList());
+	}
 }

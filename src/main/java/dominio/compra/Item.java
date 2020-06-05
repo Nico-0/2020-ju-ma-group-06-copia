@@ -1,6 +1,6 @@
 package dominio.compra;
 
-import dominio.Preconditions;
+import org.apache.commons.lang3.Validate;
 
 public class Item {
 
@@ -14,9 +14,9 @@ public class Item {
 	}
 
 	public Item(String descripcion, float valorUnitario, int cantidad) {
-		Preconditions.validateNotNull(descripcion, "descripcion faltante");
-		Preconditions.validateNotNull(valorUnitario, "valor total faltante");
-		Preconditions.validateNotNull(cantidad, "cantidad faltante");
+		Validate.notNull(descripcion, "descripcion faltante");
+		Validate.notNull(valorUnitario, "valor total faltante");
+		Validate.notNull(cantidad, "cantidad faltante");
 		this.descripcion = descripcion;
 		this.valorUnitario = valorUnitario;
 		this.cantidad = cantidad;

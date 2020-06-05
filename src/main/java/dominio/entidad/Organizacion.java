@@ -5,6 +5,6 @@ import java.util.List;
 
 public class Organizacion {
 
-	private List<EntidadJuridica> entidadesJuridicas = new ArrayList<EntidadJuridica>();
+	private List<Entidad> entidades = new ArrayList<Entidad>();
 
 }

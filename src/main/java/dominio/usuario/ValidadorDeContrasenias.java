@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import dominio.validacion.Validacion;
+
 public class ValidadorDeContrasenias {
 	private static ValidadorDeContrasenias INSTANCE = null;
 	private List<String> peoresContrasenias = new ArrayList<String>();
+	private List<Validacion> validaciones = new ArrayList<Validacion>();
 
 	public ValidadorDeContrasenias() throws FileNotFoundException {
 		inicializarPeoresContrasenias();
@@ -31,37 +34,6 @@ public class ValidadorDeContrasenias {
 	}
 
 	public void validarContrasenia(String unaContrasenia, String usuario) {
-		validarContraseniaEsMala(unaContrasenia);
-		validarCantidadCaracteres(unaContrasenia);
-		contieneCaracteresRepetitivos(unaContrasenia);
-		contieneElNombreDeUsuario(unaContrasenia, usuario);
+		validaciones.stream().forEach(validacion -> validacion.validar(unaContrasenia, usuario, peoresContrasenias));
 	}
-
-	private void validarContraseniaEsMala(String unaContrasenia) {
-		if (peoresContrasenias.contains(unaContrasenia))
-			throw new ContraseniaEsMalaException("La contraseña pertenece al TOP 10000 de las peores contrasenias");
-	}
-
-	private void validarCantidadCaracteres(String unaContrasenia) {
-		if (unaContrasenia.length() < 8) {
-			throw new ContraseniaEsMuyCortaException("La contraseña debe tener al menos 8 caracteres");
-		}
-	}
-
-	private void contieneCaracteresRepetitivos(String unaContrasenia) {
-		char[] auxiliar = unaContrasenia.toCharArray();
-		for (int i = 0; i < (unaContrasenia.length() - 2); i++) {
-			if (auxiliar[i] == auxiliar[i + 1] && auxiliar[i] == auxiliar[i + 2]) {
-				throw new ContraseniaRepiteCaracteresException(
-						"La contraseña no puede contener más de dos caracteres iguales seguidos");
-			}
-		}
-	}
-
-	private void contieneElNombreDeUsuario(String unaContrasenia, String usuario) {
-		if (unaContrasenia.indexOf(usuario) > -1) {
-			throw new ContraseniaContieneNombreUsuarioException("La contraseña no puede contener el nombre de usuario");
-		}
-	} // En el futuro puede recibir una lista de palabras clave, no solo el ususario
-
 }

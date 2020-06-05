@@ -1,6 +1,6 @@
 package dominio.compra;
 
-import dominio.Preconditions;
+import org.apache.commons.lang3.Validate;
 
 public class PersonaProveedor implements Proveedor {
 
@@ -9,9 +9,9 @@ public class PersonaProveedor implements Proveedor {
 	private String direccion_postal;
 
 	public PersonaProveedor(String nombre_y_apellido, long dni, String direccion_postal) {
-		Preconditions.validateNotNull(nombre_y_apellido, "nombre/apellido faltante");
-		Preconditions.validateNotNull(dni, "dni faltante");
-		Preconditions.validateNotNull(direccion_postal, "direccion_postal faltante");
+		Validate.notNull(nombre_y_apellido, "nombre/apellido faltante");
+		Validate.notNull(dni, "dni faltante");
+		Validate.notNull(direccion_postal, "direccion_postal faltante");
 		this.nombre_y_apellido = nombre_y_apellido;
 		this.dni = dni;
 		this.direccion_postal = direccion_postal;

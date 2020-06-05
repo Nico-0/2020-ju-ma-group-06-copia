@@ -4,8 +4,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.Validate;
+
 import dominio.PreconditionFailed;
-import dominio.Preconditions;
 import dominio.entidad.Entidad;
 
 public class Compra {
@@ -22,9 +23,9 @@ public class Compra {
 	}
 
 	public Compra(Proveedor proveedor, MedioPago medioPago, LocalDate fecha) {
-		Preconditions.validateNotNull(proveedor, "proveedor faltante");
-		Preconditions.validateNotNull(medioPago, "medio de pago faltante");
-		Preconditions.validateNotNull(fecha, "fecha faltante");
+		Validate.notNull(proveedor, "proveedor faltante");
+		Validate.notNull(medioPago, "medio de pago faltante");
+		Validate.notNull(fecha, "fecha faltante");
 		// Preconditions.validateNotNull(entidad,"entidad faltante");
 		this.proveedor = proveedor;
 		this.medioPago = medioPago;
