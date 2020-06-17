@@ -6,7 +6,7 @@ import dominio.compra.*;
 import dominio.usuario.*;
 
 public class CompraPendiente {
-    private List<Presupuesto> presupuestos = new ArrayList<Presupuesto>();
+    private List<Presupuesto> presupuestos = new ArrayList<>();
     private Detalle detalle = new Detalle();
     private Usuario revisor;
     private Proveedor proveedor;
@@ -14,6 +14,7 @@ public class CompraPendiente {
     private static int cantidadPresupuestosRequeridos = 0;
     private LocalDate fecha;
     private MedioPago medioPago;
+    private List<Usuario> usuariosRevisores = new ArrayList<>();
 
     public static void setCantidadPresupuestosRequeridos(int unaCantidad) {
         cantidadPresupuestosRequeridos = unaCantidad;
@@ -36,13 +37,17 @@ public class CompraPendiente {
 
     public void verificarCantidadPresupuestos() {
         if(presupuestos.size() != cantidadPresupuestosRequeridos) {
-        	throw new CantidadPresupuestosIncorrectaException(presupuestos.size(),cantidadPresupuestosRequeridos);
+        	String mensajeException = "La cantidad de presupuestos cargada es incorrecta. Se necesitan " + presupuestos.size() + "y se han cargado " + cantidadPresupuestosRequeridos;
+        	enviarMensajeRevisores(mensajeException);
+        	throw new CantidadPresupuestosIncorrectaException(mensajeException);
         }
     }
     
     public void verificarDetallePresupuesto() {
     	if(!presupuestoProveedorSeleccionado().tieneMismoDetalle(detalle)) {
-    		throw new PresupuestoNoCoincideException("El presupuesto del proveedor seleccionado no coincide con el detalle de la compra");
+    		String mensajeException = "El presupuesto del proveedor seleccionado no coincide con el detalle de la compra";
+    		enviarMensajeRevisores(mensajeException);
+    		throw new PresupuestoNoCoincideException(mensajeException);
     	}
     }
     
@@ -57,6 +62,19 @@ public class CompraPendiente {
     public CompraPendiente agregarItem(Item unItem) {
     	detalle.agregarItem(unItem);
     	return this;
+    }
+    
+    public void agregarUsuarioRevisor(Usuario unUsuario) {
+    	usuariosRevisores.add(unUsuario);
+    }
+    
+    public void quitarUsuarioRevisor(Usuario unUsuario) {
+    	usuariosRevisores.remove(unUsuario);
+    }
+    
+    public void enviarMensajeRevisores(String texto) {
+    	Mensaje unMensaje = new Mensaje(this, texto);
+    	usuariosRevisores.stream().forEach(unUsuario -> unUsuario.bandejaDeEntrada.agregarMensaje(unMensaje)); 
     }
 
     public Compra validarCompra() {

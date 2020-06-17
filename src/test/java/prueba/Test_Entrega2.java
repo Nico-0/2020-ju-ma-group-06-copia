@@ -25,7 +25,7 @@ public class Test_Entrega2 {
 		CompraPendiente.setCantidadPresupuestosRequeridos(3);
 		proveedor = new PersonaProveedor("juancito", 45127845, "Avenida Siempreviva 123");
 		PROVEEDOR_BARATO = new PersonaProveedor("pancho", 59364958, "Av General Paz 1560");
-		PROVEEDOR_CARO = new PersonaProveedor("mirtha legrand", 12345678, "Así no, así no");
+		PROVEEDOR_CARO = new PersonaProveedor("mirtha legrand", 12345678, "Asï¿½ no, asï¿½ no");
 		PRESUPUESTO_BARATO = new Presupuesto(compraBarata, PROVEEDOR_BARATO)
 								.agregarItem(new Item("El Mono Liso",2,1));
 		PRESUPUESTO_CARO = new Presupuesto(compraBarata, PROVEEDOR_CARO)
@@ -114,4 +114,19 @@ public class Test_Entrega2 {
 		compraBarata.setProveedor(PROVEEDOR_CARO);
 		compraBarata.verificarCriterioDeSeleccion();
 	}
+	
+	@Before
+	
+	
+	@Test()
+	
 }
+
+
+
+
+
+
+
+
+
