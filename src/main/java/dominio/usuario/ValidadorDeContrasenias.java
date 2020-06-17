@@ -32,6 +32,11 @@ public class ValidadorDeContrasenias {
 		}
 		return INSTANCE;
 	}
+	
+	public ValidadorDeContrasenias agregarValidacion(Validacion unaValidacion) {
+		validaciones.add(unaValidacion);
+		return this;
+	}
 
 	public void validarContrasenia(String unaContrasenia, String usuario) {
 		validaciones.stream().forEach(validacion -> validacion.validar(unaContrasenia, usuario, peoresContrasenias));

@@ -24,9 +24,7 @@ import dominio.entidad.OrganizacionSocial;
 import dominio.usuario.Usuario;
 import dominio.usuario.ValidadorDeContrasenias;
 import dominio.validacion.ContieneNombreUsuarioException;
-import dominio.validacion.EsMalaException;
-import dominio.validacion.EsMuyCortaException;
-import dominio.validacion.RepiteCaracteresException;
+import dominio.validacion.*;
 
 
 public class Test_Entrega1 {
@@ -54,6 +52,10 @@ public class Test_Entrega1 {
 		item = new Item("cuaderno", 500, 2);
 		validador = new ValidadorDeContrasenias();
 		usuario = new Usuario("Carlitos","ContraseniaVerdadera");
+		validador.agregarValidacion(new EsMala())
+			.agregarValidacion(new EsMuyCorta())
+			.agregarValidacion(new RepiteCaracteres())
+			.agregarValidacion(new ContieneNombreDeUsuario());
 	}
 	
 	@Test

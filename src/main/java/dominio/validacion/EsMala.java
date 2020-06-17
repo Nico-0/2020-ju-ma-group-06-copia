@@ -2,7 +2,7 @@ package dominio.validacion;
 
 import java.util.List;
 
-public class EsMala {
+public class EsMala implements Validacion{
 
 	public void validar(String unaContrasenia, String usuario, List<String> peoresContrasenias) {
 		if (peoresContrasenias.contains(unaContrasenia))

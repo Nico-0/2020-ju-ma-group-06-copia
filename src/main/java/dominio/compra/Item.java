@@ -9,10 +9,6 @@ public class Item {
 	private double valorUnitario; // lo cambié por ahora de int a float por la precisión
 									// cambio a double, no existe "mapToFloat"
 
-	public double get_valor_total() {
-		return valorUnitario * cantidad;
-	}
-
 	public Item(String descripcion, float valorUnitario, int cantidad) {
 		Validate.notNull(descripcion, "descripcion faltante");
 		Validate.notNull(valorUnitario, "valor total faltante");
@@ -22,4 +18,25 @@ public class Item {
 		this.cantidad = cantidad;
 	}
 
+	public double get_valor_total() {
+		return valorUnitario * cantidad;
+	}
+
+    public boolean esIgualA(Item otroItem) {
+		return 	otroItem.descripcionEsIgual(descripcion) && 
+				otroItem.valorUnitarioEsIgual(valorUnitario) &&
+				otroItem.cantidadEsIgual(cantidad); 
+    }
+
+    public boolean descripcionEsIgual(String otraDescripcion) {
+        return descripcion == otraDescripcion; 
+    }
+
+	public boolean valorUnitarioEsIgual(double otroValorUnitario) {
+        return valorUnitario == otroValorUnitario;
+	}
+	
+    public boolean cantidadEsIgual(int otraCantidad) {
+        return cantidad == otraCantidad;
+	}
 }
