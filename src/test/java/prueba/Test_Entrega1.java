@@ -18,6 +18,8 @@ import dominio.compra.Item;
 import dominio.compra.MedioPago;
 import dominio.compra.PersonaProveedor;
 import dominio.compra.TipoPago;
+import dominio.presupuestos.Detalle;
+import dominio.presupuestos.Presupuesto;
 import dominio.entidad.Entidad;
 import dominio.entidad.EntidadBase;
 import dominio.entidad.OrganizacionSocial;
@@ -41,6 +43,8 @@ public class Test_Entrega1 {
 	public MedioPago medioPago;
 	public List<Item> items = new ArrayList<Item>();
 	public Item item;
+	public List<Presupuesto> presupuestos;
+	public Detalle detalle;
 	public Usuario usuario;
 	ValidadorDeContrasenias validador;
 	
@@ -62,7 +66,7 @@ public class Test_Entrega1 {
 	public void entidadCompraYquedaRegistrado() throws PreconditionFailed{
 		int size_compras = entidad.compras.size();
 		items.add(item);
-		entidad.realizarCompra(items, proveedor, medioPago);
+		entidad.realizarCompra(proveedor, medioPago, presupuestos, detalle, usuario);
 		
 		Assert.assertEquals("Error al agregar compra", size_compras + 1, entidad.compras.size());
 	}

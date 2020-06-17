@@ -1,5 +1,6 @@
 package dominio.presupuestos;
 
+import java.time.LocalDate;
 import java.util.*;
 import dominio.compra.*;
 import dominio.usuario.*;
@@ -11,6 +12,8 @@ public class CompraPendiente {
     private Proveedor proveedor;
     private CriterioDeSeleccionPresupuesto criterioDeSeleccion = new SinCriterioDeSeleccion();
     private static int cantidadPresupuestosRequeridos = 0;
+    private LocalDate fecha;
+    private MedioPago medioPago;
 
     public static void setCantidadPresupuestosRequeridos(int unaCantidad) {
         cantidadPresupuestosRequeridos = unaCantidad;
@@ -56,10 +59,16 @@ public class CompraPendiente {
     	return this;
     }
 
-    public void validarCompra() {
+    public Compra validarCompra() {
     	verificarCantidadPresupuestos();
     	verificarDetallePresupuesto();
     	verificarCriterioDeSeleccion();
-        // crear compra válida
+    	Compra compra = new Compra(proveedor, 
+				  				   medioPago, 
+				  				   fecha,
+				  				   presupuestos,
+				  				   detalle,
+				  				   revisor);
+        return compra;
     }
 }

@@ -22,7 +22,8 @@ public class Detalle {
         return items.stream().anyMatch(unItem -> unItem.esIgualA(otroItem));
     }
 
-	public void agregarItem(Item unItem) {
+	public Detalle agregarItem(Item unItem) {
 		items.add(unItem);
+		return this;
 	}
 }
