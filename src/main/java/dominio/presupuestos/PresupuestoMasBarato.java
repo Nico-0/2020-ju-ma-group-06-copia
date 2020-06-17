@@ -6,8 +6,8 @@ import dominio.compra.*;
 public class PresupuestoMasBarato implements CriterioDeSeleccionPresupuesto {
     public void verificar(List<Presupuesto> presupuestos, Presupuesto presupuestoSeleccionado) {
         if(!cumpleCriterioDeSeleccion(presupuestos, presupuestoSeleccionado)) {
-        	String mensajeException = "El presupuesto del proveedor seleccionado no es el m�s barato";
-        	enviarMensajeRevisores(mensajeException);
+        	String mensajeException = "El presupuesto del proveedor elegido no es el m�s barato";
+        	//enviarMensajeRevisores(mensajeException);                                                  Ver como mandar esto
         	throw new NoCumpleCriterioDeSeleccionException(mensajeException);
         }
     }

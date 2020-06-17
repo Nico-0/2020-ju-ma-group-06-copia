@@ -10,4 +10,8 @@ public class BandejaDeMensajes {
 		mensajes.add(unMensaje);
 	}
 	
+	public List<Mensaje> listaDeMensajes() {
+		return mensajes;
+	}
+	
 }

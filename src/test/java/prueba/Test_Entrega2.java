@@ -2,6 +2,7 @@ package prueba;
 
 import dominio.compra.*;
 import dominio.presupuestos.*;
+import dominio.usuario.Usuario;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -115,11 +116,18 @@ public class Test_Entrega2 {
 		compraBarata.verificarCriterioDeSeleccion();
 	}
 	
-	@Before
-	
-	
 	@Test()
-	
+	public void bandejaRecibeVerificacionCantidadProovedores() {
+		CompraPendiente unaCompraPendiente = new CompraPendiente;
+		unaCompraPendiente.setCantidadPresupuestosRequeridos(2);
+		Proveedor unProveedor = new Proveedor;
+		Presupuesto unPresupuesto = new Presupuesto(unaCompraPendiente,unProveedor);
+		unaCompraPendiente.validarCompra();
+		Usuario unUsuario = new Usuario;
+		unaCompraPendiente.agregarUsuarioRevisor(unUsuario);
+		assertEquals(unUsuario.bandejaDeEntrada.listaDeMensajes().size(),1);
+	}
+
 }
 
 
