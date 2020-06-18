@@ -39,7 +39,7 @@ public class CompraPendiente {
         if(presupuestos.size() != cantidadPresupuestosRequeridos) {
         	String mensajeException = "La cantidad de presupuestos cargada es incorrecta. Se necesitan " + presupuestos.size() + "y se han cargado " + cantidadPresupuestosRequeridos;
         	enviarMensajeRevisores(mensajeException);
-        	
+        	throw new CantidadPresupuestosIncorrectaException(mensajeException);
         }
     }
     

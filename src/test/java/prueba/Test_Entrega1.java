@@ -34,7 +34,7 @@ public class Test_Entrega1 {
 	public List<Item> items = new ArrayList<Item>();
 	public Item item;
 	public List<Presupuesto> presupuestos;
-	public Detalle detalle;
+	public Detalle detalle = new Detalle();
 	public Usuario usuario;
 	public DireccionPostal direccion_postal = new DireccionPostal();
 	ValidadorDeContrasenias validador;

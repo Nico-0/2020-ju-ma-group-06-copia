@@ -142,7 +142,7 @@ public class Test_Entrega2 {
 	@Test()
 	public void bandejaRecibeVerificacionCantidadProovedores() {
 		CompraPendiente unaCompraPendiente = new CompraPendiente();
-		CompraPendiente.setCantidadPresupuestosRequeridos(2);
+		CompraPendiente.setCantidadPresupuestosRequeridos(1);
 		Presupuesto unPresupuesto = new Presupuesto(unaCompraPendiente,proveedor);
 		unaCompraPendiente.validarCompra();
 		unaCompraPendiente.agregarUsuarioRevisor(usuario);
