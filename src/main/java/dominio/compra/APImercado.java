@@ -20,66 +20,54 @@ public class APImercado {
         //para agregarle filtros en las respuestas (por ejemplo, para loguear).
     }
 
-
-    public ClientResponse getInfoDePais(String codigo_pais){
+    public JSONObject webresourseToJSON(WebResource recurso) {
+    	WebResource.Builder builder = recurso.accept(MediaType.APPLICATION_JSON);
+        ClientResponse response = builder.get(ClientResponse.class);
+    	String json = response.getEntity(String.class);
+    	return new JSONObject(json);
+    }
+    
+    public JSONObject getInfoDePais(String codigo_pais){
         WebResource recurso = this.client.resource(API_MERCADO).path(DETALLE_PAIS + codigo_pais);
-        WebResource.Builder builder = recurso.accept(MediaType.APPLICATION_JSON);
-        return builder.get(ClientResponse.class);
+    	return webresourseToJSON(recurso);
     }
     
     public String obtenerMonedaPais(String codigo_pais) {
-    	ClientResponse response = this.getInfoDePais(codigo_pais);
-    	String json = response.getEntity(String.class);
-    	JSONObject obj = new JSONObject(json);
+    	JSONObject obj = this.getInfoDePais(codigo_pais);
     	return obj.getString("currency_id");
     }
     
-    public ClientResponse getInfoDeCiudad(String codigo_ciudad){
+    public JSONObject getInfoDeCiudad(String codigo_ciudad){
         WebResource recurso = this.client.resource(API_MERCADO).path(DETALLE_CIUDAD + codigo_ciudad);
-        WebResource.Builder builder = recurso.accept(MediaType.APPLICATION_JSON);
-        return builder.get(ClientResponse.class);
+    	return webresourseToJSON(recurso);
     }
     
     public String obtenerProvinciaDeCiudad(String codigo_ciudad) {
-    	ClientResponse response = this.getInfoDeCiudad(codigo_ciudad);
-    	String json = response.getEntity(String.class);
-    	JSONObject obj = new JSONObject(json);
+    	JSONObject obj = this.getInfoDeCiudad(codigo_ciudad);
     	return obj.getJSONObject("state").getString("name");
     }
     
     public String obtenerPaisDeCiudad(String codigo_ciudad) {
-    	ClientResponse response = this.getInfoDeCiudad(codigo_ciudad);
-    	String json = response.getEntity(String.class);
-    	JSONObject obj = new JSONObject(json);
+    	JSONObject obj= this.getInfoDeCiudad(codigo_ciudad);
     	return obj.getJSONObject("country").getString("name");
     }
     
     public String obtenerCiudadDeID(String codigo_ciudad) {
-    	ClientResponse response = this.getInfoDeCiudad(codigo_ciudad);
-    	String json = response.getEntity(String.class);
-    	JSONObject obj = new JSONObject(json);
+    	JSONObject obj = this.getInfoDeCiudad(codigo_ciudad);
     	return obj.getString("name");
     }
     
     public double convertirMoneda(double cantidad, String moneda, String moneda_destino) {
         WebResource recurso = this.client.resource(API_MERCADO).path(CONVERTIR);
         WebResource recursoConParametros = recurso.queryParam("from", moneda).queryParam("to", moneda_destino);
-        WebResource.Builder builder = recursoConParametros.accept(MediaType.APPLICATION_JSON);
-        ClientResponse response = builder.get(ClientResponse.class);
-        String json = response.getEntity(String.class);
-        JSONObject obj = new JSONObject(json);
+        JSONObject obj = webresourseToJSON(recursoConParametros);
     	double ratio = obj.getDouble("ratio");
-    	
     	return cantidad * ratio;
     }
     
     public String obtenerProvinciaDeZip(String zip) {
         WebResource recurso = this.client.resource(API_MERCADO).path(CODIGO_POSTAL + zip);
-        WebResource.Builder builder = recurso.accept(MediaType.APPLICATION_JSON);
-        ClientResponse response = builder.get(ClientResponse.class);	
-        String json = response.getEntity(String.class);
-        JSONObject obj = new JSONObject(json);
-    	
+        JSONObject obj = webresourseToJSON(recurso);
     	return obj.getJSONObject("state").getString("name");
     }
     
