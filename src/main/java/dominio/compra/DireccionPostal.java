@@ -5,6 +5,26 @@ import com.sun.jersey.api.client.ClientResponse;
 public class DireccionPostal {
 
 	private APImercado mercado_libre;
+	private String pais;
+	private String provincia;
+	private String ciudad;
+	private String direccion;
+	
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+	
+	public void setCiudad(String id_ciudad) {
+		this.ciudad = mercado_libre.obtenerCiudadDeID(id_ciudad);
+	}
+	
+	public void setProvincia(String id_ciudad) {
+		this.provincia = mercado_libre.obtenerProvinciaDeCiudad(id_ciudad);
+	}
+	
+	public void setPais(String id_ciudad) {
+		this.pais = mercado_libre.obtenerPaisDeCiudad(id_ciudad);
+	}
 	
 	public ClientResponse pais(String codigo_pais) {
 		return mercado_libre.getInfoDePais(codigo_pais);
@@ -12,10 +32,6 @@ public class DireccionPostal {
 	
 	public String provincia(String provincia) {
 		return mercado_libre.obtenerProvinciaDeZip(provincia);
-	}
-	
-	public String direccion(String direccion) {
-		return direccion;
 	}
 	
 }

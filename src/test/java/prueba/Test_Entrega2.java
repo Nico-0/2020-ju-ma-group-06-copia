@@ -57,8 +57,25 @@ public class Test_Entrega2 {
         String provincia = requester.obtenerProvinciaDeZip("5000");
         assertEquals(provincia, "Córdoba");
     }
-    
-	
+
+    @Test
+    public void elNombreDeLaCiudadEsCorrecto(){
+        String ciudad = requester.obtenerCiudadDeID("TUxBQ1ZBTDM4MGFj");
+        assertEquals(ciudad, "Valeria del Mar");
+    }
+  
+  @Test
+  public void laProvinciaDeLaCiudadEsCorrecto(){
+      String provincia = requester.obtenerProvinciaDeCiudad("TUxBQ1ZBTDM4MGFj");
+      assertEquals(provincia, "Bs.As. Costa Atlántica");
+  }
+  
+  @Test
+  public void elPaisDeLaCiudadEsCorrecto(){
+      String pais = requester.obtenerPaisDeCiudad("TUxBQ1ZBTDM4MGFj");
+      assertEquals(pais, "Argentina");
+  }
+  
 	@Test(expected=CantidadPresupuestosIncorrectaException.class)
 	public void noHaySuficientesPresupuestos() {
 		compraSinPresupuestos.verificarCantidadPresupuestos();

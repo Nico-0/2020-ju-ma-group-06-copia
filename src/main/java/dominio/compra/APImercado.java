@@ -9,6 +9,7 @@ public class APImercado {
     private Client client;
     private static final String API_MERCADO = "https://api.mercadolibre.com/";
     private static final String DETALLE_PAIS = "classified_locations/countries/";
+    private static final String DETALLE_CIUDAD = "classified_locations/cities/";
     private static final String CONVERTIR = "currency_conversions/search/";
     private static final String CODIGO_POSTAL = "countries/AR/zip_codes/";
     
@@ -31,6 +32,33 @@ public class APImercado {
     	String json = response.getEntity(String.class);
     	JSONObject obj = new JSONObject(json);
     	return obj.getString("currency_id");
+    }
+    
+    public ClientResponse getInfoDeCiudad(String codigo_ciudad){
+        WebResource recurso = this.client.resource(API_MERCADO).path(DETALLE_CIUDAD + codigo_ciudad);
+        WebResource.Builder builder = recurso.accept(MediaType.APPLICATION_JSON);
+        return builder.get(ClientResponse.class);
+    }
+    
+    public String obtenerProvinciaDeCiudad(String codigo_ciudad) {
+    	ClientResponse response = this.getInfoDeCiudad(codigo_ciudad);
+    	String json = response.getEntity(String.class);
+    	JSONObject obj = new JSONObject(json);
+    	return obj.getJSONObject("state").getString("name");
+    }
+    
+    public String obtenerPaisDeCiudad(String codigo_ciudad) {
+    	ClientResponse response = this.getInfoDeCiudad(codigo_ciudad);
+    	String json = response.getEntity(String.class);
+    	JSONObject obj = new JSONObject(json);
+    	return obj.getJSONObject("country").getString("name");
+    }
+    
+    public String obtenerCiudadDeID(String codigo_ciudad) {
+    	ClientResponse response = this.getInfoDeCiudad(codigo_ciudad);
+    	String json = response.getEntity(String.class);
+    	JSONObject obj = new JSONObject(json);
+    	return obj.getString("name");
     }
     
     public double convertirMoneda(double cantidad, String moneda, String moneda_destino) {
