@@ -1,5 +1,7 @@
 package dominio.compra;
 
+import org.json.JSONObject;
+
 import com.sun.jersey.api.client.ClientResponse;
 
 public class DireccionPostal {
@@ -26,7 +28,7 @@ public class DireccionPostal {
 		this.pais = mercado_libre.obtenerPaisDeCiudad(id_ciudad);
 	}
 	
-	public ClientResponse pais(String codigo_pais) {
+	public JSONObject pais(String codigo_pais) {
 		return mercado_libre.getInfoDePais(codigo_pais);
 	}
 	

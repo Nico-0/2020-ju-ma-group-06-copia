@@ -6,8 +6,8 @@ public class Item {
 
 	private String descripcion;
 	private int cantidad;
-	private double valorUnitario; // lo cambié por ahora de int a float por la precisión
-									// cambio a double, no existe "mapToFloat"
+	public double valorUnitario;
+									
 
 	public Item(String descripcion, float valorUnitario, int cantidad) {
 		Validate.notNull(descripcion, "descripcion faltante");

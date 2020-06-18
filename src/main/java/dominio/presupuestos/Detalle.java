@@ -5,6 +5,7 @@ import dominio.compra.*;
 
 public class Detalle {
     List<Item> items = new ArrayList<Item>();
+    String moneda;
 
     public double getTotal() {
         return items.stream().mapToDouble(item -> item.get_valor_total()).sum();
@@ -25,5 +26,17 @@ public class Detalle {
 	public Detalle agregarItem(Item unItem) {
 		items.add(unItem);
 		return this;
+	}
+	
+	public void setMoneda(String moneda) {
+		this.moneda = moneda;
+	}
+	
+	public void convertirMoneda(String nueva_moneda) {
+		if(moneda != nueva_moneda) {
+			APImercado mercado = new APImercado();
+			items.stream().forEach( i -> i.valorUnitario = mercado.convertirMoneda(i.valorUnitario, moneda, nueva_moneda));
+			this.moneda = nueva_moneda;
+		}
 	}
 }
