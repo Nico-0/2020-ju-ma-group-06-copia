@@ -17,6 +17,9 @@ public class Test_Entrega2 {
 	private CompraPendiente compraSinPresupuestos, compraBarata;
 	private PersonaProveedor proveedor, PROVEEDOR_CARO, PROVEEDOR_BARATO;
 	private Presupuesto presupuesto, PRESUPUESTO_BARATO, PRESUPUESTO_CARO;
+	private Usuario usuario;
+	private Detalle detalle;
+	private DireccionPostal direccionPostal = new DireccionPostal();
 
 	@Before
     public void setUp() throws Exception {
@@ -24,14 +27,17 @@ public class Test_Entrega2 {
 		compraSinPresupuestos = new CompraPendiente();
 		compraBarata = new CompraPendiente();
 		CompraPendiente.setCantidadPresupuestosRequeridos(3);
-		proveedor = new PersonaProveedor("juancito", 45127845, "Avenida Siempreviva 123");
-		PROVEEDOR_BARATO = new PersonaProveedor("pancho", 59364958, "Av General Paz 1560");
-		PROVEEDOR_CARO = new PersonaProveedor("mirtha legrand", 12345678, "As� no, as� no");
+		proveedor = new PersonaProveedor("juancito", 45127845, direccionPostal);
+		PROVEEDOR_BARATO = new PersonaProveedor("pancho", 59364958, direccionPostal);
+		PROVEEDOR_CARO = new PersonaProveedor("mirtha legrand", 12345678, direccionPostal);
 		PRESUPUESTO_BARATO = new Presupuesto(compraBarata, PROVEEDOR_BARATO)
 								.agregarItem(new Item("El Mono Liso",2,1));
 		PRESUPUESTO_CARO = new Presupuesto(compraBarata, PROVEEDOR_CARO)
 								.agregarItem(new Item("Una ferrari",10000000,1));
 		compraBarata.setCriterioDeSeleccion(new PresupuestoMasBarato());
+		usuario = new Usuario("anonnymous", "dds");
+		detalle = new Detalle();
+		detalle.agregarItem(new Item("Patrones de Disenio", 1, 200));
 	}
 
     @Test
@@ -118,14 +124,12 @@ public class Test_Entrega2 {
 	
 	@Test()
 	public void bandejaRecibeVerificacionCantidadProovedores() {
-		CompraPendiente unaCompraPendiente = new CompraPendiente;
-		unaCompraPendiente.setCantidadPresupuestosRequeridos(2);
-		Proveedor unProveedor = new Proveedor;
-		Presupuesto unPresupuesto = new Presupuesto(unaCompraPendiente,unProveedor);
+		CompraPendiente unaCompraPendiente = new CompraPendiente();
+		CompraPendiente.setCantidadPresupuestosRequeridos(2);
+		Presupuesto unPresupuesto = new Presupuesto(unaCompraPendiente,proveedor);
 		unaCompraPendiente.validarCompra();
-		Usuario unUsuario = new Usuario;
-		unaCompraPendiente.agregarUsuarioRevisor(unUsuario);
-		assertEquals(unUsuario.bandejaDeEntrada.listaDeMensajes().size(),1);
+		unaCompraPendiente.agregarUsuarioRevisor(usuario);
+		assertEquals(usuario.bandejaDeEntrada.listaDeMensajes().size(),1);
 	}
 
 }

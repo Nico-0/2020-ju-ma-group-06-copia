@@ -12,20 +12,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dominio.PreconditionFailed;
-import dominio.compra.Compra;
-import dominio.compra.DocumentoComercial;
-import dominio.compra.Item;
-import dominio.compra.MedioPago;
-import dominio.compra.PersonaProveedor;
-import dominio.compra.TipoPago;
-import dominio.presupuestos.Detalle;
-import dominio.presupuestos.Presupuesto;
-import dominio.entidad.Entidad;
-import dominio.entidad.EntidadBase;
-import dominio.entidad.OrganizacionSocial;
-import dominio.usuario.Usuario;
-import dominio.usuario.ValidadorDeContrasenias;
-import dominio.validacion.ContieneNombreUsuarioException;
+import dominio.compra.*;
+import dominio.presupuestos.*;
+import dominio.entidad.*;
+import dominio.usuario.*;
 import dominio.validacion.*;
 
 
@@ -46,12 +36,14 @@ public class Test_Entrega1 {
 	public List<Presupuesto> presupuestos;
 	public Detalle detalle;
 	public Usuario usuario;
+	public DireccionPostal direccion_postal = new DireccionPostal();
 	ValidadorDeContrasenias validador;
 	
 	@Before
 	public void initialize() throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
 		entidad = new OrganizacionSocial(razonSocial, nombreFicticio, cuit, direccionPostal, entidades);
-		proveedor = new PersonaProveedor("juancito", 45127845, "Avenida Siempreviva 123");
+		
+		proveedor = new PersonaProveedor("juancito", 45127845, direccion_postal);
 		medioPago = new MedioPago(TipoPago.EFECTIVO, "Identificador");
 		item = new Item("cuaderno", 500, 2);
 		validador = new ValidadorDeContrasenias();
