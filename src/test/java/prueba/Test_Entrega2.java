@@ -15,7 +15,7 @@ public class Test_Entrega2 {
 
     private APImercado requester;
 	private CompraPendiente compraSinPresupuestos, compraBarata;
-	private PersonaProveedor proveedor, PROVEEDOR_CARO, PROVEEDOR_BARATO;
+	private Proveedor proveedor, PROVEEDOR_CARO, PROVEEDOR_BARATO;
 	private Presupuesto presupuesto, PRESUPUESTO_BARATO, PRESUPUESTO_CARO;
 	private Usuario usuario;
 	private Detalle detalle;
@@ -27,9 +27,9 @@ public class Test_Entrega2 {
 		compraSinPresupuestos = new CompraPendiente();
 		compraBarata = new CompraPendiente();
 		CompraPendiente.setCantidadPresupuestosRequeridos(3);
-		proveedor = new PersonaProveedor("juancito", 45127845, direccionPostal);
-		PROVEEDOR_BARATO = new PersonaProveedor("pancho", 59364958, direccionPostal);
-		PROVEEDOR_CARO = new PersonaProveedor("mirtha legrand", 12345678, direccionPostal);
+		proveedor = new Proveedor("juancito", "45127845", direccionPostal);
+		PROVEEDOR_BARATO = new Proveedor("pancho", "59364958", direccionPostal);
+		PROVEEDOR_CARO = new Proveedor("mirtha legrand", "12345678", direccionPostal);
 		PRESUPUESTO_BARATO = new Presupuesto(compraBarata, PROVEEDOR_BARATO)
 								.agregarItem(new Item("El Mono Liso",2,1));
 		PRESUPUESTO_CARO = new Presupuesto(compraBarata, PROVEEDOR_CARO)

@@ -29,7 +29,7 @@ public class Test_Entrega1 {
 	String nombreFicticio = "nombreFicticio";
 	List<EntidadBase> entidades = new ArrayList<EntidadBase>();
 	
-	public PersonaProveedor proveedor;
+	public Proveedor proveedor;
 	public MedioPago medioPago;
 	public List<Item> items = new ArrayList<Item>();
 	public Item item;
@@ -46,7 +46,7 @@ public class Test_Entrega1 {
 	public void initialize() throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
 		entidad = new OrganizacionSocial(razonSocial, nombreFicticio, cuit, direccionPostal, entidades);
 		
-		proveedor = new PersonaProveedor("juancito", 45127845, direccion_postal);
+		proveedor = new Proveedor("juancito", "45127845", direccion_postal);
 		medioPago = new MedioPago(TipoPago.EFECTIVO, "Identificador");
 		item = new Item("cuaderno", 500, 2);
 		validador = new ValidadorDeContrasenias();
