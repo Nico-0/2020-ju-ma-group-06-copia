@@ -38,6 +38,7 @@ public class Test_Entrega1 {
 	public Usuario usuario;
 	public List<Usuario> usuariosRevisores = new ArrayList<>();
 	public DireccionPostal direccion_postal = new DireccionPostal();
+	public Compra compra;
 	ValidadorDeContrasenias validador;
 	
 	
@@ -56,11 +57,12 @@ public class Test_Entrega1 {
 			.agregarValidacion(new ContieneNombreDeUsuario());
 	}
 	
+	
 	@Test
 	public void entidadCompraYquedaRegistrado() throws PreconditionFailed{
 		int size_compras = entidad.compras.size();
 		items.add(item);
-		entidad.realizarCompra(proveedor, medioPago, presupuestos, detalle, usuariosRevisores);
+		entidad.agregarCompra(compra);
 		
 		Assert.assertEquals("Error al agregar compra", size_compras + 1, entidad.compras.size());
 	}

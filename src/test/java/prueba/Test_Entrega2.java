@@ -55,7 +55,7 @@ public class Test_Entrega2 {
     @Test
     public void zip5000QuedaEnCordoba() throws Exception {
         String provincia = requester.obtenerProvinciaDeZip("5000");
-        assertEquals(provincia, "C√≥rdoba");
+        assertEquals(provincia, "CÛrdoba");
     }
 
     @Test
@@ -67,7 +67,7 @@ public class Test_Entrega2 {
   @Test
   public void laProvinciaDeLaCiudadEsCorrecto(){
       String provincia = requester.obtenerProvinciaDeCiudad("TUxBQ1ZBTDM4MGFj");
-      assertEquals(provincia, "Bs.As. Costa Atl√°ntica");
+      assertEquals(provincia, "Bs.As. Costa Atl·ntica");
   }
   
   @Test
@@ -140,7 +140,7 @@ public class Test_Entrega2 {
 	}
 	
 	@Test
-	public void Las2ExcepcionesSeMandanALaBandejaDelUsuario() {
+	public void LasExcepcionesSeMandanALaBandejaDelUsuario() {
 		Presupuesto unPresupuesto = new Presupuesto(compraSinPresupuestos, proveedor);
 		compraSinPresupuestos.setCantidadPresupuestosRequeridos(4);
 		unPresupuesto.agregarItem(new Item("Turron",30,2))
@@ -151,11 +151,8 @@ public class Test_Entrega2 {
 		compraSinPresupuestos.agregarUsuarioRevisor(usuario);
 		compraSinPresupuestos.setMedioPago(unMedioDePago);
 		compraSinPresupuestos.validarCompra();
-		assertEquals(usuario.bandejaDeEntrada.cantidadMensajes(),2);
+		assertEquals(usuario.bandejaDeEntrada.cantidadMensajes(),1);
 	}
-	
-	
-	
 }
 
 

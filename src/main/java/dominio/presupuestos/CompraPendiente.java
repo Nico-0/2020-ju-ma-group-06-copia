@@ -4,7 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
 import java.util.*;
+
+import org.apache.commons.lang3.Validate;
+
 import dominio.compra.*;
+import dominio.entidad.Entidad;
 import dominio.usuario.*;
 
 public class CompraPendiente {
@@ -13,9 +17,10 @@ public class CompraPendiente {
     private Proveedor proveedor;
     private CriterioDeSeleccionPresupuesto criterioDeSeleccion = new SinCriterioDeSeleccion();
     private static int cantidadPresupuestosRequeridos = 0;
-    private LocalDate fecha = LocalDate.now();
+    private LocalDate fecha;
     private MedioPago medioPago;
     private List<Usuario> usuariosRevisores = new ArrayList<>();
+    private Entidad entidad;
 
     public static void setCantidadPresupuestosRequeridos(int unaCantidad) {
         cantidadPresupuestosRequeridos = unaCantidad;
@@ -23,6 +28,10 @@ public class CompraPendiente {
     
     public void setMedioPago(MedioPago medioPago) {
     	this.medioPago = medioPago;
+    }
+    
+    public void setFecha(LocalDate fecha) {
+    	fecha = this.fecha;
     }
     
     public CompraPendiente setCriterioDeSeleccion(CriterioDeSeleccionPresupuesto unCriterio) {
@@ -59,6 +68,13 @@ public class CompraPendiente {
     	criterioDeSeleccion.verificar(presupuestos, presupuestoProveedorSeleccionado());
     }
     
+    public void verificarParametrosNotNull() {
+		Validate.notNull(proveedor, "proveedor faltante");
+		Validate.notNull(medioPago, "medio de pago faltante");
+		Validate.notNull(fecha, "fecha faltante");
+		Validate.notNull(entidad,"entidad faltante");
+    }
+    
     public Presupuesto presupuestoProveedorSeleccionado() {
     	return presupuestos.stream().filter(presupuesto -> presupuesto.proveedorEs(proveedor)).findFirst().get();
     }
@@ -81,34 +97,43 @@ public class CompraPendiente {
     	usuariosRevisores.stream().forEach(unUsuario -> unUsuario.bandejaDeEntrada.agregarMensaje(unMensaje)); 
     }
     
-    public Compra validarCompra() {
+    public void setEntidad(Entidad entidad) {
+    	this.entidad = entidad;
+    }
+    
+    public void validarCompra() {
+    	
     	try {
+    		verificarParametrosNotNull();
     		verificarCantidadPresupuestos();
+    		verificarDetallePresupuesto();
+    		verificarCriterioDeSeleccion();
+    		Compra compra = new Compra(proveedor, 
+	  				   medioPago, 
+	  				   fecha,
+	  				   presupuestos,
+	  				   detalle,
+	  				 usuariosRevisores);
+    		entidad.agregarCompra(compra);
+    		enviarMensajeRevisores("La compra fue validada.");
     	}
+    	
+    	catch(NullPointerException e) {
+    		enviarMensajeRevisores(e.getMessage());
+    	}
+    	
     	catch(CantidadPresupuestosIncorrectaException e){
     		enviarMensajeRevisores("La cantidad de presupuestos cargada es incorrecta. Se necesitan " + presupuestos.size() + "y se han cargado " + cantidadPresupuestosRequeridos);
     	}
-    	
-    	try {
-    		verificarDetallePresupuesto();
-		}
+
 		catch(PresupuestoNoCoincideException e){
 			enviarMensajeRevisores("El presupuesto del proveedor seleccionado no coincide con el detalle de la compra");
 		}
     	
-    	try {
-    		verificarCriterioDeSeleccion();
-    	}
     	catch(NoCumpleCriterioDeSeleccionException e) {
     		enviarMensajeRevisores("La compra no cumple con los criterios de selección");
     	}
     	
-    	Compra compra = new Compra(proveedor, 
-				  				   medioPago, 
-				  				   fecha,
-				  				   presupuestos,
-				  				   detalle,
-				  				 usuariosRevisores);
-        return compra;
+    	
     }
 }

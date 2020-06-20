@@ -17,19 +17,8 @@ public abstract class Entidad {
 	protected String nombreFicticio;
 	private List<EntidadBase> entidades_usadas = new ArrayList<EntidadBase>();
 	
-	public void realizarCompra(Proveedor proveedor, 
-			  				   MedioPago medioPago, 
-			  				   List<Presupuesto> presupuestos,
-			  				   Detalle detalle,
-			  				   List<Usuario> usuariosRevisores) {
-		LocalDate fecha = LocalDate.now();
-		Compra miCompra = new Compra(proveedor, 
-				   					 medioPago, 
-				   					 fecha,
-				   					 presupuestos,
-				   					 detalle,
-				   					 usuariosRevisores);
-		compras.add(miCompra);
+	public void agregarCompra(Compra unaCompra) {
+		compras.add(unaCompra);
 	}
 	
 
