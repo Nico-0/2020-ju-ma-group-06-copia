@@ -1,5 +1,7 @@
 package dominio.presupuestos;
 
+import static org.junit.Assert.assertEquals;
+
 import java.time.LocalDate;
 import java.util.*;
 import dominio.compra.*;
@@ -8,16 +10,19 @@ import dominio.usuario.*;
 public class CompraPendiente {
     private List<Presupuesto> presupuestos = new ArrayList<>();
     private Detalle detalle = new Detalle();
-    private Usuario revisor;
     private Proveedor proveedor;
     private CriterioDeSeleccionPresupuesto criterioDeSeleccion = new SinCriterioDeSeleccion();
     private static int cantidadPresupuestosRequeridos = 0;
-    private LocalDate fecha;
+    private LocalDate fecha = LocalDate.now();
     private MedioPago medioPago;
     private List<Usuario> usuariosRevisores = new ArrayList<>();
 
     public static void setCantidadPresupuestosRequeridos(int unaCantidad) {
         cantidadPresupuestosRequeridos = unaCantidad;
+    }
+    
+    public void setMedioPago(MedioPago medioPago) {
+    	this.medioPago = medioPago;
     }
     
     public CompraPendiente setCriterioDeSeleccion(CriterioDeSeleccionPresupuesto unCriterio) {
@@ -38,7 +43,7 @@ public class CompraPendiente {
     public void verificarCantidadPresupuestos() {
         if(presupuestos.size() != cantidadPresupuestosRequeridos) {
         	String mensajeException = "La cantidad de presupuestos cargada es incorrecta. Se necesitan " + presupuestos.size() + "y se han cargado " + cantidadPresupuestosRequeridos;
-        	enviarMensajeRevisores(mensajeException);
+        	//enviarMensajeRevisores(mensajeException);
         	throw new CantidadPresupuestosIncorrectaException(mensajeException);
         }
     }
@@ -46,7 +51,6 @@ public class CompraPendiente {
     public void verificarDetallePresupuesto() {
     	if(!presupuestoProveedorSeleccionado().tieneMismoDetalle(detalle)) {
     		String mensajeException = "El presupuesto del proveedor seleccionado no coincide con el detalle de la compra";
-    		enviarMensajeRevisores(mensajeException);
     		throw new PresupuestoNoCoincideException(mensajeException);
     	}
     }
@@ -76,17 +80,35 @@ public class CompraPendiente {
     	Mensaje unMensaje = new Mensaje(this, texto);
     	usuariosRevisores.stream().forEach(unUsuario -> unUsuario.bandejaDeEntrada.agregarMensaje(unMensaje)); 
     }
-
+    
     public Compra validarCompra() {
-    	verificarCantidadPresupuestos();
-    	verificarDetallePresupuesto();
-    	verificarCriterioDeSeleccion();
+    	try {
+    		verificarCantidadPresupuestos();
+    	}
+    	catch(CantidadPresupuestosIncorrectaException e){
+    		enviarMensajeRevisores("La cantidad de presupuestos cargada es incorrecta. Se necesitan " + presupuestos.size() + "y se han cargado " + cantidadPresupuestosRequeridos);
+    	}
+    	
+    	try {
+    		verificarDetallePresupuesto();
+		}
+		catch(PresupuestoNoCoincideException e){
+			enviarMensajeRevisores("El presupuesto del proveedor seleccionado no coincide con el detalle de la compra");
+		}
+    	
+    	try {
+    		verificarCriterioDeSeleccion();
+    	}
+    	catch(NoCumpleCriterioDeSeleccionException e) {
+    		enviarMensajeRevisores("La compra no cumple con los criterios de selección");
+    	}
+    	
     	Compra compra = new Compra(proveedor, 
 				  				   medioPago, 
 				  				   fecha,
 				  				   presupuestos,
 				  				   detalle,
-				  				   revisor);
+				  				 usuariosRevisores);
         return compra;
     }
 }

@@ -15,7 +15,7 @@ public class Usuario {
 	private String usuario;
 	private byte[] hashedPassword;
 	private byte[] salt;
-	public BandejaDeMensajes bandejaDeEntrada;
+	public BandejaDeMensajes bandejaDeEntrada = new BandejaDeMensajes();
 
 	public Usuario(String usuario, String contrasenia) throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
 		validador.validarContrasenia(contrasenia, usuario);

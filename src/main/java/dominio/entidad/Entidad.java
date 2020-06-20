@@ -21,15 +21,16 @@ public abstract class Entidad {
 			  				   MedioPago medioPago, 
 			  				   List<Presupuesto> presupuestos,
 			  				   Detalle detalle,
-			  				   Usuario revisor) {
+			  				   List<Usuario> usuariosRevisores) {
 		LocalDate fecha = LocalDate.now();
 		Compra miCompra = new Compra(proveedor, 
 				   					 medioPago, 
 				   					 fecha,
 				   					 presupuestos,
 				   					 detalle,
-				   					 revisor);
+				   					 usuariosRevisores);
 		compras.add(miCompra);
 	}
+	
 
 }

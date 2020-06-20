@@ -16,11 +16,11 @@ public class Compra {
 
 	private List<Presupuesto> presupuestos = new ArrayList<Presupuesto>();
 	private Detalle detalle = new Detalle();
-	private Usuario revisor;
 	private Proveedor proveedor;
 	private MedioPago medioPago;
 	private DocumentoComercial documentoComercial; // puede ser nulo
 	private LocalDate fecha;
+	private List<Usuario> usuariosRevisores = new ArrayList<>();
 	// private Entidad entidad;
 
 	public double valor_total() {
@@ -32,18 +32,18 @@ public class Compra {
 				  LocalDate fecha,
 				  List<Presupuesto> presupuestos,
 				  Detalle detalle,
-				  Usuario revisor) {
+				  List<Usuario> usuariosRevisores) {
 		Validate.notNull(proveedor, "proveedor faltante");
 		Validate.notNull(medioPago, "medio de pago faltante");
 		Validate.notNull(fecha, "fecha faltante");
 		Validate.notNull(detalle, "detalle faltante");
-		Validate.notNull(revisor, "usuario faltante");
+		Validate.notNull(usuariosRevisores, "usuarios faltante");
 		// Preconditions.validateNotNull(entidad,"entidad faltante");
 		this.proveedor = proveedor;
 		this.medioPago = medioPago;
 		this.fecha = fecha;
 		this.detalle = detalle;
-		this.revisor = revisor;
+		this.usuariosRevisores = usuariosRevisores;
 		this.presupuestos = presupuestos;
 		// this.entidad = entidad;
 	}

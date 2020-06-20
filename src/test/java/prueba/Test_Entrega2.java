@@ -139,16 +139,23 @@ public class Test_Entrega2 {
 		compraBarata.verificarCriterioDeSeleccion();
 	}
 	
-	@Test()
-	public void bandejaRecibeVerificacionCantidadProovedores() {
-		CompraPendiente unaCompraPendiente = new CompraPendiente();
-		CompraPendiente.setCantidadPresupuestosRequeridos(1);
-		Presupuesto unPresupuesto = new Presupuesto(unaCompraPendiente,proveedor);
-		unaCompraPendiente.validarCompra();
-		unaCompraPendiente.agregarUsuarioRevisor(usuario);
-		assertEquals(usuario.bandejaDeEntrada.listaDeMensajes().size(),1);
+	@Test
+	public void Las2ExcepcionesSeMandanALaBandejaDelUsuario() {
+		Presupuesto unPresupuesto = new Presupuesto(compraSinPresupuestos, proveedor);
+		compraSinPresupuestos.setCantidadPresupuestosRequeridos(4);
+		unPresupuesto.agregarItem(new Item("Turron",30,2))
+			.agregarItem(new Item("Alfajor",300,12));
+		compraSinPresupuestos.agregarItem(new Item("Turron",30,2))
+			.setProveedor(proveedor);
+		MedioPago unMedioDePago = new MedioPago(TipoPago.EFECTIVO,"2193829183928");
+		compraSinPresupuestos.agregarUsuarioRevisor(usuario);
+		compraSinPresupuestos.setMedioPago(unMedioDePago);
+		compraSinPresupuestos.validarCompra();
+		assertEquals(usuario.bandejaDeEntrada.cantidadMensajes(),2);
 	}
-
+	
+	
+	
 }
 
 

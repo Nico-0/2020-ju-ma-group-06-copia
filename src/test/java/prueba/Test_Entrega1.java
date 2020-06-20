@@ -36,8 +36,10 @@ public class Test_Entrega1 {
 	public List<Presupuesto> presupuestos;
 	public Detalle detalle = new Detalle();
 	public Usuario usuario;
+	public List<Usuario> usuariosRevisores = new ArrayList<>();
 	public DireccionPostal direccion_postal = new DireccionPostal();
 	ValidadorDeContrasenias validador;
+	
 	
 	@Before
 	public void initialize() throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
@@ -58,7 +60,7 @@ public class Test_Entrega1 {
 	public void entidadCompraYquedaRegistrado() throws PreconditionFailed{
 		int size_compras = entidad.compras.size();
 		items.add(item);
-		entidad.realizarCompra(proveedor, medioPago, presupuestos, detalle, usuario);
+		entidad.realizarCompra(proveedor, medioPago, presupuestos, detalle, usuariosRevisores);
 		
 		Assert.assertEquals("Error al agregar compra", size_compras + 1, entidad.compras.size());
 	}
