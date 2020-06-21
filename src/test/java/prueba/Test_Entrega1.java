@@ -3,7 +3,6 @@ package prueba;
 import java.io.FileNotFoundException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 

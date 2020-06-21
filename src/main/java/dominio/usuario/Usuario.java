@@ -39,4 +39,8 @@ public class Usuario {
 	public boolean laContraseniaEs(String unaContrasenia) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		return Arrays.equals(hashedPassword,hashearContrasenia(unaContrasenia));
 	}
+	
+	public void recibirMensaje(Mensaje unMensaje) {
+		bandejaDeEntrada.agregarMensaje(unMensaje);
+	}
 }

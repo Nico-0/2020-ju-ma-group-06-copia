@@ -6,8 +6,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.Validate;
 
-import dominio.PreconditionFailed;
-import dominio.entidad.Entidad;
 import dominio.presupuestos.Detalle;
 import dominio.presupuestos.Presupuesto;
 import dominio.usuario.Usuario;

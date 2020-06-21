@@ -76,9 +76,9 @@ public class Test_Entrega2 {
       assertEquals(pais, "Argentina");
   }
   
-	@Test(expected=CantidadPresupuestosIncorrectaException.class)
+	@Test
 	public void noHaySuficientesPresupuestos() {
-		compraSinPresupuestos.verificarCantidadPresupuestos();
+		Assert.assertFalse(compraSinPresupuestos.verificarCantidadPresupuestos());
 	}
 
 	@Test
@@ -86,7 +86,7 @@ public class Test_Entrega2 {
 		new Presupuesto(compraSinPresupuestos, proveedor);
 		new Presupuesto(compraSinPresupuestos, proveedor);
 		new Presupuesto(compraSinPresupuestos, proveedor);
-		compraSinPresupuestos.verificarCantidadPresupuestos();
+		Assert.assertTrue(compraSinPresupuestos.verificarCantidadPresupuestos());
 	}
 	
 	@Test
@@ -95,54 +95,54 @@ public class Test_Entrega2 {
 		unPresupuesto.agregarItem(new Item("Turron",15000,1));
 		compraSinPresupuestos.agregarItem(new Item("Turron",15000,1))
 			.setProveedor(proveedor);
-		compraSinPresupuestos.verificarDetallePresupuesto();
+		Assert.assertTrue(compraSinPresupuestos.verificarDetallePresupuesto());
 	}
 	
-	@Test(expected=PresupuestoNoCoincideException.class)
+	@Test
 	public void presupuestoTieneMasItemsQueCompra() {
 		Presupuesto unPresupuesto = new Presupuesto(compraSinPresupuestos, proveedor);
 		unPresupuesto.agregarItem(new Item("Turron",30,2))
 			.agregarItem(new Item("Alfajor",300,12));
 		compraSinPresupuestos.agregarItem(new Item("Turron",30,2))
 			.setProveedor(proveedor);
-		compraSinPresupuestos.verificarDetallePresupuesto();
+		Assert.assertFalse(compraSinPresupuestos.verificarDetallePresupuesto());
 	}
 	
-	@Test(expected=PresupuestoNoCoincideException.class)
+	@Test
 	public void compraTieneMasItemsQuePresupuesto() {
 		Presupuesto unPresupuesto = new Presupuesto(compraSinPresupuestos, proveedor);
 		unPresupuesto.agregarItem(new Item("Turron",30,2));
 		compraSinPresupuestos.agregarItem(new Item("Turron",30,2))
 			.agregarItem(new Item("Alfajor",300,12))
 			.setProveedor(proveedor);
-		compraSinPresupuestos.verificarDetallePresupuesto();
+		Assert.assertFalse(compraSinPresupuestos.verificarDetallePresupuesto());
 	}
 	
-	@Test(expected=PresupuestoNoCoincideException.class)
+	@Test
 	public void compraTieneItemsDistintosAlPresupuesto() {
 		Presupuesto unPresupuesto = new Presupuesto(compraSinPresupuestos, proveedor);
 		unPresupuesto.agregarItem(new Item("Alfajor",100,4));
 		compraSinPresupuestos.agregarItem(new Item("Alfajor",300,12))
 			.setProveedor(proveedor);
-		compraSinPresupuestos.verificarDetallePresupuesto();
+		Assert.assertFalse(compraSinPresupuestos.verificarDetallePresupuesto());
 	}
 	
 	@Test
 	public void proveedorSeleccionadoTienePresupuestoMasBarato() {
 		compraBarata.setProveedor(PROVEEDOR_BARATO);
-		compraBarata.verificarCriterioDeSeleccion();
+		Assert.assertTrue(compraBarata.verificarCriterioDeSeleccion());
 	}
 	
-	@Test(expected=NoCumpleCriterioDeSeleccionException.class)
+	@Test
 	public void proveedorSeleccionadoNoTienePresupuestoMasBarato() {
 		compraBarata.setProveedor(PROVEEDOR_CARO);
-		compraBarata.verificarCriterioDeSeleccion();
+		Assert.assertFalse(compraBarata.verificarCriterioDeSeleccion());
 	}
 	
 	@Test
 	public void LasExcepcionesSeMandanALaBandejaDelUsuario() {
 		Presupuesto unPresupuesto = new Presupuesto(compraSinPresupuestos, proveedor);
-		compraSinPresupuestos.setCantidadPresupuestosRequeridos(4);
+		CompraPendiente.setCantidadPresupuestosRequeridos(4);
 		unPresupuesto.agregarItem(new Item("Turron",30,2))
 			.agregarItem(new Item("Alfajor",300,12));
 		compraSinPresupuestos.agregarItem(new Item("Turron",30,2))
