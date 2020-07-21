@@ -17,7 +17,8 @@ public class CompraPendiente {
     private MedioPago medioPago;
     private List<Usuario> usuariosRevisores = new ArrayList<>();
     private Entidad entidad;
-
+    private String etiqueta;
+    
     public static void setCantidadPresupuestosRequeridos(int unaCantidad) {
         cantidadPresupuestosRequeridos = unaCantidad;
     }
@@ -111,7 +112,7 @@ public class CompraPendiente {
     
     public void validarCompra() {
 	    if(verificarQueEsValida()) {
-			Compra compra = new Compra(proveedor, medioPago, fecha, presupuestos, detalle, usuariosRevisores);
+			Compra compra = new Compra(proveedor, medioPago, fecha, presupuestos, detalle, usuariosRevisores, etiqueta);
 			entidad.agregarCompra(compra);
 			enviarMensajeRevisores("La compra fue validada.");
 		}    	
