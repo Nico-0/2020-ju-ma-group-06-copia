@@ -35,4 +35,16 @@ public abstract class EntidadJuridica extends Entidad {
 	public List<EntidadBase> tomarEntidadesDisponibles(List<EntidadBase> entidades){
 		return entidades.stream().filter(entidad->!entidades_usadas.contains(entidad)).collect(Collectors.toList());
 	}
+
+	public void agregarEntidadBase(EntidadBase entidadBase) {
+		categoria.agregarEntidadBase(this, entidadBase);
+	}
+
+	public List<EntidadBase> getEntidadesBase() {
+		return entidades_base;
+	}
+
+	public boolean puedeAgregarEntidadesBase() {
+		return categoria.puedeAgregarEntidadesBase();
+	}
 }

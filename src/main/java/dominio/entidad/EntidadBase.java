@@ -13,4 +13,8 @@ public class EntidadBase extends Entidad {
 		this.nombreFicticio = nombreFicticio;
 		this.descripcion = descripcion;
 	}
+
+    public boolean puedeAgregarseAEntidadJuridica() {
+        return categoria.puedeAgregarseAEntidadJuridica();
+    }
 }
