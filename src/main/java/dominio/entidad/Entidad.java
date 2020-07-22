@@ -39,5 +39,9 @@ public abstract class Entidad {
 		reporte = new Reporte();
 		return reporte.generarReporte(compras);
 	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
 	
 }

@@ -38,12 +38,13 @@ public class Test_Entrega1 {
 	public List<Usuario> usuariosRevisores = new ArrayList<>();
 	public DireccionPostal direccion_postal = new DireccionPostal();
 	public Compra compra;
+	public Categoria categoria = new  Categoria();
 	ValidadorDeContrasenias validador;
 	
 	
 	@Before
 	public void initialize() throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
-		entidad = new OrganizacionSocial(razonSocial, nombreFicticio, cuit, direccionPostal, entidades);
+		entidad = new OrganizacionSocial(razonSocial, nombreFicticio, cuit, direccionPostal, entidades, categoria);
 		
 		proveedor = new Proveedor("juancito", "45127845", direccion_postal);
 		medioPago = new MedioPago(TipoPago.EFECTIVO, "Identificador");

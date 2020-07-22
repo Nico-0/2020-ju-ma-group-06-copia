@@ -20,6 +20,8 @@ public class Test_Entrega2 {
 	private Usuario usuario;
 	private Detalle detalle;
 	private DireccionPostal direccionPostal = new DireccionPostal();
+	private String A_CON_TILDE = "\u00e1";
+	private String O_CON_TILDE = "\u00f3";
 
 	@Before
     public void setUp() throws Exception {
@@ -55,7 +57,7 @@ public class Test_Entrega2 {
     @Test
     public void zip5000QuedaEnCordoba() throws Exception {
         String provincia = requester.obtenerProvinciaDeZip("5000");
-        assertEquals(provincia, "Córdoba");
+        assertEquals(provincia, "C"+O_CON_TILDE+"rdoba");
     }
 
     @Test
@@ -67,7 +69,7 @@ public class Test_Entrega2 {
   @Test
   public void laProvinciaDeLaCiudadEsCorrecto(){
       String provincia = requester.obtenerProvinciaDeCiudad("TUxBQ1ZBTDM4MGFj");
-      assertEquals(provincia, "Bs.As. Costa Atlántica");
+      assertEquals(provincia, "Bs.As. Costa Atl"+A_CON_TILDE+"ntica");
   }
   
   @Test

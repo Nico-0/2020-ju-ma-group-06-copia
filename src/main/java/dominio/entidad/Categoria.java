@@ -3,9 +3,9 @@ package dominio.entidad;
 import dominio.compra.Compra;
 
 public class Categoria {
-	boolean bloquearNuevasCompras;
-	boolean bloquearAgregarEntidadesBase;
-	boolean bloquearFormarParteEntidadJuridica;
+	boolean bloquearNuevasCompras = false;
+	boolean bloquearAgregarEntidadesBase = false;
+    boolean bloquearFormarParteEntidadJuridica = false;
 	double egresosMaximos;
 
     public void agregarCompra(Entidad entidad, Compra unaCompra) {
