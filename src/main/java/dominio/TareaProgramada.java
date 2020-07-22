@@ -1,6 +1,9 @@
 package dominio;
 
 import java.util.TimerTask;
+
+import dominio.presupuestos.RepositorioComprasPendientes;
+
 import java.lang.System;
 import java.util.Timer;
 
@@ -18,7 +21,7 @@ public class TareaProgramada extends TimerTask{
 
     @Override
     public void run() {
-        System.out.println("Esto se repite");
-        //validar toda la cosa
+        System.out.println("Se van a validar las compras");
+        RepositorioComprasPendientes.getInstance().validarCompras();
     }
 }

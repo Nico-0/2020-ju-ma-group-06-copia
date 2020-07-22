@@ -19,6 +19,10 @@ public class CompraPendiente {
     private Entidad entidad;
     private String etiqueta;
     
+    public CompraPendiente() {
+    	RepositorioComprasPendientes.getInstance().todas().add(this);
+    }
+    
     public static void setCantidadPresupuestosRequeridos(int unaCantidad) {
         cantidadPresupuestosRequeridos = unaCantidad;
     }
