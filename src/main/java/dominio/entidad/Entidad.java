@@ -18,7 +18,7 @@ public abstract class Entidad {
 	public Categoria categoria;	//Tiene una sola
 	private LocalDate fecha;
 	private Reporte reporte;
-
+	
 	public List<Compra> getCompras() {
 		return compras;
 	}

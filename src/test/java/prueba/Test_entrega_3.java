@@ -13,11 +13,11 @@ import java.util.Set;
 import org.junit.Test;
 import org.junit.Before;
 
-import dominio.entidad.Reporte;
 import dominio.presupuestos.Detalle;
 import dominio.presupuestos.Presupuesto;
 import dominio.usuario.Usuario;
 import dominio.compra.*;
+import dominio.entidad.*;
 
 public class Test_entrega_3 {
 	private MedioPago unMedioDePago;
@@ -33,10 +33,15 @@ public class Test_entrega_3 {
 	private DireccionPostal direccionPostal;
 	private Proveedor proveedor;
 	private Reporte unReporte;
-	Compra compraAmoblamientoUno;
-	Compra compraAmoblamientoDos;
-	Compra compraIndumentariaUno;
-	Set<String> etiquetas = new HashSet<String>();
+	private Compra compraAmoblamientoUno, compraAmoblamientoDos, compraIndumentariaUno;
+	private Set<String> etiquetas = new HashSet<String>();
+	private Categoria unaCategoria = new Categoria();
+	private EntidadBase unaEntidadBase;
+	private List<EntidadBase> listaEntidadesBase = new ArrayList<>();
+	private EntidadJuridica unaEntidadJuridica;
+	private Item tresCamas;
+	
+	
 	
 	@Before
 	public void setUp() throws Exception {
@@ -61,6 +66,11 @@ public class Test_entrega_3 {
 		listaDeCompras.add(compraIndumentariaUno);
 		etiquetas.add("Amoblamiento");
 		etiquetas.add("Indumentaria");
+		unaEntidadBase = new EntidadBase("Empresa 123", "Es una entidad base", unaCategoria);
+		unaEntidadJuridica = new Empresa("La Entidad", "La Entidad Ficticia", "2913J923", "OD2N9D", TipoEmpresa.MICRO, listaEntidadesBase, unaCategoria);
+		tresCamas = new Item("Cama", 3, 2500);
+		detalle.agregarItem(tresCamas);
+		
 	}
 	
 	@Test
@@ -71,7 +81,7 @@ public class Test_entrega_3 {
 	
 	@Test
 	public void testSonDelMes() {
-		List<Compra> comprasDelMes = new ArrayList<>();;
+		List<Compra> comprasDelMes = new ArrayList<>();
 		comprasDelMes = unReporte.sonDelMes(listaDeCompras);
 		List<Compra> comprasMesActual = new ArrayList<>();
 		comprasMesActual.add(compraAmoblamientoUno);
@@ -79,5 +89,42 @@ public class Test_entrega_3 {
 		assertEquals(comprasMesActual,comprasDelMes);
 	}
 	
+	@Test
+	public void categoraNoPuedeAgregarCompraSiTieneNuevosEgresosBloqueados() throws RuntimeException{
+		unaCategoria.setBloquearNuevosEgresos(true);
+		unaCategoria.agregarCompra(unaEntidadBase, compraIndumentariaUno);
+	}
+	
+	@Test
+	public void noPuedeAgregarEntidadBase() throws RuntimeException{
+		unaCategoria.setBloquarAgregarEntidadesBase(false);
+		unaCategoria.agregarEntidadBase(unaEntidadJuridica, unaEntidadBase);
+	}
+	
+	@Test
+	public void noPuedeAgregarEntidadJuridica() throws RuntimeException{
+		unaCategoria.setBloquearFormarParteEntidadJuridica(false);
+		unaCategoria.agregarEntidadBase(unaEntidadJuridica, unaEntidadBase);
+	}
+	
+	@Test
+	public void noPuedeAgregarCompraSiExcedeLosEgresosMaximos() throws RuntimeException{
+		unaCategoria.setEgresosMaximos(1000);
+		unaCategoria.agregarCompra(unaEntidadBase, compraAmoblamientoUno);
+	}
+	
+	@Test
+	public void puedeAgregarCompraSiNoExcedeLosEgresosMaximos(){
+		unaCategoria.setEgresosMaximos(10000);
+		unaCategoria.agregarCompra(unaEntidadBase, compraAmoblamientoUno);
+	}
+	
 }
+
+
+
+
+
+
+
 

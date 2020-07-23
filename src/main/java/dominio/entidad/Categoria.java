@@ -7,6 +7,10 @@ public class Categoria {
 	boolean bloquearAgregarEntidadesBase = false;
     boolean bloquearFormarParteEntidadJuridica = false;
 	double egresosMaximos;
+	
+	public Categoria() {
+		
+	}
 
     public void agregarCompra(Entidad entidad, Compra unaCompra) {
         if(bloquearNuevasCompras && entidad.egresosSuperan(egresosMaximos)){
