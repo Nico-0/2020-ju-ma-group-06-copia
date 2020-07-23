@@ -34,9 +34,6 @@ public class Test_entrega_3 {
 	Compra compraInodumentariaUno;
 	Set<String> etiquetas;
 	
-    private Set<String> setA;
-    private Set<String> setB;
-	
 	@Before
 	public void setUp() throws Exception {
 		unMedioDePago = new MedioPago(TipoPago.EFECTIVO,"2193829183928");
@@ -60,12 +57,6 @@ public class Test_entrega_3 {
 		etiquetas.add("Amoblamiento");
 		etiquetas.add("Indumentaria");
 		
-		
-        setA = new HashSet<String>();
-        setA.add("Testing...");
-        setB = new HashSet<String>();
-        setB.add("Testing...");
-		
 	}
 	
 	@Test
@@ -74,10 +65,6 @@ public class Test_entrega_3 {
 		assertEquals(etiquetasReporte, etiquetas);
 	}
 	
-	@Test
-	public void tes1() {
-		assertEquals(1, 1);
-	}
 	
 }
 
