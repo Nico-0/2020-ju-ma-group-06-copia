@@ -1,6 +1,7 @@
 package prueba;
 
 import static org.junit.Assert.*;
+import org.junit.Assert;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
+import org.junit.Before;
 
 import dominio.entidad.Reporte;
 import dominio.presupuestos.Detalle;
@@ -27,7 +29,7 @@ public class Test_entrega_3 {
 	private List<Compra> listaDeCompras = new ArrayList<>();
 	private String etiquetaAmoblamiento;
 	private String etiquetaIndumentaria;
-	private Detalle detalle;
+	private Detalle detalle = new Detalle();
 	private DireccionPostal direccionPostal;
 	private Proveedor proveedor;
 	private Reporte unReporte;
@@ -59,12 +61,11 @@ public class Test_entrega_3 {
 		listaDeCompras.add(compraIndumentariaUno);
 		etiquetas.add("Amoblamiento");
 		etiquetas.add("Indumentaria");
-		
 	}
 	
 	@Test
 	public void testReporteDevuelveEtiquetas() {
-		Set<String> etiquetasReporte = unReporte.etiquetas(listaDeCompras);
+		final Set<String> etiquetasReporte = new Reporte().etiquetas(listaDeCompras);
 		assertEquals(etiquetasReporte, etiquetas);
 	}
 	
@@ -75,7 +76,7 @@ public class Test_entrega_3 {
 		List<Compra> comprasMesActual = new ArrayList<>();
 		comprasMesActual.add(compraAmoblamientoUno);
 		comprasMesActual.add(compraIndumentariaUno);
-		assertEquals(comprasMesActual, comprasDelMes);
+		assertEquals(comprasMesActual,comprasDelMes);
 	}
 	
 }
