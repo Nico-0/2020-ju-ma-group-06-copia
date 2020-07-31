@@ -35,7 +35,7 @@ public class Test_entrega_3 {
 	private Reporte unReporte;
 	private Compra compraAmoblamientoUno, compraAmoblamientoDos, compraIndumentariaUno;
 	private Set<String> etiquetas = new HashSet<String>();
-	private Categoria unaCategoria = new Categoria();
+	private Categoria unaCategoria = new CategoriaDefault();
 	private EntidadBase unaEntidadBase;
 	private List<EntidadBase> listaEntidadesBase = new ArrayList<>();
 	private EntidadJuridica unaEntidadJuridica;

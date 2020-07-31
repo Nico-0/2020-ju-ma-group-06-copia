@@ -38,7 +38,7 @@ public class Test_Entrega1 {
 	public List<Usuario> usuariosRevisores = new ArrayList<>();
 	public DireccionPostal direccion_postal = new DireccionPostal();
 	public Compra compra;
-	public Categoria categoria = new  Categoria();
+	public Categoria categoria = new CategoriaDefault();
 	ValidadorDeContrasenias validador;
 	
 	
