@@ -49,11 +49,11 @@ public class Reporte {
 	}
 	
 	public List<Compra> comprasDeEtiq(String etiqueta, List<Compra> compras){
-		return compras.stream().filter(compra -> compra.etiqueta().equals(etiqueta)).collect(Collectors.toList());
+		return compras.stream().filter(compra -> compra.tieneEtiqueta(etiqueta)).collect(Collectors.toList());
 	}
 	
 	public Set<String> etiquetas(List<Compra> compras){
-		etiquetas = compras.stream().map(compra -> compra.etiqueta()).collect(Collectors.toSet());
+		etiquetas = compras.stream().flatMap(compra -> compra.getEtiquetas().stream()).collect(Collectors.toSet());
 		return etiquetas;
 	}
 	

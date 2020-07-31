@@ -22,7 +22,7 @@ public class Compra {
 	private DocumentoComercial documentoComercial; // puede ser nulo
 	private LocalDate fecha;
 	private List<Usuario> usuariosRevisores = new ArrayList<>();
-	private String etiqueta;
+	private List<String> etiquetas;
 	// private Entidad entidad;
 
 	public double valor_total() {
@@ -47,13 +47,13 @@ public class Compra {
 				  List<Presupuesto> presupuestos,
 				  Detalle detalle,
 				  List<Usuario> usuariosRevisores,
-				  String etiqueta) {
+				  List<String> etiquetas) {
 		Validate.notNull(proveedor, "proveedor faltante");
 		Validate.notNull(medioPago, "medio de pago faltante");
 		Validate.notNull(fecha, "fecha faltante");
 		Validate.notNull(detalle, "detalle faltante");
 		Validate.notNull(usuariosRevisores, "usuarios faltante");
-		Validate.notNull(etiqueta, "etiqueta faltante");
+		Validate.notNull(etiquetas, "lista de etiquetas faltante");
 		// Preconditions.validateNotNull(entidad,"entidad faltante");
 		this.proveedor = proveedor;
 		this.medioPago = medioPago;
@@ -61,7 +61,7 @@ public class Compra {
 		this.detalle = detalle;
 		this.usuariosRevisores = usuariosRevisores;
 		this.presupuestos = presupuestos;
-		this.etiqueta = etiqueta;
+		this.etiquetas = etiquetas;
 		// this.entidad = entidad;
 	}
 
@@ -73,8 +73,21 @@ public class Compra {
 		return this.mes().equals(mes);
 	}
 	
-	public String etiqueta() {
-		return etiqueta;
+	public List<String> getEtiquetas() {
+		return etiquetas;
 	}
+	
+	public void agregarEtiqueta(String etiqueta) {
+		etiquetas.add(etiqueta);
+	}
+	
+	public void quitarEtiqueta(String etiqueta) {
+		etiquetas.remove(etiqueta);
+	}
+
+	public boolean tieneEtiqueta(String etiqueta) {
+		return etiquetas.contains(etiqueta);
+	}
+	
 
 }

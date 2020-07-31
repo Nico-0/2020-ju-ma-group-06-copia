@@ -58,9 +58,12 @@ public class Test_entrega_3 {
 		listaPresupuestos.add(presupuesto);
 		listaPresupuestos.add(PRESUPUESTO_BARATO);
 		listaPresupuestos.add(PRESUPUESTO_CARO);
-		compraAmoblamientoUno = new Compra(proveedor ,unMedioDePago, fechaJulio, listaPresupuestos, detalle, usuariosRevisores, etiquetaAmoblamiento);
-		compraAmoblamientoDos = new Compra(proveedor, otroMedioDePago, fechaEnero, listaPresupuestos, detalle, usuariosRevisores, etiquetaAmoblamiento);
-		compraIndumentariaUno = new Compra(proveedor ,unMedioDePago, otraFechaJulio, listaPresupuestos, detalle, usuariosRevisores, etiquetaIndumentaria);
+		compraAmoblamientoUno = new Compra(proveedor ,unMedioDePago, fechaJulio, listaPresupuestos, detalle, usuariosRevisores, new ArrayList<String>());
+		compraAmoblamientoUno.agregarEtiqueta(etiquetaAmoblamiento);
+		compraAmoblamientoDos = new Compra(proveedor, otroMedioDePago, fechaEnero, listaPresupuestos, detalle, usuariosRevisores, new ArrayList<String>());
+		compraAmoblamientoDos.agregarEtiqueta(etiquetaAmoblamiento);
+		compraIndumentariaUno = new Compra(proveedor ,unMedioDePago, otraFechaJulio, listaPresupuestos, detalle, usuariosRevisores, new ArrayList<String>());
+		compraIndumentariaUno.agregarEtiqueta(etiquetaIndumentaria);
 		listaDeCompras.add(compraAmoblamientoUno);
 		listaDeCompras.add(compraAmoblamientoDos);
 		listaDeCompras.add(compraIndumentariaUno);
