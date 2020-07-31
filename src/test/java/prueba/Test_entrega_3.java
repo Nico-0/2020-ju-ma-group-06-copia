@@ -92,31 +92,31 @@ public class Test_entrega_3 {
 	@Test
 	public void categoraNoPuedeAgregarCompraSiTieneNuevosEgresosBloqueados() throws RuntimeException{
 		unaCategoria.setBloquearNuevosEgresos(true);
-		unaCategoria.agregarCompra(unaEntidadBase, compraIndumentariaUno);
+		unaCategoria.validarAgregarCompra(unaEntidadBase, compraIndumentariaUno);
 	}
 	
 	@Test
 	public void noPuedeAgregarEntidadBase() throws RuntimeException{
 		unaCategoria.setBloquarAgregarEntidadesBase(false);
-		unaCategoria.agregarEntidadBase(unaEntidadJuridica, unaEntidadBase);
+		unaCategoria.validarAgregarEntidadBase(unaEntidadJuridica, unaEntidadBase);
 	}
 	
 	@Test
 	public void noPuedeAgregarEntidadJuridica() throws RuntimeException{
 		unaCategoria.setBloquearFormarParteEntidadJuridica(false);
-		unaCategoria.agregarEntidadBase(unaEntidadJuridica, unaEntidadBase);
+		unaCategoria.validarAgregarEntidadBase(unaEntidadJuridica, unaEntidadBase);
 	}
 	
 	@Test
 	public void noPuedeAgregarCompraSiExcedeLosEgresosMaximos() throws RuntimeException{
 		unaCategoria.setEgresosMaximos(1000);
-		unaCategoria.agregarCompra(unaEntidadBase, compraAmoblamientoUno);
+		unaCategoria.validarAgregarCompra(unaEntidadBase, compraAmoblamientoUno);
 	}
 	
 	@Test
 	public void puedeAgregarCompraSiNoExcedeLosEgresosMaximos(){
 		unaCategoria.setEgresosMaximos(10000);
-		unaCategoria.agregarCompra(unaEntidadBase, compraAmoblamientoUno);
+		unaCategoria.validarAgregarCompra(unaEntidadBase, compraAmoblamientoUno);
 	}
 	
 }

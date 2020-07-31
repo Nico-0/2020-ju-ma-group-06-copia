@@ -24,7 +24,8 @@ public abstract class Entidad {
 	}
 
 	public void agregarCompra(Compra unaCompra) {
-		categoria.agregarCompra(this, unaCompra);
+		categoria.validarAgregarCompra(this, unaCompra);
+		compras.add(unaCompra);
 	}
 
 	public boolean egresosSuperan(double valor){

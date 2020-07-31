@@ -8,7 +8,7 @@ import org.apache.commons.lang3.Validate;
 
 public abstract class EntidadJuridica extends Entidad {
 
-	private List<EntidadBase> entidades_base = new ArrayList<EntidadBase>(); // puede ser vacia
+	private List<EntidadBase> entidadesBase = new ArrayList<EntidadBase>(); // puede ser vacia
 	private String razonSocial;
 	private String cuit;
 	private String direccionPostal;
@@ -25,8 +25,8 @@ public abstract class EntidadJuridica extends Entidad {
 		this.nombreFicticio = nombreFicticio;
 		this.cuit = cuit;
 		this.direccionPostal = direccionPostal;
-		this.entidades_base = this.tomarEntidadesDisponibles(entidades);
-		this.entidades_base.stream().forEach(entidad -> this.entidades_usadas.add(entidad));
+		this.entidadesBase = this.tomarEntidadesDisponibles(entidades);
+		this.entidadesBase.stream().forEach(entidad -> this.entidades_usadas.add(entidad));
 		this.categoria = categoria;
 	}
 
@@ -39,11 +39,12 @@ public abstract class EntidadJuridica extends Entidad {
 	}
 
 	public void agregarEntidadBase(EntidadBase entidadBase) {
-		categoria.agregarEntidadBase(this, entidadBase);
+		categoria.validarAgregarEntidadBase(this, entidadBase);
+		entidadesBase.add(entidadBase);
 	}
 
 	public List<EntidadBase> getEntidadesBase() {
-		return entidades_base;
+		return entidadesBase;
 	}
 
 	public boolean puedeAgregarEntidadesBase() {
