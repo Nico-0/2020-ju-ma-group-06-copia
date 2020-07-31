@@ -66,8 +66,10 @@ public class Test_entrega_3 {
 		listaDeCompras.add(compraIndumentariaUno);
 		etiquetas.add("Amoblamiento");
 		etiquetas.add("Indumentaria");
-		unaEntidadBase = new EntidadBase("Empresa 123", "Es una entidad base", unaCategoria);
-		unaEntidadJuridica = new Empresa("La Entidad", "La Entidad Ficticia", "2913J923", "OD2N9D", TipoEmpresa.MICRO, listaEntidadesBase, unaCategoria);
+		unaEntidadBase = new EntidadBase("Empresa 123", "Es una entidad base");
+		unaEntidadBase.agregarCategoria(unaCategoria);
+		unaEntidadJuridica = new Empresa("La Entidad", "La Entidad Ficticia", "2913J923", "OD2N9D", TipoEmpresa.MICRO, listaEntidadesBase);
+		unaEntidadJuridica.agregarCategoria(unaCategoria);
 		tresCamas = new Item("Cama", 3, 2500);
 		detalle.agregarItem(tresCamas);
 		

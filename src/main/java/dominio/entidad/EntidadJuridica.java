@@ -15,19 +15,17 @@ public abstract class EntidadJuridica extends Entidad {
 	private String codigoInscripcion;
 	private List<EntidadBase> entidades_usadas = new ArrayList<EntidadBase>();
 	
-	public EntidadJuridica(String razonSocial, String nombreFicticio, String cuit, String direccionPostal, List<EntidadBase> entidades, Categoria categoria) {
+	public EntidadJuridica(String razonSocial, String nombreFicticio, String cuit, String direccionPostal, List<EntidadBase> entidades) {
 		Validate.notNull(razonSocial, "razon social faltante");
 		Validate.notNull(nombreFicticio, "nombre ficticio faltante");
 		Validate.notNull(cuit, "cuit faltante");
 		Validate.notNull(direccionPostal, "direccion postal faltante");
-		Validate.notNull(direccionPostal, "categoria faltante");
 		this.razonSocial = razonSocial;
 		this.nombreFicticio = nombreFicticio;
 		this.cuit = cuit;
 		this.direccionPostal = direccionPostal;
 		this.entidadesBase = this.tomarEntidadesDisponibles(entidades);
 		this.entidadesBase.stream().forEach(entidad -> this.entidades_usadas.add(entidad));
-		this.categoria = categoria;
 	}
 
 	public void setCodigoInscripcion(String codigoInscripcion) {
@@ -39,7 +37,7 @@ public abstract class EntidadJuridica extends Entidad {
 	}
 
 	public void agregarEntidadBase(EntidadBase entidadBase) {
-		categoria.validarAgregarEntidadBase(this, entidadBase);
+		categorias.stream().forEach(categoria -> categoria.validarAgregarEntidadBase(this, entidadBase));
 		entidadesBase.add(entidadBase);
 	}
 
@@ -48,6 +46,6 @@ public abstract class EntidadJuridica extends Entidad {
 	}
 
 	public boolean puedeAgregarEntidadesBase() {
-		return categoria.puedeAgregarEntidadesBase();
+		return categorias.stream().allMatch(categoria -> categoria.puedeAgregarEntidadesBase());
 	}
 }

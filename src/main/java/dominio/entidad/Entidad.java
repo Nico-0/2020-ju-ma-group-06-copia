@@ -15,7 +15,7 @@ public abstract class Entidad {
 	public List<Compra> compras = new ArrayList<Compra>();
 	protected String nombreFicticio;
 	private List<EntidadBase> entidades_usadas = new ArrayList<EntidadBase>();
-	public Categoria categoria;	//Tiene una sola
+	public List<Categoria> categorias = new ArrayList<Categoria>();
 	private LocalDate fecha;
 	private Reporte reporte;
 	
@@ -24,7 +24,7 @@ public abstract class Entidad {
 	}
 
 	public void agregarCompra(Compra unaCompra) {
-		categoria.validarAgregarCompra(this, unaCompra);
+		categorias.stream().forEach(categoria -> categoria.validarAgregarCompra(this, unaCompra));
 		compras.add(unaCompra);
 	}
 
@@ -41,8 +41,11 @@ public abstract class Entidad {
 		return reporte.generarReporte(compras);
 	}
 
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+	public void agregarCategoria(Categoria categoria) {
+		categorias.add(categoria);
 	}
 	
+	public void quitarCategoria(Categoria categoria) {
+		categorias.remove(categoria);
+	}
 }
