@@ -2,12 +2,17 @@ package dominio.compra;
 
 import org.apache.commons.lang3.Validate;
 
-public class Item {
+import javax.persistence.*;
 
+@Entity
+public class Item {
+	
+	@Id
+	@GeneratedValue
+	private Long id;
 	private String descripcion;
 	private int cantidad;
 	public double valorUnitario;
-									
 
 	public Item(String descripcion, float valorUnitario, int cantidad) {
 		Validate.notNull(descripcion, "descripcion faltante");

@@ -1,9 +1,19 @@
 package dominio.presupuestos;
 
+
 import java.util.*;
 import dominio.compra.*;
 
+import javax.persistence.*;
+
+@Entity
 public class Detalle {
+	
+	@Id
+	@GeneratedValue
+	private Long id;
+	
+	@ManyToMany
     List<Item> items = new ArrayList<Item>();
     String moneda;
 

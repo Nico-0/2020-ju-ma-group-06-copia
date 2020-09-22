@@ -13,8 +13,15 @@ import dominio.presupuestos.Detalle;
 import dominio.presupuestos.Presupuesto;
 import dominio.usuario.Usuario;
 
-public class Compra {
+import javax.persistence.*;
 
+@Entity
+public class Compra {
+	
+	@Id
+	@GeneratedValue
+	private Long id;
+	
 	private List<Presupuesto> presupuestos = new ArrayList<Presupuesto>();
 	private Detalle detalle = new Detalle();
 	private Proveedor proveedor;
