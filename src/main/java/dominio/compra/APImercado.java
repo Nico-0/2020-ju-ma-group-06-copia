@@ -70,9 +70,5 @@ public class APImercado {
         JSONObject obj = webresourseToJSON(recurso);
     	return obj.getJSONObject("state").getString("name");
     }
-    
-    
-    
-    
 }
 
