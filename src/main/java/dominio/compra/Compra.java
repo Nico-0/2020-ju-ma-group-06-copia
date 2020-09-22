@@ -22,13 +22,24 @@ public class Compra {
 	@GeneratedValue
 	private Long id;
 	
+	@OneToMany
 	private List<Presupuesto> presupuestos = new ArrayList<Presupuesto>();
+	
+	@OneToOne
 	private Detalle detalle = new Detalle();
+	
+	@ManyToOne
 	private Proveedor proveedor;
+	@ManyToOne
 	private MedioPago medioPago;
+	@OneToOne
 	private DocumentoComercial documentoComercial; // puede ser nulo
 	private LocalDate fecha;
+	@ManyToMany
 	private List<Usuario> usuariosRevisores = new ArrayList<>();
+	
+	//@ManyToMany
+	@Transient
 	private List<String> etiquetas;
 	// private Entidad entidad;
 

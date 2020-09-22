@@ -1,22 +1,45 @@
 package dominio.presupuestos;
 
+
 import java.time.LocalDate;
 import java.util.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import dominio.compra.*;
 import dominio.entidad.Entidad;
 import dominio.usuario.*;
 
+@Entity
 public class CompraPendiente {
+	@Id
+	@GeneratedValue
+	private Long id;
+	@OneToMany
     private List<Presupuesto> presupuestos = new ArrayList<>();
+	@OneToOne
     private Detalle detalle = new Detalle();
+    @ManyToOne
     private Proveedor proveedor;
+    @Transient//pasar a enum TODO
     private CriterioDeSeleccionPresupuesto criterioDeSeleccion = new SinCriterioDeSeleccion();
+    
     private static int cantidadPresupuestosRequeridos = 0;
     private LocalDate fecha;
+    @ManyToOne
     private MedioPago medioPago;
+    @ManyToMany
     private List<Usuario> usuariosRevisores = new ArrayList<>();
+    @ManyToOne
     private Entidad entidad;
+   @Transient
     private List<String> etiquetas = new ArrayList<String>();
     
     public CompraPendiente() {

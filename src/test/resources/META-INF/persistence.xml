@@ -10,7 +10,21 @@
 
 		<class>dominio.compra.Compra</class>
 		<class>dominio.compra.Item</class>
+		<class>dominio.compra.DireccionPostal</class>
+		<class>dominio.compra.DocumentoComercial</class>
+		<class>dominio.compra.MedioPago</class>
+		<class>dominio.compra.Proveedor</class>
 		<class>dominio.presupuestos.Detalle</class>
+		<class>dominio.presupuestos.Presupuesto</class>
+		<class>dominio.presupuestos.CompraPendiente</class>
+		<class>dominio.usuario.Usuario</class>
+		<class>dominio.usuario.BandejaDeMensajes</class>
+		<class>dominio.usuario.Mensaje</class>
+		<class>dominio.entidad.Entidad</class>
+		<class>dominio.entidad.Organizacion</class>
+		<class>dominio.entidad.Reporte</class>
+		<class>dominio.entidad.CategoriaDefault</class>
+		
 		
 		
         <properties>

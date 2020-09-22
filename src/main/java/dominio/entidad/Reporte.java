@@ -1,5 +1,6 @@
 package dominio.entidad;
 
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.TextStyle;
@@ -12,15 +13,28 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
 import dominio.compra.*;
 
-
+@Entity
 public class Reporte {
 	
+	@Id
+	@GeneratedValue
+	private Long id;
+	
+	@Transient
 	private Set<String> etiquetas = new HashSet<String>();
+	@Transient
 	private List<String> etiq = new ArrayList<String>();
+	
 	private String mesActual;
 	private LocalDate fecha;
+	@Transient //TODO
 	private HashMap<String, List<Compra>> categorias = new HashMap<String, List<Compra>>();
 	
 	public Reporte() {

@@ -2,6 +2,6 @@ package dominio.presupuestos;
 
 import java.util.*;
 
-public interface CriterioDeSeleccionPresupuesto {
-   boolean verificar(List<Presupuesto> presupuestos, Presupuesto presupuestoSeleccionado);
+public abstract class CriterioDeSeleccionPresupuesto {
+   abstract boolean verificar(List<Presupuesto> presupuestos, Presupuesto presupuestoSeleccionado);
 }

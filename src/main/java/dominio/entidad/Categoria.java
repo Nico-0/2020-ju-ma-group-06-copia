@@ -2,14 +2,14 @@ package dominio.entidad;
 
 import dominio.compra.Compra;
 
-public interface Categoria {
+public abstract class Categoria {
 	
-	public void setBloquearNuevosEgresos(boolean bloquearNuevasCompras);
-	public void setEgresosMaximos(double egresosMaximos) ;
-	public void setBloquarAgregarEntidadesBase(boolean bloquearAgregarEntidadesBase) ;
-	public void setBloquearFormarParteEntidadJuridica(boolean bloquearFormarParteEntidadJuridica);
-	public void validarAgregarCompra(Entidad entidad, Compra unaCompra);
-    public void validarAgregarEntidadBase(EntidadJuridica entidad, EntidadBase entidadBase);
-    public boolean puedeAgregarseAEntidadJuridica();
-    public boolean puedeAgregarEntidadesBase();
+	public abstract void setBloquearNuevosEgresos(boolean bloquearNuevasCompras);
+	public abstract void setEgresosMaximos(double egresosMaximos) ;
+	public abstract void setBloquarAgregarEntidadesBase(boolean bloquearAgregarEntidadesBase) ;
+	public abstract void setBloquearFormarParteEntidadJuridica(boolean bloquearFormarParteEntidadJuridica);
+	public abstract void validarAgregarCompra(Entidad entidad, Compra unaCompra);
+    public abstract void validarAgregarEntidadBase(EntidadJuridica entidad, EntidadBase entidadBase);
+    public abstract boolean puedeAgregarseAEntidadJuridica();
+    public abstract boolean puedeAgregarEntidadesBase();
 }

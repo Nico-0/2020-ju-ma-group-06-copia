@@ -1,9 +1,24 @@
 package dominio.presupuestos;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
 import dominio.compra.*;
 
+@Entity
 public class Presupuesto {
+	
+	@Id
+	@GeneratedValue
+	private Long id;
+	
+	@ManyToOne
     private Proveedor proveedor;
+	@OneToOne
     private Detalle detalle = new Detalle();
+    @OneToOne(optional = true)
 	private DocumentoComercial documentoComercial; // puede ser nulo
 
     public Presupuesto(CompraPendiente compraPendiente, Proveedor proveedor) {
