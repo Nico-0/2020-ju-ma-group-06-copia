@@ -28,6 +28,7 @@ public class Usuario {
 	private byte[] salt;
 	@OneToOne
 	public BandejaDeMensajes bandejaDeEntrada = new BandejaDeMensajes();
+	private TipoUsuario tipoUsuario;
 
 	public Usuario(String usuario, String contrasenia) throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
 		validador.validarContrasenia(contrasenia, usuario);

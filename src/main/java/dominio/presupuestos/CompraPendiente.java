@@ -4,14 +4,7 @@ package dominio.presupuestos;
 import java.time.LocalDate;
 import java.util.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 import dominio.compra.*;
 import dominio.entidad.Entidad;
@@ -37,7 +30,7 @@ public class CompraPendiente {
     private List<Usuario> usuariosRevisores = new ArrayList<>();
     @ManyToOne
     private Entidad entidad;
-   @Transient
+    @ElementCollection
     private List<String> etiquetas = new ArrayList<String>();
     
     public CompraPendiente() {
