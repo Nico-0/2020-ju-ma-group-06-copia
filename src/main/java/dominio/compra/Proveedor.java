@@ -1,11 +1,22 @@
 package dominio.compra;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
 import org.apache.commons.lang3.Validate;
 
+@Entity
 public class Proveedor {
+	
+	@Id
+	@GeneratedValue
+	private Long id;
 	
 	private String razon_social;
 	private String dni_cuil_cuit;
+	@OneToOne
 	DireccionPostal direccion_postal;
 
 	public Proveedor(String razonSocial, String dni_cuil_cuit, DireccionPostal direccion_postal) {

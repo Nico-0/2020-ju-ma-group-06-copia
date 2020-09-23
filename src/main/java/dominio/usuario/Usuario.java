@@ -9,12 +9,24 @@ import java.util.Arrays;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
+@Entity
 public class Usuario {
+	
+	@Id
+	@GeneratedValue
+	private Long id;
+	@Transient	//TODO singleton?
 	private ValidadorDeContrasenias validador = ValidadorDeContrasenias.getInstance();
 	private String usuario;
 	private byte[] hashedPassword;
 	private byte[] salt;
+	@OneToOne
 	public BandejaDeMensajes bandejaDeEntrada = new BandejaDeMensajes();
 
 	public Usuario(String usuario, String contrasenia) throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {

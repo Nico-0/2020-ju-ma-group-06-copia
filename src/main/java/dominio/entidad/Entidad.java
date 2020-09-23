@@ -9,14 +9,30 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
+
 import dominio.compra.Compra;
 
+@Entity
 public abstract class Entidad {
+	@Id
+	@GeneratedValue
+	private Long id;
+	@OneToMany
 	public List<Compra> compras = new ArrayList<Compra>();
 	protected String nombreFicticio;
+	@Transient//@OneToMany //????????????????????????????????????????????????????????????????????????????TODO
 	private List<EntidadBase> entidades_usadas = new ArrayList<EntidadBase>();
+	@Transient//@ManyToMany	//TODO
 	public List<Categoria> categorias = new ArrayList<Categoria>();
 	private LocalDate fecha;
+	@OneToOne
 	private Reporte reporte;
 	
 	public List<Compra> getCompras() {

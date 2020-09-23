@@ -1,8 +1,17 @@
 package dominio.entidad;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
 import dominio.compra.Compra;
 
-public class CategoriaDefault implements Categoria {
+@Entity
+public class CategoriaDefault extends Categoria {
+	@Id
+	@GeneratedValue
+	private Long id;
 	boolean bloquearNuevasCompras = false;
 	boolean bloquearAgregarEntidadesBase = false;
     boolean bloquearFormarParteEntidadJuridica = false;

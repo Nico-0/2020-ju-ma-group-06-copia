@@ -1,11 +1,18 @@
 package dominio.compra;
 
+import javax.persistence.*;
+
 import org.json.JSONObject;
 
 import com.sun.jersey.api.client.ClientResponse;
 
+@Entity
 public class DireccionPostal {
-
+	
+	@Id
+	@GeneratedValue
+	private Long id;
+	@Transient
 	private APImercado mercado_libre;
 	private String pais;
 	private String provincia;
