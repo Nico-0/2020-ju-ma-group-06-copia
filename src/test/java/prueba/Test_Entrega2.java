@@ -36,7 +36,7 @@ public class Test_Entrega2 {
 								.agregarItem(new Item("El Mono Liso",2,1));
 		PRESUPUESTO_CARO = new Presupuesto(compraBarata, PROVEEDOR_CARO)
 								.agregarItem(new Item("Una ferrari",10000000,1));
-		compraBarata.setCriterioDeSeleccion(new PresupuestoMasBarato());
+		compraBarata.setCriterioDeSeleccion(CriterioDeSeleccionPresupuesto.PresupuestoMasBarato);
 		usuario = new Usuario("anonnymous", "dds");
 		detalle = new Detalle();
 		detalle.agregarItem(new Item("Patrones de Disenio", 1, 200));

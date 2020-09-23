@@ -11,7 +11,7 @@ public class CompraPendiente {
     private List<Presupuesto> presupuestos = new ArrayList<>();
     private Detalle detalle = new Detalle();
     private Proveedor proveedor;
-    private CriterioDeSeleccionPresupuesto criterioDeSeleccion = new SinCriterioDeSeleccion();
+    private CriterioDeSeleccionPresupuesto criterioDeSeleccion = CriterioDeSeleccionPresupuesto.SinCriterioDeSeleccion;
     private static int cantidadPresupuestosRequeridos = 0;
     private LocalDate fecha;
     private MedioPago medioPago;
