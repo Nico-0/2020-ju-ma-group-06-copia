@@ -44,6 +44,7 @@ public class CompraPendiente {
     
     public CompraPendiente() {
     	RepositorioComprasPendientes.getInstance().todas().add(this);
+    	//RepositorioComprasPendientes.getInstance().agregar(this);//para persistir
     }
     
     public static void setCantidadPresupuestosRequeridos(int unaCantidad) {
