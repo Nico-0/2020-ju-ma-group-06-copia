@@ -23,7 +23,7 @@ public class RepositorioComprasPendientes implements WithGlobalEntityManager{
 		return INSTANCE;
 	}
 	
-	
+	/*	---------------------prueba
 	public List<CompraPendiente> todas() {
 		return this.comprasPendientes;
 	}
@@ -34,9 +34,12 @@ public class RepositorioComprasPendientes implements WithGlobalEntityManager{
        	
        	this.comprasPendientes.removeIf(pendiente -> comprasValidas.contains(pendiente));
     }
+    */
     
-    
-	/*	----------------------------------------prueba
+	public static void main(String Args[]) {
+		
+	}
+	
 	public void agregar(CompraPendiente cp) {
 		entityManager().persist(cp);
 	}
@@ -54,5 +57,5 @@ public class RepositorioComprasPendientes implements WithGlobalEntityManager{
        	
        	//TODO borrar todas las filas de la tabla comprasPendientes y volver a cargar solo las que faltan validar
     }
-    */
+    
 }

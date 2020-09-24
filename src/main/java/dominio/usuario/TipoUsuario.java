@@ -1,5 +1,6 @@
 package dominio.usuario;
 
 public enum TipoUsuario {
-	ESTANDAR, ADMINISTRADOR;
+	ESTANDAR, 
+	ADMINISTRADOR;
 }

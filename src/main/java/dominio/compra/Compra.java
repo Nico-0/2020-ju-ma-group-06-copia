@@ -30,18 +30,20 @@ public class Compra {
 	
 	@ManyToOne
 	private Proveedor proveedor;
+	
 	@ManyToOne
 	private MedioPago medioPago;
+	
 	@OneToOne
 	private DocumentoComercial documentoComercial; // puede ser nulo
+	
 	private LocalDate fecha;
+	
 	@ManyToMany
 	private List<Usuario> usuariosRevisores = new ArrayList<>();
 	
-	//@ManyToMany
-	@Transient
+	@ElementCollection
 	private List<String> etiquetas;
-	// private Entidad entidad;
 
 	public double valor_total() {
 		return detalle.getTotal();
@@ -107,5 +109,4 @@ public class Compra {
 		return etiquetas.contains(etiqueta);
 	}
 	
-
 }

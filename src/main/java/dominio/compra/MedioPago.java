@@ -22,4 +22,5 @@ public class MedioPago {
 		this.tipoPago = tipoPago;
 		this.identificador = identificador;
 	}
+	
 }

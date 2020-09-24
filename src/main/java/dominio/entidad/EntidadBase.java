@@ -8,9 +8,7 @@ import org.apache.commons.lang3.Validate;
 
 public class EntidadBase extends Entidad {
 
-	private String descripcion;
-	//private Entidad entidadJuridica; //para mi deberia conocer a la entidad juridica si es que la tiene
-	
+	private String descripcion;	
 	
 	public EntidadBase(String nombreFicticio, String descripcion) {
 		Validate.notNull(nombreFicticio, "nombre ficticio faltante");
@@ -22,4 +20,5 @@ public class EntidadBase extends Entidad {
     public boolean puedeAgregarseAEntidadJuridica() {
         return categorias.stream().allMatch(categoria -> categoria.puedeAgregarseAEntidadJuridica());
     }
+    
 }

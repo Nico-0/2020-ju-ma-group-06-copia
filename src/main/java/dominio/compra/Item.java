@@ -10,6 +10,7 @@ public class Item {
 	@Id
 	@GeneratedValue
 	private Long id;
+	
 	private String descripcion;
 	private int cantidad;
 	public double valorUnitario;
@@ -44,4 +45,6 @@ public class Item {
     public boolean cantidadEsIgual(int otraCantidad) {
         return cantidad == otraCantidad;
 	}
+
 }
+

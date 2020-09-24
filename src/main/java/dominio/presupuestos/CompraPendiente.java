@@ -12,24 +12,33 @@ import dominio.usuario.*;
 
 @Entity
 public class CompraPendiente {
+	
 	@Id
 	@GeneratedValue
 	private Long id;
+	
 	@OneToMany
     private List<Presupuesto> presupuestos = new ArrayList<>();
+	
 	@OneToOne
     private Detalle detalle = new Detalle();
-    @ManyToOne
+    
+	@ManyToOne
     private Proveedor proveedor;
-    private CriterioDeSeleccionPresupuesto criterioDeSeleccion = CriterioDeSeleccionPresupuesto.SinCriterioDeSeleccion;
+    
+	private CriterioDeSeleccionPresupuesto criterioDeSeleccion = CriterioDeSeleccionPresupuesto.SinCriterioDeSeleccion;
     private static int cantidadPresupuestosRequeridos = 0;
     private LocalDate fecha;
+    
     @ManyToOne
     private MedioPago medioPago;
+    
     @ManyToMany
     private List<Usuario> usuariosRevisores = new ArrayList<>();
+    
     @ManyToOne
     private Entidad entidad;
+    
     @ElementCollection
     private List<String> etiquetas = new ArrayList<String>();
     
@@ -136,4 +145,5 @@ public class CompraPendiente {
 			enviarMensajeRevisores("La compra fue validada.");
 		}    	
     }
+    
 }

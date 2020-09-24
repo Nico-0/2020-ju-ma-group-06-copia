@@ -12,4 +12,5 @@ public abstract class Categoria {
     public abstract void validarAgregarEntidadBase(EntidadJuridica entidad, EntidadBase entidadBase);
     public abstract boolean puedeAgregarseAEntidadJuridica();
     public abstract boolean puedeAgregarEntidadesBase();
+    
 }

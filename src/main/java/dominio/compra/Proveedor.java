@@ -16,6 +16,7 @@ public class Proveedor {
 	
 	private String razon_social;
 	private String dni_cuil_cuit;
+	
 	@OneToOne
 	DireccionPostal direccion_postal;
 
@@ -27,4 +28,5 @@ public class Proveedor {
 		this.dni_cuil_cuit = dni_cuil_cuit;
 		this.direccion_postal = direccion_postal;
 	}
+	
 }

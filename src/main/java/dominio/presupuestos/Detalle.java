@@ -15,7 +15,8 @@ public class Detalle {
 	
 	@ManyToMany
     List<Item> items = new ArrayList<Item>();
-    String moneda;
+    
+	String moneda;
 
     public double getTotal() {
         return items.stream().mapToDouble(item -> item.get_valor_total()).sum();
@@ -49,4 +50,5 @@ public class Detalle {
 			this.moneda = nueva_moneda;
 		}
 	}
+	
 }

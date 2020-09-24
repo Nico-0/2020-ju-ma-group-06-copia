@@ -9,6 +9,7 @@ import java.util.Scanner;
 import dominio.validacion.Validacion;
 
 public class ValidadorDeContrasenias {
+	
 	private static ValidadorDeContrasenias INSTANCE = null;
 	private List<String> peoresContrasenias = new ArrayList<String>();
 	private List<Validacion> validaciones = new ArrayList<Validacion>();
@@ -41,4 +42,5 @@ public class ValidadorDeContrasenias {
 	public void validarContrasenia(String unaContrasenia, String usuario) {
 		validaciones.stream().forEach(validacion -> validacion.validar(unaContrasenia, usuario, peoresContrasenias));
 	}
+	
 }

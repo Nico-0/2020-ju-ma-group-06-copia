@@ -16,13 +16,14 @@ public class Presupuesto {
 	
 	@ManyToOne
     private Proveedor proveedor;
+	
 	@OneToOne
     private Detalle detalle = new Detalle();
-    @OneToOne(optional = true)
-	private DocumentoComercial documentoComercial; // puede ser nulo
+    
+	@OneToOne(optional = true)
+	private DocumentoComercial documentoComercial;
 
     public Presupuesto(CompraPendiente compraPendiente, Proveedor proveedor) {
-        // Asociamos el presupuesto a una compra pendiente
         compraPendiente.agregarPresupuesto(this);
         this.proveedor = proveedor;
     }
@@ -54,4 +55,5 @@ public class Presupuesto {
     public boolean tieneMismoDetalle(Detalle unDetalle) {
         return this.detalle.esIgualA(unDetalle);
     }
+    
 }

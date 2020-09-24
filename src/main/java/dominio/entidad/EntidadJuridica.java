@@ -4,15 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
 import org.apache.commons.lang3.Validate;
 
 public abstract class EntidadJuridica extends Entidad {
 
+	@OneToMany
 	private List<EntidadBase> entidadesBase = new ArrayList<EntidadBase>(); // puede ser vacia
+	
 	private String razonSocial;
 	private String cuit;
 	private String direccionPostal;
 	private String codigoInscripcion;
+	
+	@Transient
 	private List<EntidadBase> entidades_usadas = new ArrayList<EntidadBase>();
 	
 	public EntidadJuridica(String razonSocial, String nombreFicticio, String cuit, String direccionPostal, List<EntidadBase> entidades) {
@@ -48,4 +55,5 @@ public abstract class EntidadJuridica extends Entidad {
 	public boolean puedeAgregarEntidadesBase() {
 		return categorias.stream().allMatch(categoria -> categoria.puedeAgregarEntidadesBase());
 	}
+	
 }

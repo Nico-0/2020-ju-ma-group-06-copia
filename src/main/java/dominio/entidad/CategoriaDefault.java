@@ -9,9 +9,11 @@ import dominio.compra.Compra;
 
 @Entity
 public class CategoriaDefault extends Categoria {
+	
 	@Id
 	@GeneratedValue
 	private Long id;
+	
 	boolean bloquearNuevasCompras = false;
 	boolean bloquearAgregarEntidadesBase = false;
     boolean bloquearFormarParteEntidadJuridica = false;
@@ -56,4 +58,5 @@ public class CategoriaDefault extends Categoria {
     public boolean puedeAgregarEntidadesBase() {
 		return !bloquearAgregarEntidadesBase;
 	}
+    
 }

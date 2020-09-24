@@ -21,13 +21,17 @@ public class Usuario {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Transient	//TODO singleton?
+	
+	@Transient		
 	private ValidadorDeContrasenias validador = ValidadorDeContrasenias.getInstance();
+	
 	private String usuario;
 	private byte[] hashedPassword;
 	private byte[] salt;
+	
 	@OneToOne
 	public BandejaDeMensajes bandejaDeEntrada = new BandejaDeMensajes();
+	
 	private TipoUsuario tipoUsuario;
 
 	public Usuario(String usuario, String contrasenia) throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
@@ -56,4 +60,5 @@ public class Usuario {
 	public void recibirMensaje(Mensaje unMensaje) {
 		bandejaDeEntrada.agregarMensaje(unMensaje);
 	}
+	
 }

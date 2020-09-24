@@ -29,12 +29,14 @@ public class Reporte {
 	
 	@Transient
 	private Set<String> etiquetas = new HashSet<String>();
+	
 	@Transient
 	private List<String> etiq = new ArrayList<String>();
 	
 	private String mesActual;
 	private LocalDate fecha;
-	@Transient //TODO
+	
+	@Transient 
 	private HashMap<String, List<Compra>> categorias = new HashMap<String, List<Compra>>();
 	
 	public Reporte() {
