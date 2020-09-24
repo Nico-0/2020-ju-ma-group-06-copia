@@ -13,9 +13,12 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.MapKey;
 import javax.persistence.Transient;
 
 import dominio.compra.*;
@@ -27,16 +30,16 @@ public class Reporte {
 	@GeneratedValue
 	private Long id;
 	
-	@Transient
+	@ElementCollection 
 	private Set<String> etiquetas = new HashSet<String>();
 	
-	@Transient
+	@ElementCollection 
 	private List<String> etiq = new ArrayList<String>();
 	
 	private String mesActual;
 	private LocalDate fecha;
 	
-	@Transient 
+	@MapKey 
 	private HashMap<String, List<Compra>> categorias = new HashMap<String, List<Compra>>();
 	
 	public Reporte() {

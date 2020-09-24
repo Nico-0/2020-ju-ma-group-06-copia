@@ -1,9 +1,18 @@
 package dominio.entidad;
 
-import dominio.compra.Compra;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
+import dominio.compra.Compra;
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Categoria {
-	
+	@Id
+	@GeneratedValue
+	private Long id;
 	public abstract void setBloquearNuevosEgresos(boolean bloquearNuevasCompras);
 	public abstract void setEgresosMaximos(double egresosMaximos) ;
 	public abstract void setBloquarAgregarEntidadesBase(boolean bloquearAgregarEntidadesBase) ;

@@ -43,7 +43,7 @@ public class CompraPendiente {
     private List<String> etiquetas = new ArrayList<String>();
     
     public CompraPendiente() {
-    	RepositorioComprasPendientes.getInstance().todas().add(this);
+    	//RepositorioComprasPendientes.getInstance().todas().add(this);
     	//RepositorioComprasPendientes.getInstance().agregar(this);//para persistir
     }
     

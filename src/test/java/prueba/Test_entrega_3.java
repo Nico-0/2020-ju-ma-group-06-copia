@@ -22,7 +22,7 @@ import dominio.entidad.*;
 public class Test_entrega_3 {
 	private MedioPago unMedioDePago;
 	private MedioPago otroMedioDePago;
-	private LocalDate fechaJulio, otraFechaJulio, fechaEnero;
+	private LocalDate fechaEstaMes, otraFechaEsteMes, fechaEnero;
 	private Presupuesto presupuesto, PRESUPUESTO_BARATO, PRESUPUESTO_CARO;
 	private List<Presupuesto> listaPresupuestos = new ArrayList<>();
 	private List<Usuario> usuariosRevisores = new ArrayList<>();
@@ -47,8 +47,8 @@ public class Test_entrega_3 {
 	public void setUp() throws Exception {
 		unMedioDePago = new MedioPago(TipoPago.EFECTIVO,"2193829183928");
 		otroMedioDePago = new MedioPago(TipoPago.TARJETA_CREDITO,"2193829183928");
-		fechaJulio = LocalDate.of( 2020, Month.JULY, 9 );
-		otraFechaJulio = LocalDate.of( 2020, Month.JULY, 12 );
+		fechaEstaMes = LocalDate.of( 2020, LocalDate.now().getMonth(), 9 );
+		otraFechaEsteMes = LocalDate.of( 2020, LocalDate.now().getMonth(), 12 );
 		fechaEnero = LocalDate.of( 2020, Month.JANUARY, 23 );
 		etiquetaAmoblamiento = "Amoblamiento";
 		etiquetaIndumentaria = "Indumentaria";
@@ -58,11 +58,11 @@ public class Test_entrega_3 {
 		listaPresupuestos.add(presupuesto);
 		listaPresupuestos.add(PRESUPUESTO_BARATO);
 		listaPresupuestos.add(PRESUPUESTO_CARO);
-		compraAmoblamientoUno = new Compra(proveedor ,unMedioDePago, fechaJulio, listaPresupuestos, detalle, usuariosRevisores, new ArrayList<String>());
+		compraAmoblamientoUno = new Compra(proveedor ,unMedioDePago, fechaEstaMes, listaPresupuestos, detalle, usuariosRevisores, new ArrayList<String>());
 		compraAmoblamientoUno.agregarEtiqueta(etiquetaAmoblamiento);
 		compraAmoblamientoDos = new Compra(proveedor, otroMedioDePago, fechaEnero, listaPresupuestos, detalle, usuariosRevisores, new ArrayList<String>());
 		compraAmoblamientoDos.agregarEtiqueta(etiquetaAmoblamiento);
-		compraIndumentariaUno = new Compra(proveedor ,unMedioDePago, otraFechaJulio, listaPresupuestos, detalle, usuariosRevisores, new ArrayList<String>());
+		compraIndumentariaUno = new Compra(proveedor ,unMedioDePago, otraFechaEsteMes, listaPresupuestos, detalle, usuariosRevisores, new ArrayList<String>());
 		compraIndumentariaUno.agregarEtiqueta(etiquetaIndumentaria);
 		listaDeCompras.add(compraAmoblamientoUno);
 		listaDeCompras.add(compraAmoblamientoDos);

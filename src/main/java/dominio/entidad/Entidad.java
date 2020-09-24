@@ -36,7 +36,7 @@ public abstract class Entidad {
 	
 	protected String nombreFicticio;
 	
-	@OneToOne 
+	@OneToMany 
 	private List<EntidadBase> entidades_usadas = new ArrayList<EntidadBase>();
 	
 	@ManyToMany

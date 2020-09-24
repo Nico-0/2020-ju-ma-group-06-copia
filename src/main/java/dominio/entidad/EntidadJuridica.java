@@ -19,7 +19,7 @@ public abstract class EntidadJuridica extends Entidad {
 	private String direccionPostal;
 	private String codigoInscripcion;
 	
-	@Transient
+	@OneToMany
 	private List<EntidadBase> entidades_usadas = new ArrayList<EntidadBase>();
 	
 	public EntidadJuridica(String razonSocial, String nombreFicticio, String cuit, String direccionPostal, List<EntidadBase> entidades) {

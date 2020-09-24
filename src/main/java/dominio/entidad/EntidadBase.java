@@ -6,6 +6,7 @@ import javax.persistence.Id;
 
 import org.apache.commons.lang3.Validate;
 
+@Entity
 public class EntidadBase extends Entidad {
 
 	private String descripcion;	

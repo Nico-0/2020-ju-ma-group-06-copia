@@ -13,13 +13,31 @@
 		<class>dominio.presupuestos.Detalle</class>
 		
 		
+		<class>dominio.compra.Compra</class>
+		<class>dominio.compra.Item</class>
+		<class>dominio.compra.DireccionPostal</class>
+		<class>dominio.compra.DocumentoComercial</class>
+		<class>dominio.compra.MedioPago</class>
+		<class>dominio.compra.Proveedor</class>
+		<class>dominio.presupuestos.Detalle</class>
+		<class>dominio.presupuestos.Presupuesto</class>
+		<class>dominio.presupuestos.CompraPendiente</class>
+		<class>dominio.usuario.Usuario</class>
+		<class>dominio.usuario.BandejaDeMensajes</class>
+		<class>dominio.usuario.Mensaje</class>
+		<class>dominio.entidad.Entidad</class>
+		<class>dominio.entidad.EntidadBase</class>
+		<class>dominio.entidad.Organizacion</class>
+		<class>dominio.entidad.Reporte</class>
+		<class>dominio.entidad.Categoria</class>
+		
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
 
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/Prueba" /> 
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/tp_prueba" /> 
             <property name="hibernate.connection.username" value="root" /> 
-            <property name="hibernate.connection.password" value="Computadora12" />
+            <property name="hibernate.connection.password" value="mysql" />
             
             <!--<property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>
             <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:app-db"/>
