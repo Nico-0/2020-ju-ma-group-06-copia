@@ -36,16 +36,16 @@ public class RepositorioComprasPendientes implements WithGlobalEntityManager{
     }
     */
     
-	public static void main(String Args[]) {
+	/*public static void main(String Args[]) {
 		
-	}
+	}*/
 	
 	public void agregar(CompraPendiente cp) {
 		entityManager().persist(cp);
 	}
 	
 	public List<CompraPendiente> todas() {
-		return entityManager().createQuery("from comprapendiente").getResultList();
+		return entityManager().createQuery("from CompraPendiente").getResultList();
 	}
 	
     public void validarCompras() {
@@ -55,7 +55,7 @@ public class RepositorioComprasPendientes implements WithGlobalEntityManager{
        	
        	this.comprasPendientes.removeIf(pendiente -> comprasValidas.contains(pendiente));
        	
-       	//TODO borrar todas las filas de la tabla comprasPendientes y volver a cargar solo las que faltan validar
+       	comprasValidas.stream().forEach(compraValida -> entityManager().remove(compraValida));
     }
     
 }

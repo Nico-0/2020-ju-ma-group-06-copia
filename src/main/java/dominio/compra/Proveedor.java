@@ -1,5 +1,6 @@
 package dominio.compra;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,7 +18,7 @@ public class Proveedor {
 	private String razon_social;
 	private String dni_cuil_cuit;
 	
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.ALL})
 	DireccionPostal direccion_postal;
 
 	public Proveedor(String razonSocial, String dni_cuil_cuit, DireccionPostal direccion_postal) {

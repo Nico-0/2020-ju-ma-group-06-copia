@@ -20,31 +20,30 @@ public class CompraPendiente {
 	@OneToMany
     private List<Presupuesto> presupuestos = new ArrayList<>();
 	
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.ALL})
     private Detalle detalle = new Detalle();
     
-	@ManyToOne
+	@ManyToOne(optional = true, cascade = {CascadeType.ALL})
     private Proveedor proveedor;
     
 	private CriterioDeSeleccionPresupuesto criterioDeSeleccion = CriterioDeSeleccionPresupuesto.SinCriterioDeSeleccion;
     private static int cantidadPresupuestosRequeridos = 0;
     private LocalDate fecha;
     
-    @ManyToOne
+    @ManyToOne(optional = true, cascade = {CascadeType.ALL})
     private MedioPago medioPago;
     
     @ManyToMany
     private List<Usuario> usuariosRevisores = new ArrayList<>();
     
-    @ManyToOne
+    @ManyToOne(optional = true,cascade = {CascadeType.ALL})
     private Entidad entidad;
     
     @ElementCollection
     private List<String> etiquetas = new ArrayList<String>();
     
     public CompraPendiente() {
-    	//RepositorioComprasPendientes.getInstance().todas().add(this);
-    	//RepositorioComprasPendientes.getInstance().agregar(this);//para persistir
+    	
     }
     
     public static void setCantidadPresupuestosRequeridos(int unaCantidad) {
@@ -56,7 +55,7 @@ public class CompraPendiente {
     }
     
     public void setFecha(LocalDate fecha) {
-    	fecha = this.fecha;
+    	this.fecha = fecha;
     }
     
     public CompraPendiente setCriterioDeSeleccion(CriterioDeSeleccionPresupuesto unCriterio) {
