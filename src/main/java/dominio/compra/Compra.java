@@ -35,7 +35,7 @@ public class Compra {
 	private MedioPago medioPago;
 	
 	@OneToOne
-	private DocumentoComercial documentoComercial; // puede ser nulo
+	private DocumentoComercial documentoComercial;
 	
 	private LocalDate fecha;
 	

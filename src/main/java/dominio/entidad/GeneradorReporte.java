@@ -23,26 +23,18 @@ import javax.persistence.Transient;
 
 import dominio.compra.*;
 
-@Entity
-public class Reporte {
-	
-	@Id
-	@GeneratedValue
-	private Long id;
-	
-	@ElementCollection 
+public class GeneradorReporte {
+		
 	private Set<String> etiquetas = new HashSet<String>();
 	
-	@ElementCollection 
 	private List<String> etiq = new ArrayList<String>();
 	
 	private String mesActual;
 	private LocalDate fecha;
-	
-	@MapKey 
+	 
 	private HashMap<String, List<Compra>> categorias = new HashMap<String, List<Compra>>();
 	
-	public Reporte() {
+	public GeneradorReporte() {
 		this.fecha = LocalDate.now();
 		this.mesActual = this.mes();
 	}

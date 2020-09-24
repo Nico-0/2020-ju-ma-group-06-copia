@@ -36,16 +36,14 @@ public abstract class Entidad {
 	
 	protected String nombreFicticio;
 	
-	@OneToMany 
-	private List<EntidadBase> entidades_usadas = new ArrayList<EntidadBase>();
 	
 	@ManyToMany
 	public List<Categoria> categorias = new ArrayList<Categoria>();
 	
 	private LocalDate fecha;
 	
-	@OneToOne
-	private Reporte reporte;
+	@Transient
+	private GeneradorReporte reporte;
 	
 	public List<Compra> getCompras() {
 		return compras;
@@ -65,7 +63,7 @@ public abstract class Entidad {
 	}
 
 	public HashMap<String, List<Compra>> generarReporte(){
-		reporte = new Reporte();
+		reporte = new GeneradorReporte();
 		return reporte.generarReporte(compras);
 	}
 

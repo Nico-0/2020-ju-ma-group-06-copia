@@ -32,7 +32,7 @@ public class Test_entrega_3 {
 	private Detalle detalle = new Detalle();
 	private DireccionPostal direccionPostal;
 	private Proveedor proveedor;
-	private Reporte unReporte;
+	private GeneradorReporte unReporte;
 	private Compra compraAmoblamientoUno, compraAmoblamientoDos, compraIndumentariaUno;
 	private Set<String> etiquetas = new HashSet<String>();
 	private Categoria unaCategoria = new CategoriaDefault();
@@ -54,7 +54,7 @@ public class Test_entrega_3 {
 		etiquetaIndumentaria = "Indumentaria";
 		direccionPostal = new DireccionPostal();
 		proveedor = new Proveedor("juancito", "45127845", direccionPostal);
-		unReporte = new Reporte();
+		unReporte = new GeneradorReporte();
 		listaPresupuestos.add(presupuesto);
 		listaPresupuestos.add(PRESUPUESTO_BARATO);
 		listaPresupuestos.add(PRESUPUESTO_CARO);
@@ -80,7 +80,7 @@ public class Test_entrega_3 {
 	
 	@Test
 	public void testReporteDevuelveEtiquetas() {
-		final Set<String> etiquetasReporte = new Reporte().etiquetas(listaDeCompras);
+		final Set<String> etiquetasReporte = new GeneradorReporte().etiquetas(listaDeCompras);
 		assertEquals(etiquetasReporte, etiquetas);
 	}
 	
