@@ -28,6 +28,15 @@ public class Router {
 		Spark.get("/usuario", usuario::login, engine);
 		Spark.get("/entidad", entidad::login, engine);
 		Spark.get("/organizacion", organizacion::login, engine);
+		Spark.get("/usuario/entidades", usuario::entidades,engine);
+		Spark.get("/usuario/compras", usuario::compras,engine);
+		Spark.get("/usuario/bandeja_de_mensajes", usuario::bandejaDeMensajes,engine);
+		Spark.get("/entidad/compras", entidad::compras,engine);
+		Spark.get("/entidad/reportes_mensuales", entidad::reportesMensuales,engine);
+		Spark.get("/entidad/categorias", entidad::categorias, engine);
+		Spark.get("/entidad/entidades", entidad::entidades,engine);
+	
+	
 	}
 
 }

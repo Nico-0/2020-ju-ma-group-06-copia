@@ -7,7 +7,7 @@ import spark.Response;
 public class Organizacion {
 
 	public ModelAndView login(Request req, Response res){
-		return new ModelAndView(null, "entidadLogin.hbs");
+		return new ModelAndView(null, "organizacion.html");
 	}
 	
 }
