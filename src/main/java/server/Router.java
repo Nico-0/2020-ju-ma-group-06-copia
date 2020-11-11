@@ -3,6 +3,7 @@ package server;
 import controllers.Home;
 import controllers.Usuario;
 import controllers.Entidad;
+import controllers.Organizacion;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import spark.utils.BooleanHelper;
@@ -21,10 +22,12 @@ public class Router {
 		
 		Usuario usuario = new Usuario();
 		Entidad entidad = new Entidad();
+		Organizacion organizacion = new Organizacion();
 		
 		Spark.get("/", Home::home, engine);
 		Spark.get("/usuario", usuario::login, engine);
 		Spark.get("/entidad", entidad::login, engine);
+		Spark.get("/organizacion", organizacion::login, engine);
 	}
 
 }

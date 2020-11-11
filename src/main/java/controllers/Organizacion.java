@@ -4,10 +4,10 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-public class Usuario {
+public class Organizacion {
 
 	public ModelAndView login(Request req, Response res){
-		return new ModelAndView(null, "inicio-sesion.html");
+		return new ModelAndView(null, "entidadLogin.hbs");
 	}
 	
 }
