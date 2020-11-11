@@ -1,0 +1,24 @@
+{{#partial "contenido"}}
+
+<form action="/usuario" method="POST">
+		
+		<div class="form-group">
+			<label for="nombre">Nombre</label>
+			<input type="text" placeholder="Nombre del usuario" name="nombre">
+		</div>
+	
+		<div class="form-group">		
+			<label for="contrasenia">Contraseña</label>
+			<input type="text" placeholder="Contraseña del usuario" name="contrasenia">
+		</div>
+		
+		<div class="form-group">		
+			<label for="tipoDeUsuario">Tipo de usuario</label>
+			<input type="text" placeholder="Contraseña del usuario" name="contrasenia">
+		</div>
+		
+		<input class="btn btn-primary btn-lg" type="submit" value="Guardar">
+	</form>
+{{/partial}}
+
+{{>layout.hbs}}
