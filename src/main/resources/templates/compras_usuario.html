@@ -18,20 +18,27 @@
                         <th></th>
                     </tr>
                     <tr>
-                        <td>Compra 1</td>
+                        <td>Compra prueba 1</td>
                         <td><a href="/compra/editar">Editar</a></th>
                         <td><a href = "a">Borrar</a></td>
                     </tr>
                     <tr>
-                        <td>Compra 2</td>
+                        <td>Compra prueba 2</td>
                         <td><a href="/compra/editar">Editar</a></th>
                         <td><a href = "a">Borrar</a></td>
                     </tr>
                     <tr>
-                        <td>Compra 3</td>
+                        <td>Compra prueba 3</td>
                         <td><a href="/compra/editar">Editar</a></th>
                         <td><a href = "a">Borrar</a></td>
                     </tr>
+                    {{#each compras}}
+					<tr>
+						<td>{{id}}</td>
+                        <td><a href="/compra/editar">Editar</a></th>
+                        <td><a href = "a">Borrar</a></td>
+					</tr>
+					{{/each}}
                 </table>
             </div>
             <fieldset class = "formulario">

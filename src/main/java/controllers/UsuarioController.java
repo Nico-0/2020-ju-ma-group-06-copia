@@ -13,6 +13,9 @@ import spark.Response;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
@@ -31,7 +34,13 @@ public class UsuarioController implements WithGlobalEntityManager{
 	}
 	
 	public ModelAndView compras(Request req, Response res){
-		return new ModelAndView(null, "compras_usuario.html");
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		Map<String, List<CompraPendiente>> model = new HashMap<>();		
+		List<CompraPendiente> compras = entityManager
+				.createQuery("from CompraPendiente")
+				.getResultList();
+		model.put("compras", compras);
+		return new ModelAndView(model, "compras_usuario.html");
 	}
 	
 	public Void crear_compra(Request req, Response res){
