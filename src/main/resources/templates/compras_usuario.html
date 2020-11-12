@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Compras</title>
+        <title>Compras Usuario</title>
         <link rel="stylesheet" href="/dds.css" type="text/css" />
     </head>
     <body>
@@ -15,31 +15,36 @@
                     <tr>
                         <th> Compra </th>
                         <th></th>
+                        <th></th>
                     </tr>
                     <tr>
                         <td>Compra 1</td>
-                        <td><a>Borrar</a></th>
+                        <td><a href="/compra/editar">Editar</a></th>
+                        <td><a href = "a">Borrar</a></td>
                     </tr>
                     <tr>
                         <td>Compra 2</td>
-                        <td><a>Borrar</a></th>
+                        <td><a href="/compra/editar">Editar</a></th>
+                        <td><a href = "a">Borrar</a></td>
                     </tr>
                     <tr>
                         <td>Compra 3</td>
-                        <td><a>Borrar</a></th>
+                        <td><a href="/compra/editar">Editar</a></th>
+                        <td><a href = "a">Borrar</a></td>
                     </tr>
                 </table>
             </div>
             <fieldset class = "formulario">
-                <legend>Agregar compra</legend>
+                <legend>Crear compra</legend>
                 <form>
-                    <label class = "label2">ID compra</label>
-                    <input type="text" id="nombre" name="nombre" placeholder="Ingrese id compra..." />
+                    <label class = "label2">Cantidad presupuestos requeridos</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Ingrese cantidad de presupuestos..." />
                     <br />
-                    <input class = "submit_azul" type="submit" value="Agregar" >
+                    <input class = "submit_azul" type="submit" value="Crear" >
                     <input class = "submit_gris" type="submit" value="Cancelar" >
                 </form>
             </fieldset>
+            <a class = "link_boton_2" href = "/usuario">  Volver  </a>
         </section>
     </body>
 </html>
