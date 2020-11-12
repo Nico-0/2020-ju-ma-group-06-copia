@@ -2,6 +2,7 @@ package prueba;
 
 import dominio.compra.*;
 import dominio.presupuestos.*;
+import dominio.usuario.TipoUsuario;
 import dominio.usuario.Usuario;
 
 import org.junit.Before;
@@ -37,7 +38,7 @@ public class Test_Entrega2 {
 		PRESUPUESTO_CARO = new Presupuesto(compraBarata, PROVEEDOR_CARO)
 								.agregarItem(new Item("Una ferrari",10000000,1));
 		compraBarata.setCriterioDeSeleccion(CriterioDeSeleccionPresupuesto.PresupuestoMasBarato);
-		usuario = new Usuario("anonnymous", "dds");
+		usuario = new Usuario("anonnymous", "dds",TipoUsuario.ESTANDAR);
 		detalle = new Detalle();
 		detalle.agregarItem(new Item("Patrones de Disenio", 1, 200));
 	}

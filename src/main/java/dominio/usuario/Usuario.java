@@ -22,9 +22,6 @@ public class Usuario {
 	@GeneratedValue
 	private Long id;
 	
-	@Transient		
-	private ValidadorDeContrasenias validador = ValidadorDeContrasenias.getInstance();
-	
 	private String usuario;
 	private byte[] hashedPassword;
 	private byte[] salt;
@@ -33,12 +30,17 @@ public class Usuario {
 	public BandejaDeMensajes bandejaDeEntrada = new BandejaDeMensajes();
 	
 	private TipoUsuario tipoUsuario;
+	
+	public Usuario(){
+		
+	}
 
-	public Usuario(String usuario, String contrasenia) throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
-		validador.validarContrasenia(contrasenia, usuario);
+	public Usuario(String usuario, String contrasenia, TipoUsuario tipoUsuario) throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
+		ValidadorDeContrasenias.getInstance().validarContrasenia(contrasenia, usuario);
 		inicializarSalt();
 		this.usuario = usuario;
 		this.hashedPassword = hashearContrasenia(contrasenia);
+		this.tipoUsuario = tipoUsuario;
 	}
 	
 	private void inicializarSalt() {

@@ -4,9 +4,9 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-public class Usuario {
+public class UsuarioController {
 
-	public ModelAndView login(Request req, Response res){
+	public ModelAndView menuUsuario(Request req, Response res){
 		return new ModelAndView(null, "menu_usuario.html");
 	}
 	

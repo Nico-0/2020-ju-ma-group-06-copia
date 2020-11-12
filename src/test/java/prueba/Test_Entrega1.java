@@ -50,7 +50,7 @@ public class Test_Entrega1 {
 		medioPago = new MedioPago(TipoPago.EFECTIVO, "Identificador");
 		item = new Item("cuaderno", 500, 2);
 		validador = new ValidadorDeContrasenias();
-		usuario = new Usuario("Carlitos","ContraseniaVerdadera");
+		usuario = new Usuario("Carlitos","ContraseniaVerdadera",TipoUsuario.ESTANDAR);
 		validador.agregarValidacion(new EsMala())
 			.agregarValidacion(new EsMuyCorta())
 			.agregarValidacion(new RepiteCaracteres())
