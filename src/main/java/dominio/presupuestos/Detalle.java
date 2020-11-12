@@ -19,13 +19,6 @@ public class Detalle {
     List<Item> items = new ArrayList<Item>();
     
 	String moneda;
-
-	public Detalle() {
-	}
-	
-	public Detalle(Long id) {
-		this.id = id;
-	}
 	
     public double getTotal() {
         return items.stream().mapToDouble(item -> item.get_valor_total()).sum();

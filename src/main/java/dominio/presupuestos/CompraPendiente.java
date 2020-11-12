@@ -58,6 +58,10 @@ public class CompraPendiente {
     	this.fecha = fecha;
     }
     
+    public void setDetalle(Detalle detalle) {
+    	this.detalle = detalle;
+    }
+    
     public CompraPendiente setCriterioDeSeleccion(CriterioDeSeleccionPresupuesto unCriterio) {
     	this.criterioDeSeleccion = unCriterio;
     	return this;

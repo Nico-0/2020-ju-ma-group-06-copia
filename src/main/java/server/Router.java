@@ -56,6 +56,7 @@ public class Router {
 		
 		Spark.get("/entidades", entidad::login, engine);
 		Spark.get("/usuario/compras", usuario::compras,engine);
+		Spark.post("/usuario/compras", usuario::crear_compra);
 		Spark.get("/usuario/bandeja_entrada", usuario::bandejaDeEntrada,engine);
 		Spark.get("/usuario/crear", usuario::crear,engine);
 		Spark.post("/usuario/crear", usuario::creacion);
@@ -78,8 +79,18 @@ public class Router {
 		Spark.get("/entidades/entidad_base/reportes_mensuales", entidadBase::reportesMensuales, engine);
 		Spark.get("/entidades/entidad_base/categorias", entidadBase::categorias, engine);	
 		
-		Spark.get("/errordp", (request, response) -> {
-			return "no existe ese ID de proveedor";
+		
+		Spark.get("/usuario/crear/erroritem", (request, response) -> {
+			return "no existe detalle con ese ID";
+		});
+		Spark.get("/usuario/crear/errordp", (request, response) -> {
+			return "no existe proveedor con ese ID";
+		});
+		Spark.get("/usuario/compras/errordetalle", (request, response) -> {
+			return "no existe detalle con ese ID";
+		});
+		Spark.get("/usuario/compras/errorproveedor", (request, response) -> {
+			return "no existe proveedor con ese ID";
 		});
 		
 	}

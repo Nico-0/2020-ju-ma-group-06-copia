@@ -15,6 +15,9 @@ public class Item {
 	private int cantidad;
 	public double valorUnitario;
 
+	public Item() { //rompe hibernate sin esto al crear item en la app
+	}
+	
 	public Item(String descripcion, float valorUnitario, int cantidad) {
 		Validate.notNull(descripcion, "descripcion faltante");
 		Validate.notNull(valorUnitario, "valor total faltante");
