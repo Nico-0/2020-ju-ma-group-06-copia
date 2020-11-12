@@ -166,7 +166,7 @@ input[type=password] {
 
 .link_boton_2{
     display: block;
-    background-color: #1ef30b;
+    background-color: #aaa;
     color: white;
     width: 20%;
     padding: 14px 20px;
@@ -179,7 +179,7 @@ input[type=password] {
 }
 
 .link_boton_2:hover{
-    background-color: #00dfae;
+    background-color: rgb(150, 148, 148);
 }
 
 .link_boton:hover{
@@ -190,13 +190,12 @@ a{
     text-decoration: none;
 }
 
-
 .submit_gris:hover{
     background-color: rgb(150, 148, 148);
 }
 
 .submit_azul:hover{
-    background-color: #4CAF50;
+    background-color: #2b608b;
 }
 
 submit_0:hover{
@@ -257,4 +256,8 @@ td a{
 
 .formulario{
     margin-top: 40px;
+}
+
+.combo{
+    padding: 10px 10px;
 }
