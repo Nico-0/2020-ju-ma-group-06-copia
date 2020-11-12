@@ -44,4 +44,18 @@ public class DireccionPostal {
 		return mercado_libre.obtenerProvinciaDeZip(provincia);
 	}
 	
+	
+	
+	
+	public void setterCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+	
+	public void setterProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+	
+	public void setterPais(String pais) {
+		this.pais = pais;
+	}
 }

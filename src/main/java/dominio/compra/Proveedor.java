@@ -21,6 +21,10 @@ public class Proveedor {
 	@OneToOne(cascade = {CascadeType.ALL})
 	DireccionPostal direccion_postal;
 
+	public Proveedor() {
+		
+	}
+	
 	public Proveedor(String razonSocial, String dni_cuil_cuit, DireccionPostal direccion_postal) {
 		Validate.notNull(razonSocial, "razon social faltante");
 		Validate.notNull(dni_cuil_cuit, "dni/cuil/cuit faltante");
@@ -30,4 +34,11 @@ public class Proveedor {
 		this.direccion_postal = direccion_postal;
 	}
 	
+	public void setRazon_social(String razon_social) {
+		this.razon_social = razon_social;
+	}
+
+	public void setDni_cuil_cuit(String dni_cuil_cuit) {
+		this.dni_cuil_cuit = dni_cuil_cuit;
+	}
 }

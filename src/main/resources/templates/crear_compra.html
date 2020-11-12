@@ -12,7 +12,7 @@
         <section class = "content">
             <fieldset class = "formulario">
                 <legend>Crear Detalle</legend>
-                <form>
+                <form action="/usuario/crear" method="post">
                     <label class = "label2">Moneda</label>
                     <input type="text" id="moneda" name="moneda" placeholder="Ingrese moneda..." />
                     <br />
@@ -22,7 +22,7 @@
             </fieldset>
             <fieldset class = "formulario">
                 <legend>Crear Item</legend>
-                <form>
+                <form action="/usuario/crear" method="post">
                     <label class = "label2">Detalle</label>
                     <input type="text" id="detalle" name="detalle" placeholder="Ingrese id detalle..." />
                     <label class = "label2">Descripción Item</label>
@@ -30,7 +30,7 @@
                     <label class = "label2">Cantidad Item</label>
                     <input type="text" id="cant_item" name="cant_item" placeholder="Ingrese cantidad de item..." />
                     <label class = "label2">Valor Unitario Item</label>
-                    <input type="text" id="val_item" name="val_item" placeholder="Ingrese valor unitario de item..." />
+                    <input type="text" id="val_item" name="val_item" placeholder="Ingrese valor unitario de item..."  />
                     <br />
                     <input class = "submit_azul" type="submit" value="Crear" >
                     <input class = "submit_gris" type="submit" value="Cancelar" >
@@ -38,7 +38,7 @@
             </fieldset>
             <fieldset class = "formulario">
                 <legend>Crear Proveedor</legend>
-                <form>
+                 <form action="/usuario/crear" method="post">
                     <label class = "label2">Razón Social</label>
                     <input type="text" id="razon_social" name="razon_social" placeholder="Ingrese razón social..." />
                     <label class = "label2">DNI</label>
@@ -50,7 +50,7 @@
             </fieldset>
             <fieldset class = "formulario">
                 <legend>Crear Dirección Postal</legend>
-                <form>
+                <form action="/usuario/crear" method="post">
                     <label class = "label2">Proveedor</label>
                     <input type="text" id="id_proveedor" name="id_proveedor" placeholder="Ingrese id proveedor..." />
                     <label class = "label2">Pais</label>

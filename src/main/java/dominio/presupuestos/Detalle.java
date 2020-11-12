@@ -6,6 +6,8 @@ import dominio.compra.*;
 
 import javax.persistence.*;
 
+import org.apache.commons.lang3.Validate;
+
 @Entity
 public class Detalle {
 	
@@ -18,6 +20,13 @@ public class Detalle {
     
 	String moneda;
 
+	public Detalle() {
+	}
+	
+	public Detalle(Long id) {
+		this.id = id;
+	}
+	
     public double getTotal() {
         return items.stream().mapToDouble(item -> item.get_valor_total()).sum();
     }
