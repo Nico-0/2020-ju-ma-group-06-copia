@@ -18,5 +18,7 @@ public class Usuario {
 		return new ModelAndView(null, "bandeja_entrada.html");
 	}
 	
-	
+	public ModelAndView crear(Request req, Response res){
+		return new ModelAndView(null, "crear_compra.html");
+	}
 }

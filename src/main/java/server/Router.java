@@ -3,8 +3,8 @@ package server;
 import controllers.Home;
 import controllers.Usuario;
 import controllers.Compras;
+import controllers.Presupuestos;
 import controllers.Entidad;
-import controllers.Organizacion;
 import controllers.EntidadJuridica;
 import controllers.EntidadBase;
 import spark.Spark;
@@ -25,8 +25,8 @@ public class Router {
 		
 		Usuario usuario = new Usuario();
 		Entidad entidad = new Entidad();
-		Organizacion organizacion = new Organizacion();
 		Compras compras = new Compras();
+		Presupuestos presupuestos = new Presupuestos();
 		EntidadJuridica entidadJuridica = new EntidadJuridica();
 		EntidadBase entidadBase = new EntidadBase();
 		
@@ -35,13 +35,17 @@ public class Router {
 		Spark.get("/entidades", entidad::login, engine);
 		Spark.get("/usuario/compras", usuario::compras,engine);
 		Spark.get("/usuario/bandeja_entrada", usuario::bandejaDeEntrada,engine);
-		
+		Spark.get("/usuario/crear", usuario::crear,engine);
 		
 		Spark.get("/entidades/entidad_juridica", entidad::entidadJuridica,engine);
 		Spark.get("/entidades/entidad_base", entidad::entidadBase,engine);
 		
 		Spark.get("/compra/editar", compras::editarCompra, engine);
+		Spark.get("/compra/editar/presupuestos", compras::presupuestos, engine);
+		Spark.get("/compra/editar/etiquetas", compras::etiquetas, engine);
 
+		Spark.get("/presupuesto/editar", presupuestos::editarPresupuesto, engine);
+		
 		Spark.get("/entidades/entidad_juridica/compras", entidadJuridica::compras, engine);
 		Spark.get("/entidades/entidad_juridica/reportes_mensuales", entidadJuridica::reportesMensuales, engine);
 		Spark.get("/entidades/entidad_juridica/categorias", entidadJuridica::categorias, engine);
