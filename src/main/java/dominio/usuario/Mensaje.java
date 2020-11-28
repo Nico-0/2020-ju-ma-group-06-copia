@@ -18,6 +18,8 @@ public class Mensaje {
 	
 	String unMensaje;
 	
+	public Mensaje() {}
+	
 	public Mensaje(CompraPendiente unaCompra, String unMensaje){
 		this.unaCompra = unaCompra;
 		this.unMensaje = unMensaje;
@@ -27,4 +29,11 @@ public class Mensaje {
 		unaBandeja.agregarMensaje(this);
 	}
 	
+	public Long getId() {
+		return id;
+	}
+	
+	public String getDescripcion() {
+		return unMensaje;
+	}
 }

@@ -8,14 +8,14 @@ import spark.Spark;
 public class Entidad {
 
 	public ModelAndView login(Request req, Response res){
-		return new ModelAndView(null, "entidades.html");
+		return new ModelAndView(null, "entidades.hbs");
 	}
 	
 	public ModelAndView entidadBase(Request req, Response res){
-		return new ModelAndView(null, "entidad_base.html");
+		return new ModelAndView(null, "entidad_base.hbs");
 	}
 	
 	public ModelAndView entidadJuridica(Request req, Response res){
-		return new ModelAndView(null, "entidad_juridica.html");
+		return new ModelAndView(null, "entidad_juridica.hbs");
 	}
 }

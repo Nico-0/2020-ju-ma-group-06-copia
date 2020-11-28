@@ -10,12 +10,16 @@ import javax.persistence.EntityTransaction;
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+import dominio.RepositorioUsuarios;
+import dominio.presupuestos.CompraPendiente;
+import dominio.usuario.Mensaje;
 import dominio.usuario.TipoUsuario;
 import dominio.usuario.Usuario;
 
-public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps{
+public class Bootstrap extends AbstractPersistenceTest implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps{
 
 	public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
 		new Bootstrap().init();
@@ -24,10 +28,14 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 	public static void init() throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException{
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
-		Usuario usuario = new Usuario("pepe","1234",TipoUsuario.ESTANDAR);
+		CompraPendiente compra = new CompraPendiente();
+		Usuario usuario = RepositorioUsuarios.crearUsuario("pepe","1234",TipoUsuario.ESTANDAR);
 		transaction.begin();
-		entityManager.persist(usuario.bandejaDeEntrada);
-		entityManager.persist(usuario);	
+		entityManager.persist(compra);
 		transaction.commit();
+		usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 1"));
+		usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 2"));
+		usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 3"));
+		usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 4"));
 	}
 }

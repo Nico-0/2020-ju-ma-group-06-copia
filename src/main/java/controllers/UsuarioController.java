@@ -1,17 +1,22 @@
 package controllers;
 
+import dominio.RepositorioUsuarios;
 import dominio.compra.DireccionPostal;
 import dominio.compra.Item;
 import dominio.compra.MedioPago;
 import dominio.compra.Proveedor;
 import dominio.presupuestos.CompraPendiente;
 import dominio.presupuestos.Detalle;
-
+import dominio.usuario.TipoUsuario;
+import dominio.usuario.Usuario;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -29,8 +34,9 @@ import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 public class UsuarioController implements WithGlobalEntityManager{
 
-	public ModelAndView menuUsuario(Request req, Response res){
-		return new ModelAndView(null, "menu_usuario.html");
+	public ModelAndView menuUsuario(Request req, Response res) {
+		Usuario usuario = RepositorioUsuarios.getUsuario(req.cookie("usuario_logueado"));
+		return new ModelAndView(usuario, "menu_usuario.hbs");
 	}
 	
 	public ModelAndView compras(Request req, Response res){
@@ -40,7 +46,7 @@ public class UsuarioController implements WithGlobalEntityManager{
 				.createQuery("from CompraPendiente")
 				.getResultList();
 		model.put("compras", compras);
-		return new ModelAndView(model, "compras_usuario.html");
+		return new ModelAndView(model, "compras_usuario.hbs");
 	}
 	
 	public Void crear_compra(Request req, Response res){
@@ -82,12 +88,8 @@ public class UsuarioController implements WithGlobalEntityManager{
 		return null;	
 	}
 	
-	public ModelAndView bandejaDeEntrada(Request req, Response res){
-		return new ModelAndView(null, "bandeja_entrada.html");
-	}
-	
 	public ModelAndView crear(Request req, Response res){
-		return new ModelAndView(null, "crear_compra.html");
+		return new ModelAndView(null, "crear_compra.hbs");
 	}
 	
 	public Void creacion(Request req, Response res){	//los queryparam salen del campo name

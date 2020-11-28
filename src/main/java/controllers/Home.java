@@ -6,7 +6,7 @@ import spark.Response;
 
 public class Home {
 	public static ModelAndView home(Request req, Response res){
-		return new ModelAndView(null, "home.html");
+		return new ModelAndView(null, "home.hbs");
 	}
 	
 }

@@ -6,6 +6,6 @@ import spark.Response;
 
 public class Presupuestos {
 	public ModelAndView editarPresupuesto(Request req, Response res){
-		return new ModelAndView(null, "editar_presupuesto.html");
+		return new ModelAndView(null, "editar_presupuesto.hbs");
 	}
 }

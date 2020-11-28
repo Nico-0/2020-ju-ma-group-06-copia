@@ -10,10 +10,15 @@ import java.util.Arrays;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 @Entity
 public class Usuario {
@@ -22,14 +27,22 @@ public class Usuario {
 	@GeneratedValue
 	private Long id;
 	
-	private String usuario;
+	private String nombre;
 	private byte[] hashedPassword;
 	private byte[] salt;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	public BandejaDeMensajes bandejaDeEntrada = new BandejaDeMensajes();
 	
 	private TipoUsuario tipoUsuario;
+	
+	public String getNombre() {
+		return nombre;
+	}
+	
+	public BandejaDeMensajes getBandejaDeMensajes() {
+		return bandejaDeEntrada;
+	}
 	
 	public Usuario(){
 		
@@ -38,7 +51,7 @@ public class Usuario {
 	public Usuario(String usuario, String contrasenia, TipoUsuario tipoUsuario) throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
 		ValidadorDeContrasenias.getInstance().validarContrasenia(contrasenia, usuario);
 		inicializarSalt();
-		this.usuario = usuario;
+		this.nombre = usuario;
 		this.hashedPassword = hashearContrasenia(contrasenia);
 		this.tipoUsuario = tipoUsuario;
 	}
@@ -60,7 +73,12 @@ public class Usuario {
 	}
 	
 	public void recibirMensaje(Mensaje unMensaje) {
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		entityManager.persist(unMensaje);
 		bandejaDeEntrada.agregarMensaje(unMensaje);
+		transaction.commit();
 	}
 	
 }

@@ -6,6 +6,7 @@ import controllers.UsuarioController;
 import org.apache.commons.lang3.StringUtils;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
+import controllers.BandejaDeEntradaController;
 import controllers.Compras;
 import controllers.Presupuestos;
 import controllers.Entidad;
@@ -35,6 +36,7 @@ public class Router {
 		EntidadJuridica entidadJuridica = new EntidadJuridica();
 		EntidadBase entidadBase = new EntidadBase();
 		LoginController loginController = new LoginController();
+		BandejaDeEntradaController bandejaDeEntrada = new BandejaDeEntradaController();
 		
 		Spark.before((request, response)-> {
 			if(!request.pathInfo().equals("/login") &&
@@ -57,7 +59,7 @@ public class Router {
 		Spark.get("/entidades", entidad::login, engine);
 		Spark.get("/usuario/compras", usuario::compras,engine);
 		Spark.post("/usuario/compras", usuario::crear_compra);
-		Spark.get("/usuario/bandeja_entrada", usuario::bandejaDeEntrada,engine);
+		Spark.get("/usuario/bandeja_de_entrada", bandejaDeEntrada::bandejaDeEntrada,engine);
 		Spark.get("/usuario/crear", usuario::crear,engine);
 		Spark.post("/usuario/crear", usuario::creacion);
 		

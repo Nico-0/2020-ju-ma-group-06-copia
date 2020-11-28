@@ -31,4 +31,7 @@ public class BandejaDeMensajes {
 		return mensajes.size();
 	}
 	
+	public List<Mensaje> getMensajes() {
+		return mensajes;
+	}
 }
