@@ -30,6 +30,7 @@
 		<class>dominio.entidad.Organizacion</class>
 		<class>dominio.entidad.Reporte</class>
 		<class>dominio.entidad.Categoria</class>
+		<class>dominio.entidad.CategoriaDefault</class>
 		<class>dominio.entidad.Empresa</class>
 		<class>dominio.entidad.OrganizacionSocial</class>
 		<class>dominio.entidad.TipoEmpresa</class>

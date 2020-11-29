@@ -7,12 +7,26 @@ import javax.persistence.Transient;
 
 import dominio.compra.Compra;
 
+@Entity
 public class CategoriaDefault extends Categoria {
 	
 	boolean bloquearNuevasCompras = false;
 	boolean bloquearAgregarEntidadesBase = false;
     boolean bloquearFormarParteEntidadJuridica = false;
 	double egresosMaximos;
+	
+	public CategoriaDefault() {
+		
+	}
+	
+	public CategoriaDefault(String nombre, boolean bloquearNuevasCompras, boolean bloquearAgregarEntidadesBase,
+			boolean bloquearFormarParteEntidadJuridica, double egresosMaximos) {
+		this.nombre = nombre;
+		this.bloquearNuevasCompras = bloquearNuevasCompras;
+		this.bloquearAgregarEntidadesBase = bloquearAgregarEntidadesBase;
+		this.bloquearFormarParteEntidadJuridica = bloquearFormarParteEntidadJuridica;
+		this.egresosMaximos = egresosMaximos;
+	}
 
     public void validarAgregarCompra(Entidad entidad, Compra unaCompra) {
         if(bloquearNuevasCompras && entidad.egresosSuperan(egresosMaximos)){
@@ -54,4 +68,19 @@ public class CategoriaDefault extends Categoria {
 		return !bloquearAgregarEntidadesBase;
 	}
     
+    public String getId() {
+    	return id.toString();
+    }
+    
+    public String getNombre() {
+    	return nombre;
+    }
+    
+    public String getUrlView() {
+    	return "/categorias/" + id.toString();
+    }
+    
+    public String getUrlDelete() {
+    	return "/categorias/" + id.toString() + "/delete";
+    }
 }

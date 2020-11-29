@@ -8,6 +8,7 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import controllers.BandejaDeEntradaController;
 import controllers.Compras;
+import controllers.CrearCategoriaDefault;
 import controllers.CrearEmpresa;
 import controllers.CrearEntidadBase;
 import controllers.CrearOrganizacionSocial;
@@ -16,6 +17,7 @@ import controllers.MenuEntidadesController;
 import controllers.EntidadJuridicaController;
 import controllers.EntidadBaseController;
 import controllers.LoginController;
+import controllers.MenuCategorias;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import spark.utils.BooleanHelper;
@@ -38,12 +40,21 @@ public class Router {
 		Presupuestos presupuestos = new Presupuestos();
 		EntidadJuridicaController entidadJuridica = new EntidadJuridicaController();
 		EntidadBaseController entidadBase = new EntidadBaseController();
+		
+		// Login
 		LoginController loginController = new LoginController();
+		
+		// Bandeja de Entrada
 		BandejaDeEntradaController bandejaDeEntrada = new BandejaDeEntradaController();
 		
+		// Entidades
 		CrearEntidadBase crearEntidadBase = new CrearEntidadBase();
 		CrearOrganizacionSocial crearOrganizacionSocial = new CrearOrganizacionSocial();
 		CrearEmpresa crearEmpresa = new CrearEmpresa();
+		
+		// Categorias
+		MenuCategorias menuCategorias = new MenuCategorias();
+		CrearCategoriaDefault crearCategoriaDefault = new CrearCategoriaDefault();
 		
 		Spark.before((request, response)-> {
 			if(!request.pathInfo().equals("/login") &&
@@ -77,11 +88,19 @@ public class Router {
 		Spark.post("/entidades/crear_empresa", crearEmpresa::crear,engine);
 		Spark.post("/entidades/crear_organizacion_social", crearOrganizacionSocial::crear,engine);
 		Spark.post("/entidades/crear_entidad_base", crearEntidadBase::crear,engine);
-		//Spark.post("/entidades/:id/", entidad::, engine);
+		
 		Spark.get("/entidades/:id/delete", entidad::borrarEntidad, engine);
 		
-		Spark.get("/entidades/entidad_juridica", entidad::entidadJuridica,engine);
-		Spark.get("/entidades/entidad_base", entidad::entidadBase,engine);
+		Spark.get("/entidades/organizaciones_sociales/:id", entidad::mostrarOrganizacionSocial, engine);
+		Spark.get("/entidades/empresas/:id", entidad::mostrarEmpresa,engine);
+		Spark.get("/entidades/entidades_base/:id", entidad::mostrarEntidadBase,engine);
+		
+		Spark.get("/categorias", menuCategorias::show, engine);
+		//Spark.get("categorias/:id", menuCategorias::mostrarCategoria, engine);
+		Spark.get("/categorias/:id/delete", menuCategorias::borrarCategoria, engine);
+		
+		Spark.get("/categorias/crear_categoria_default", crearCategoriaDefault::show, engine);
+		Spark.post("/categorias/crear_categoria_default", crearCategoriaDefault::crear, engine);
 		
 		Spark.get("/compra/editar", compras::editarCompra, engine);
 		Spark.get("/compra/editar/presupuestos", compras::presupuestos, engine);
@@ -93,7 +112,7 @@ public class Router {
 		Spark.get("/entidades/entidad_juridica/reportes_mensuales", entidadJuridica::reportesMensuales, engine);
 		Spark.get("/entidades/entidad_juridica/categorias", entidadJuridica::categorias, engine);
 		Spark.get("/entidades/entidad_juridica/entidades_base", entidadJuridica::entidadesBase, engine);
-		
+
 		Spark.get("/entidades/entidad_base/compras", entidadBase::compras, engine);
 		Spark.get("/entidades/entidad_base/reportes_mensuales", entidadBase::reportesMensuales, engine);
 		Spark.get("/entidades/entidad_base/categorias", entidadBase::categorias, engine);	

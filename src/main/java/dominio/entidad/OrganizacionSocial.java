@@ -20,4 +20,9 @@ public class OrganizacionSocial extends EntidadJuridica {
 	public String getTipo() {
 		return "Organizacion Social";
 	}
+	
+	@Override
+	public String getUrlView() {
+		return "/entidades/organizaciones_sociales/" + id.toString();
+	}
 }

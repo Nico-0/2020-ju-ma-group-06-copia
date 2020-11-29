@@ -12,7 +12,8 @@ import dominio.compra.Compra;
 public abstract class Categoria {
 	@Id
 	@GeneratedValue
-	private Long id;
+	protected Long id;
+	protected String nombre;
 	public abstract void setBloquearNuevosEgresos(boolean bloquearNuevasCompras);
 	public abstract void setEgresosMaximos(double egresosMaximos) ;
 	public abstract void setBloquarAgregarEntidadesBase(boolean bloquearAgregarEntidadesBase) ;

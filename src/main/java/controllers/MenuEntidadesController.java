@@ -21,13 +21,17 @@ public class MenuEntidadesController {
 	public ModelAndView show(Request req, Response res){
 		return new ModelAndView(new RepositorioEntidades(), "entidades.hbs");
 	}
-	
-	public ModelAndView entidadBase(Request req, Response res){
-		return new ModelAndView(null, "entidad_base.hbs");
+
+	public ModelAndView mostrarEntidadBase(Request req, Response res){
+		return new ModelAndView(null, "menuEntidadBase.hbs");
 	}
 	
-	public ModelAndView entidadJuridica(Request req, Response res){
-		return new ModelAndView(null, "entidad_juridica.hbs");
+	public ModelAndView mostrarEmpresa(Request req, Response res){
+		return new ModelAndView(null, "menuEmpresa.hbs");
+	}
+	
+	public ModelAndView mostrarOrganizacionSocial(Request req, Response res){
+		return new ModelAndView(null, "menuOrganizacionSocial.hbs");
 	}
 	
 	public ModelAndView borrarEntidad(Request req, Response res) {

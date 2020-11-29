@@ -26,4 +26,9 @@ public class Empresa extends EntidadJuridica {
 	public String getTipo() {
 		return "Empresa";
 	}
+	
+	@Override
+	public String getUrlView() {
+		return "/entidades/empresas/" + id.toString();
+	}
 }

@@ -29,7 +29,7 @@ public abstract class Entidad {
 	
 	@Id
 	@GeneratedValue
-	private Long id;
+	protected Long id;
 	
 	@OneToMany
 	public List<Compra> compras = new ArrayList<Compra>();
@@ -85,7 +85,5 @@ public abstract class Entidad {
 		return "/entidades/" + id.toString() + "/delete";
 	}
 	
-	public String getUrlView() {
-		return "/entidades/" + id.toString();
-	}
+	public abstract String getUrlView();
 }

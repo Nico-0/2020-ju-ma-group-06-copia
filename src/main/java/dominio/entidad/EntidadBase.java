@@ -29,4 +29,9 @@ public class EntidadBase extends Entidad {
 	public String getTipo() {
 		return "Base";
 	}
+	
+	@Override
+	public String getUrlView() {
+		return "/entidades/entidades_base/" + id.toString();
+	}
 }
