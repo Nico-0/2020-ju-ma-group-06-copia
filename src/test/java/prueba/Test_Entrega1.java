@@ -44,7 +44,7 @@ public class Test_Entrega1 {
 	
 	@Before
 	public void initialize() throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
-		entidad = new OrganizacionSocial(razonSocial, nombreFicticio, cuit, direccionPostal, entidades, categoria);
+		entidad = new OrganizacionSocial(razonSocial, nombreFicticio, cuit, direccionPostal, entidades);
 		
 		proveedor = new Proveedor("juancito", "45127845", direccion_postal);
 		medioPago = new MedioPago(TipoPago.EFECTIVO, "Identificador");

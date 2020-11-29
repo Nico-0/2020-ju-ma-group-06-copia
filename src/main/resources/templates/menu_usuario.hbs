@@ -1,20 +1,14 @@
-<html>
-    <head>
-        <title>Menú Usuario</title>
-        <link rel="stylesheet" href="/dds.css" type="text/css" />
-    </head>
-    <body>
-        <ul class="encabezado">
-            <li class = "elemento_encabezado"><a class = "link_elemento_encabezado" href="/usuario">Usuario</a></li>
-            <li class = "elemento_encabezado"><a class = "link_elemento_encabezado" href="/entidades">Entidades</a></li>            
-        </ul>
-        <form class = "content">
-            <a class = "link_boton" href = "usuario/compras">  Compras???   </a>
-            <br/>
-            <a class = "link_boton" href = "usuario/bandeja_de_entrada">  Bandeja de Entrada  </a>
-            <br/>
-            <a class = "link_boton" href = "/">  Volver  </a>
-        </form>
-        Nombre de usuario: {{ nombre }}
-    </body>
-</html>
+{{#partial "contenido"}}
+
+<form class = "content">
+    <a class = "link_boton" href = "usuario/compras">  Compras???   </a>
+    <br/>
+    <a class = "link_boton" href = "usuario/bandeja_de_entrada">  Bandeja de Entrada  </a>
+    <br/>
+    <a class = "link_boton" href = "/">  Volver  </a>
+</form>
+Nombre de usuario: {{ nombre }}
+
+{{/partial}}
+
+{{>layout.hbs}}

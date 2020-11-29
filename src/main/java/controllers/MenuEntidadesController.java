@@ -29,4 +29,11 @@ public class MenuEntidadesController {
 	public ModelAndView entidadJuridica(Request req, Response res){
 		return new ModelAndView(null, "entidad_juridica.hbs");
 	}
+	
+	public ModelAndView borrarEntidad(Request req, Response res) {
+		Long id = new Long(req.params("id"));
+		RepositorioEntidades.borrarEntidad(id);
+		res.redirect("/entidades");
+		return null;
+	}
 }

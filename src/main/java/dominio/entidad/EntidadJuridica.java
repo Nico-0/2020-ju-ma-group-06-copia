@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 import org.apache.commons.lang3.Validate;
 
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class EntidadJuridica extends Entidad {
 
 	@OneToMany
@@ -21,6 +22,10 @@ public abstract class EntidadJuridica extends Entidad {
 	
 	@OneToMany
 	private List<EntidadBase> entidades_usadas = new ArrayList<EntidadBase>();
+	
+	public EntidadJuridica() {
+		
+	}
 	
 	public EntidadJuridica(String razonSocial, String nombreFicticio, String cuit, String direccionPostal, List<EntidadBase> entidades) {
 		Validate.notNull(razonSocial, "razon social faltante");

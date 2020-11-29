@@ -8,8 +8,9 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import controllers.BandejaDeEntradaController;
 import controllers.Compras;
+import controllers.CrearEmpresa;
 import controllers.CrearEntidadBase;
-import controllers.CrearEntidadJuridica;
+import controllers.CrearOrganizacionSocial;
 import controllers.Presupuestos;
 import controllers.MenuEntidadesController;
 import controllers.EntidadJuridicaController;
@@ -41,7 +42,8 @@ public class Router {
 		BandejaDeEntradaController bandejaDeEntrada = new BandejaDeEntradaController();
 		
 		CrearEntidadBase crearEntidadBase = new CrearEntidadBase();
-		CrearEntidadJuridica crearEntidadJuridica = new CrearEntidadJuridica();
+		CrearOrganizacionSocial crearOrganizacionSocial = new CrearOrganizacionSocial();
+		CrearEmpresa crearEmpresa = new CrearEmpresa();
 		
 		Spark.before((request, response)-> {
 			if(!request.pathInfo().equals("/login") &&
@@ -64,15 +66,18 @@ public class Router {
 		Spark.get("/entidades", entidad::show, engine);
 		Spark.get("/usuario/compras", usuario::compras,engine);
 		Spark.post("/usuario/compras", usuario::crear_compra);
-		Spark.get("/usuario/bandeja_de_entrada", bandejaDeEntrada::bandejaDeEntrada,engine);
+		Spark.get("/bandeja_de_entrada", bandejaDeEntrada::bandejaDeEntrada,engine);
 		Spark.get("/usuario/crear", usuario::crear,engine);
 		Spark.post("/usuario/crear", usuario::creacion);
 		
-		Spark.get("/entidades/crear_entidad_juridica", crearEntidadJuridica::show,engine);
+		Spark.get("/entidades/crear_empresa", crearEmpresa::show,engine);
+		Spark.get("/entidades/crear_organizacion_social", crearOrganizacionSocial::show,engine);
 		Spark.get("/entidades/crear_entidad_base", crearEntidadBase::show,engine);
-		Spark.post("/entidades/crear_entidad_juridica", crearEntidadJuridica::crear,engine);
+		Spark.post("/entidades/crear_empresa", crearEmpresa::crear,engine);
+		Spark.post("/entidades/crear_organizacion_social", crearOrganizacionSocial::crear,engine);
 		Spark.post("/entidades/crear_entidad_base", crearEntidadBase::crear,engine);
-		
+		//Spark.post("/entidades/:id/", entidad::, engine);
+		Spark.get("/entidades/:id/delete", entidad::borrarEntidad, engine);
 		
 		Spark.get("/entidades/entidad_juridica", entidad::entidadJuridica,engine);
 		Spark.get("/entidades/entidad_base", entidad::entidadBase,engine);

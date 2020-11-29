@@ -1,24 +1,17 @@
-<html>
-    <head>
-        <title>Entidad</title>
-        <link rel="stylesheet" href="/dds.css" type="text/css" />
-    </head>
-    <body>
-        <ul class="encabezado">
-            <li class = "elemento_encabezado"><a class = "link_elemento_encabezado" href="/usuario">Usuario</a></li>
-            <li class = "elemento_encabezado"><a class = "link_elemento_encabezado" href="/entidades">Entidades</a></li>
-        </ul>
-        <form class = "content">
-            <a class = "link_boton" href = "entidad_juridica/compras">  Compras  </a>
-            <br/>
-            <a class = "link_boton" href = "entidad_juridica/reportes_mensuales">  Ver reporte mensual   </a>
-            <br/>
-            <a class = "link_boton" href = "entidad_juridica/categorias">  Categorías  </a>
-            <br/>
-            <a class = "link_boton" href = "entidad_juridica/entidades_base">  Entidades  </a>
-            <br/>
-            <a class = "link_boton" href = "/entidades">  Volver  </a>
-        </form>
+{{#partial "contenido"}}
 
-    </body>
-</html>
+<form class = "content">
+    <a class = "link_boton" href = "entidad_juridica/compras">  Compras  </a>
+    <br/>
+    <a class = "link_boton" href = "entidad_juridica/reportes_mensuales">  Ver reporte mensual   </a>
+    <br/>
+    <a class = "link_boton" href = "entidad_juridica/categorias">  Categorías  </a>
+    <br/>
+    <a class = "link_boton" href = "entidad_juridica/entidades_base">  Entidades  </a>
+    <br/>
+    <a class = "link_boton" href = "/entidades">  Volver  </a>
+</form>
+
+{{/partial}}
+
+{{>layout.hbs}}

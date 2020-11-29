@@ -1,8 +1,13 @@
 package dominio.entidad;
 
+import java.util.Comparator;
+import java.util.List;
+
+import dominio.presupuestos.Presupuesto;
+
 public enum TipoEmpresa{
-	MICRO, 
+	MICRO,
 	PEQUENA, 
 	MEDIANA_1, 
-	MEDIANA_2
+	MEDIANA_2,
 }

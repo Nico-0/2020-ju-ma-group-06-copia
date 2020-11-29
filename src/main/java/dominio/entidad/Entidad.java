@@ -81,4 +81,11 @@ public abstract class Entidad {
 		categorias.remove(categoria);
 	}
 	
+	public String getUrlDelete() {
+		return "/entidades/" + id.toString() + "/delete";
+	}
+	
+	public String getUrlView() {
+		return "/entidades/" + id.toString();
+	}
 }

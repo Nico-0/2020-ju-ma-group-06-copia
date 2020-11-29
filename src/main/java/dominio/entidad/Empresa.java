@@ -2,12 +2,20 @@ package dominio.entidad;
 
 import java.util.List;
 
+import javax.persistence.*;
+
 import org.apache.commons.lang3.Validate;
 
+@Entity
 public class Empresa extends EntidadJuridica {
 
+	@Enumerated(EnumType.STRING)
 	private TipoEmpresa tipoEmpresa;
 
+	public Empresa() {
+		
+	}
+	
 	public Empresa(String razonSocial, String nombreFicticio, String cuit, String direccionPostal,
 			TipoEmpresa tipoEmpresa, List<EntidadBase> entidades) {
 		super(razonSocial, nombreFicticio, cuit, direccionPostal, entidades);
@@ -15,4 +23,7 @@ public class Empresa extends EntidadJuridica {
 		this.tipoEmpresa = tipoEmpresa;
 	}
 	
+	public String getTipo() {
+		return "Empresa";
+	}
 }

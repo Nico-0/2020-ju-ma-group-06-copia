@@ -25,14 +25,15 @@
 		<class>dominio.entidad.Organizacion</class>
 		<class>dominio.entidad.Reporte</class>
 		<class>dominio.entidad.Categoria</class>
-		
-		
+		<class>dominio.entidad.Empresa</class>
+		<class>dominio.entidad.OrganizacionSocial</class>
+		<class>dominio.entidad.TipoEmpresa</class>
 		
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
 
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/tp_prueba" /> 
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/bd_tp" /> 
             <property name="hibernate.connection.username" value="root" /> 
             <property name="hibernate.connection.password" value="mysql" />
             
