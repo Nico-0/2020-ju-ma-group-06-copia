@@ -1,5 +1,7 @@
 package dominio.entidad;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -7,6 +9,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
 import dominio.compra.Compra;
+import repositorios.RepositorioCategorias;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Categoria {
@@ -23,4 +26,7 @@ public abstract class Categoria {
     public abstract boolean puedeAgregarseAEntidadJuridica();
     public abstract boolean puedeAgregarEntidadesBase();
     
+    public List<Entidad> getEntidades() {
+    	return RepositorioCategorias.getEntidades(id);
+    }
 }

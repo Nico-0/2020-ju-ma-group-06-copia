@@ -53,4 +53,8 @@ public class Detalle {
 		}
 	}
 	
+    public long getId(){
+    	  return this.id;
+      } 
+	
 }

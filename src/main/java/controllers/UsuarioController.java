@@ -49,6 +49,17 @@ public class UsuarioController implements WithGlobalEntityManager{
 		return new ModelAndView(model, "compras_usuario.hbs");
 	}
 	
+	public ModelAndView menu_compra(Request req, Response res){
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		String idC = req.params("idCompra");
+		
+		CompraPendiente compra = entityManager
+				.createQuery("from CompraPendiente where id = "+idC, CompraPendiente.class)
+				.getSingleResult();
+
+		return new ModelAndView(compra, "menu_compra.hbs");
+	}
+	
 	public Void crear_compra(Request req, Response res){
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction transaction = em.getTransaction();
@@ -62,12 +73,12 @@ public class UsuarioController implements WithGlobalEntityManager{
 		
 		Detalle detalle = em.find(Detalle.class, detalle_id);
 		if(detalle == null) {
-			res.redirect("/usuario/compras/errordetalle");
+			res.redirect("/compras/errordetalle");
 			return null;
 		}
 		Proveedor proveedor = em.find(Proveedor.class, proveedor_id);
 		if(proveedor == null) {
-			res.redirect("/usuario/compras/errorproveedor");
+			res.redirect("/compras/errorproveedor");
 			return null;
 		}
 		MedioPago medio_pago = em.find(MedioPago.class, medioPago_id);
@@ -86,7 +97,7 @@ public class UsuarioController implements WithGlobalEntityManager{
 		em.persist(compra);
 		transaction.commit();
 		
-		res.redirect("/usuario/compras");
+		res.redirect("/compras");
 		return null;	
 	}
 	
@@ -169,7 +180,7 @@ public class UsuarioController implements WithGlobalEntityManager{
 		em.createQuery("delete from CompraPendiente where id = "+idB).executeUpdate();
 		transaction.commit();
 		
-		res.redirect("/usuario/compras");
+		res.redirect("/compras");
 		return null;
 	}
 	

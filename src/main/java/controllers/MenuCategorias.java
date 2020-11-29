@@ -1,5 +1,6 @@
 package controllers;
 
+import dominio.entidad.Categoria;
 import repositorios.RepositorioCategorias;
 import spark.ModelAndView;
 import spark.Request;
@@ -12,11 +13,11 @@ public class MenuCategorias {
 		return new ModelAndView(new RepositorioCategorias(), "menuCategorias.hbs");
 	}
 	
-	/*
 	public ModelAndView mostrarCategoria(Request req, Response res){
-		return new ModelAndView(new RepositorioCategorias(), "mostrarCategoria.hbs");
-	}*/
-	
+		Categoria categoria = RepositorioCategorias.getCategoria(new Long(req.params("id")));
+		return new ModelAndView(categoria, "mostrarCategoria.hbs");
+	}
+
 	public ModelAndView borrarCategoria(Request req, Response res){
 		Long id = new Long(req.params("id"));
 		RepositorioCategorias.borrarCategoria(id);

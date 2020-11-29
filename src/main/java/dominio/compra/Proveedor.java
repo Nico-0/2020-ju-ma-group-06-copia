@@ -25,6 +25,10 @@ public class Proveedor {
 		
 	}
 	
+    public long getId(){
+    	  return this.id;
+      } 
+	
 	public Proveedor(String razonSocial, String dni_cuil_cuit, DireccionPostal direccion_postal) {
 		Validate.notNull(razonSocial, "razon social faltante");
 		Validate.notNull(dni_cuil_cuit, "dni/cuil/cuit faltante");

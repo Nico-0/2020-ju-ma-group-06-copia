@@ -50,7 +50,7 @@ public class RepositorioCategorias {
 		transaction.commit();
 	}
 
-	private static Categoria getCategoria(Long id) {
+	public static Categoria getCategoria(Long id) {
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		Categoria categoria;
 		List<Categoria> listaCategorias = entityManager
@@ -62,5 +62,13 @@ public class RepositorioCategorias {
 			return categoria;
 		}		
 		return null;
+	}
+
+	public static List<Entidad> getEntidades(Long id) {
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		List<Entidad> listaEntidades = entityManager
+				.createQuery("from Entidad")
+				.getResultList();
+		return listaEntidades;
 	}
 }

@@ -76,6 +76,27 @@ public class CategoriaDefault extends Categoria {
     	return nombre;
     }
     
+    public String getBloquearNuevasCompras(){
+    	return this.toString(bloquearNuevasCompras);
+    }
+    
+    public String getBloquearAgregarEntidadesBase(){
+    	return toString(bloquearAgregarEntidadesBase);
+    }
+    
+    public String getBloquearFormarParteEntidadJuridica(){
+    	return toString(bloquearFormarParteEntidadJuridica);
+    }
+    
+    public String getEgresosMaximos(){
+    	return String.valueOf(egresosMaximos);
+    }
+    
+    public String toString(boolean bool) {
+    	if(bool)	return "True";
+    	return "False";
+    }
+    
     public String getUrlView() {
     	return "/categorias/" + id.toString();
     }

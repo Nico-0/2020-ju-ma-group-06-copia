@@ -2,6 +2,7 @@ package dominio.presupuestos;
 
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import javax.persistence.*;
@@ -52,11 +53,42 @@ public class CompraPendiente {
     
     public long getId(){
   	  return this.id;
+    }
+    
+    public String getFecha(){
+    	if(fecha == null)
+    		return "NULL";
+    		else
+    	  return this.fecha.toString();//format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     } 
     
     public Detalle getDetalle(){
     	  return this.detalle;
-      } 
+    }
+    
+    public Proveedor getProveedor(){
+    	  return this.proveedor;
+    }
+    
+    public MedioPago getMedioPago(){
+  	  return this.medioPago;
+    } 
+    
+    public Entidad getEntidad(){
+    	  return this.entidad;
+    }   
+    
+    public long getCantidadPresupActuales(){
+  	  return this.presupuestos.size();
+    }
+    
+    public int getCantidadPresupRequeridos(){
+    	  return this.cantidadPresupuestosRequeridos;
+      }
+    
+    public String getCriterioSeleccion(){
+    	  return this.criterioDeSeleccion.toString();
+    } 
     
     public void setCriterioSeleccion(Long id_criterio) {
     	if(id_criterio == 0)

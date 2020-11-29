@@ -23,4 +23,8 @@ public class MedioPago {
 		this.identificador = identificador;
 	}
 	
+    public long getId(){
+    	  return this.id;
+      } 
+	
 }

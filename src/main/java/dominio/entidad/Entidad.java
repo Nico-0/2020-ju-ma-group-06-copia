@@ -86,4 +86,8 @@ public abstract class Entidad {
 	}
 	
 	public abstract String getUrlView();
+
+    public long getId(){
+    	  return this.id;
+     } 
 }
