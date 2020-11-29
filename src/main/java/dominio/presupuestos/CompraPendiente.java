@@ -50,6 +50,32 @@ public class CompraPendiente {
         cantidadPresupuestosRequeridos = unaCantidad;
     }
     
+    public long getId(){
+  	  return this.id;
+    } 
+    
+    public Detalle getDetalle(){
+    	  return this.detalle;
+      } 
+    
+    public void setCriterioSeleccion(Long id_criterio) {
+    	if(id_criterio == 0)
+    	this.criterioDeSeleccion = CriterioDeSeleccionPresupuesto.ElUsuarioOlvidoElegirCriterio;
+    	if(id_criterio == 1)
+    	this.criterioDeSeleccion = CriterioDeSeleccionPresupuesto.SinCriterioDeSeleccion;
+    	if(id_criterio == 2) 
+    	this.criterioDeSeleccion = CriterioDeSeleccionPresupuesto.PresupuestoMasBarato;
+    	if(id_criterio == 3)
+    	this.criterioDeSeleccion = CriterioDeSeleccionPresupuesto.PresupuestoMasCaro;
+    	if(id_criterio == 4)
+    	this.criterioDeSeleccion = CriterioDeSeleccionPresupuesto.LoDejoASuCriterio;
+    }
+    
+    public CompraPendiente setCriterioDeSeleccion(CriterioDeSeleccionPresupuesto unCriterio) { //TODO quedarse con este y borrar el de arriba
+    	this.criterioDeSeleccion = unCriterio;
+    	return this;
+    }
+    
     public void setMedioPago(MedioPago medioPago) {
     	this.medioPago = medioPago;
     }
@@ -60,11 +86,6 @@ public class CompraPendiente {
     
     public void setDetalle(Detalle detalle) {
     	this.detalle = detalle;
-    }
-    
-    public CompraPendiente setCriterioDeSeleccion(CriterioDeSeleccionPresupuesto unCriterio) {
-    	this.criterioDeSeleccion = unCriterio;
-    	return this;
     }
     
     public CompraPendiente setProveedor(Proveedor proveedor) {

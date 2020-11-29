@@ -67,6 +67,7 @@ public class Router {
 		Spark.get("/usuario/compras", usuario::compras,engine);
 		Spark.post("/usuario/compras", usuario::crear_compra);
 		Spark.get("/bandeja_de_entrada", bandejaDeEntrada::bandejaDeEntrada,engine);
+		Spark.post("/usuario/compras/delete/:idBorrado", usuario::borrar_compra);
 		Spark.get("/usuario/crear", usuario::crear,engine);
 		Spark.post("/usuario/crear", usuario::creacion);
 		

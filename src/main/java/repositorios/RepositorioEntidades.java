@@ -63,7 +63,7 @@ public class RepositorioEntidades {
 		Entidad entidad = getEntidad(id);
 		transaction.begin();
 		entityManager.remove(entidad);
-		transaction.commit();		
+		transaction.commit();
 	}
 
 	private static Entidad getEntidad(Long id) {
