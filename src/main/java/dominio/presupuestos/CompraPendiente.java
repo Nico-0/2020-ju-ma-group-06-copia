@@ -50,6 +50,10 @@ public class CompraPendiente {
         cantidadPresupuestosRequeridos = unaCantidad;
     }
     
+    public long getId(){
+  	  return this.id;
+    } 
+    
     public void setCriterioSeleccion(Long id_criterio) {
     	if(id_criterio == 0)
     	this.criterioDeSeleccion = CriterioDeSeleccionPresupuesto.ElUsuarioOlvidoElegirCriterio;
