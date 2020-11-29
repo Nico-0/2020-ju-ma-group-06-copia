@@ -18,17 +18,12 @@
                         <td><a href="/compra/editar">Editar</a></th>
                         <td><a href = "a">Borrar</a></td>
                     </tr>
-                    <tr>
-                        <td>Compra prueba 3</td>
-                        <td><a href="/compra/editar">Editar</a></th>
-                        <td><a href = "a">Borrar</a></td>
-                    </tr>
                     {{#each compras}}
 					<tr>
 						<td>{{id}}</td>
-                        <td><a href="/compra/editar">Editar</a></th>
+                        <td><a href="/compras/{{id}}">Editar</a></th>
                         <td>
-                        	<form action="/usuario/compras/delete/{{id}}" method="post">
+                        	<form action="/compras/delete/{{id}}" method="post">
                         	<input type="submit" value="Borrar" >
                         	</form>
                         </td>
@@ -38,7 +33,7 @@
             </div>
             <fieldset class = "formulario">
                 <legend>Crear compra</legend>
-                <form action="/usuario/compras" method="post">
+                <form action="/compras" method="post">
                     <label class = "label2">Cantidad presupuestos requeridos</label>
                     <input type="text" id="cant_presup" name="cant_presup" placeholder="Ingrese cantidad de presupuestos..." />
                     <label class = "label2">Detalle</label>

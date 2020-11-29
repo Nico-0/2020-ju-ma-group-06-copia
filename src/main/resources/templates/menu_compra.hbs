@@ -1,0 +1,78 @@
+{{#partial "contenido"}}
+
+        <section class = "content">
+            <div>
+            MENU DE LA COMPRA {{id}}
+                <table>
+                    <tr>
+                        <th> Campo </th>
+                        <th> Valor </th>
+                    </tr>
+                    <tr>
+                        <td>ID de la compra: </td>
+                        <td>{{id}}</th>
+                    </tr>
+                    <tr>
+                        <td>ID de su detalle</td>
+                        <td>{{detalle.id}}</th>
+                    </tr>                 
+                    <tr>
+                        <td>Cantidad de presupuestos actuales: </td>
+                        <td>{{CantidadPresupActuales}}</th>
+                    </tr>
+                    <tr>
+                        <td>ID de su proveedor: </td>
+                        <td> {{proveedor.id}} </th>
+                    </tr>
+                     <tr>
+                        <td>Criterio de seleccion de presupuesto: </td>
+                        <td> {{CriterioSeleccion}} </th>
+                    </tr>
+                    <tr>
+                        <td>Cantidad presupuestos requeridos: </td>
+                        <td> {{CantidadPresupRequeridos}} </th>
+                    </tr>
+                    <tr>
+                        <td>Fecha de creacion original: </td>
+                        <td> {{fecha}} </th>
+                    </tr>
+                    <tr>
+                        <td>ID de su MedioDePago: </td>
+                        <td> {{medioPago}} </th>
+                    </tr>
+                    <tr>
+                        <td>ID de su entidad: </td>
+                        <td> {{entidad}} </th>
+                    </tr>
+                </table>
+            </div>
+Proceda con cuidado, ningun cambio se puede revertir
+                 <fieldset class = "formulario">
+                <legend>Crear compra</legend>
+                <form action="/compras" method="post">
+                    <label class = "label2">Cantidad presupuestos requeridos</label>
+                    <input type="text" id="cant_presup" name="cant_presup" placeholder="Ingrese cantidad de presupuestos..." value="{{CantidadPresupRequeridos}}" />
+                    <label class = "label2">Detalle</label>
+                    <input type="text" id="detalle" name="detalle" value="{{detalle.id}}" placeholder="Ingrese nuevo detalle..." />
+                    <label class = "label2">Proveedor</label>
+                    <input type="text" id="proveedor" name="proveedor" value="{{proveedor.id}}" placeholder="Ingrese nuevo proveedor..." />
+                    <br />
+                    <label class = "label2">Medio de Pago</label>
+                    <input type="text" id="medio_pago" name="medio_pago" value="{{medioPago}}" placeholder="Ingrese nuevo id medio de pago..." />
+                    <label class = "label2">Criterio Presupuestario</label>
+                    <select class="combo" name="criterio">
+                        <option value="0">...No modificar...</option>
+                        <option value="1">Sin creterio</option>
+                        <option value="2">Más barato</option>
+                        <option value="3">Más caro</option>
+                        <option value="4">Lo dejo a su criterio</option>
+                    </select>
+                    <br />
+                    <input class = "submit_azul" type="submit" value="Actualizar compra" >
+                </form>
+            </fieldset>
+            <a class = "link_boton_2" href = "/compras">  Volver a la lista de compras </a>
+
+{{/partial}}
+
+{{>layout.hbs}}       

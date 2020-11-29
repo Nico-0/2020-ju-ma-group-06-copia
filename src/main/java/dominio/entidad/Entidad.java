@@ -88,4 +88,8 @@ public abstract class Entidad {
 	public String getUrlView() {
 		return "/entidades/" + id.toString();
 	}
+	
+    public long getId(){
+    	  return this.id;
+      } 
 }
