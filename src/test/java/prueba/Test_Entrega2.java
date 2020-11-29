@@ -29,7 +29,8 @@ public class Test_Entrega2 {
         this.requester = new APImercado();
 		compraSinPresupuestos = new CompraPendiente();
 		compraBarata = new CompraPendiente();
-		CompraPendiente.setCantidadPresupuestosRequeridos(3);
+		compraSinPresupuestos.setCantidadPresupuestosRequeridos(3);
+		compraBarata.setCantidadPresupuestosRequeridos(3);
 		proveedor = new Proveedor("juancito", "45127845", direccionPostal);
 		PROVEEDOR_BARATO = new Proveedor("pancho", "59364958", direccionPostal);
 		PROVEEDOR_CARO = new Proveedor("mirtha legrand", "12345678", direccionPostal);
@@ -145,7 +146,7 @@ public class Test_Entrega2 {
 	@Test
 	public void LasExcepcionesSeMandanALaBandejaDelUsuario() {
 		Presupuesto unPresupuesto = new Presupuesto(compraSinPresupuestos, proveedor);
-		CompraPendiente.setCantidadPresupuestosRequeridos(4);
+		compraSinPresupuestos.setCantidadPresupuestosRequeridos(4);
 		unPresupuesto.agregarItem(new Item("Turron",30,2))
 			.agregarItem(new Item("Alfajor",300,12));
 		compraSinPresupuestos.agregarItem(new Item("Turron",30,2))

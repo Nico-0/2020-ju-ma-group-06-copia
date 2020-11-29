@@ -50,12 +50,20 @@ public class RepositorioComprasPendientes implements WithGlobalEntityManager{
 	
     public void validarCompras() {
     	this.comprasPendientes = this.todas();
+    	/*
     	List<CompraPendiente> comprasValidas = comprasPendientes.stream().filter(CompraPendiente::verificarQueEsValida).collect(toList());
+    	System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa se validan "+comprasValidas.size()+" compras");
     	comprasValidas.stream().forEach(CompraPendiente::validarCompra);
        	
        	this.comprasPendientes.removeIf(pendiente -> comprasValidas.contains(pendiente));
        	
        	comprasValidas.stream().forEach(compraValida -> entityManager().remove(compraValida));
+       	*/
+    	
+    	//TODO volver al codigo comentado de arriba
+    	System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa se validan "+this.comprasPendientes.size()+" compras");
+    	this.comprasPendientes.stream().forEach(CompraPendiente::validarCompra);
+    	
     }
     
 }

@@ -42,7 +42,7 @@ public class ContextTest extends AbstractPersistenceTest implements WithGlobalEn
 	@Before
 	public void setUp() throws Exception {
 		compraValida = new CompraPendiente();
-		CompraPendiente.setCantidadPresupuestosRequeridos(1);
+		compraValida.setCantidadPresupuestosRequeridos(1);
 		proveedor = new Proveedor("juancito", "45127845", direccionPostal);
 		compraValida.setCriterioDeSeleccion(CriterioDeSeleccionPresupuesto.SinCriterioDeSeleccion);
 		unPresupuesto = new Presupuesto(compraValida, proveedor);

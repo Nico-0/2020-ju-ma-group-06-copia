@@ -12,16 +12,17 @@ public class Mensaje {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+	/*
 	@ManyToOne
 	CompraPendiente unaCompra;
+	TODO volver a incluir, se hace un lio para borrar las compras que son referenciadas por mensajes*/
 	
 	String unMensaje;
 	
 	public Mensaje() {}
 	
 	public Mensaje(CompraPendiente unaCompra, String unMensaje){
-		this.unaCompra = unaCompra;
+		//this.unaCompra = unaCompra;TODO incluir
 		this.unMensaje = unMensaje;
 	}
 	

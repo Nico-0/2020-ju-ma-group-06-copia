@@ -7,9 +7,12 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
 import dominio.compra.*;
 import dominio.entidad.Entidad;
 import dominio.usuario.*;
+import repositorios.RepositorioUsuarios;
 
 @Entity
 public class CompraPendiente {
@@ -28,7 +31,8 @@ public class CompraPendiente {
     private Proveedor proveedor;
     
 	private CriterioDeSeleccionPresupuesto criterioDeSeleccion = CriterioDeSeleccionPresupuesto.SinCriterioDeSeleccion;
-    private static int cantidadPresupuestosRequeridos = 0;
+	
+    private int cantidadPresupuestosRequeridos = 0;
     private LocalDate fecha;
     
     @ManyToOne(optional = true, cascade = {CascadeType.ALL})
@@ -44,10 +48,10 @@ public class CompraPendiente {
     private List<String> etiquetas = new ArrayList<String>();
     
     public CompraPendiente() {
-    	
+
     }
     
-    public static void setCantidadPresupuestosRequeridos(int unaCantidad) {
+    public void setCantidadPresupuestosRequeridos(int unaCantidad) {
         cantidadPresupuestosRequeridos = unaCantidad;
     }
     
@@ -148,7 +152,7 @@ public class CompraPendiente {
     
     public boolean validarCondicion(boolean condicion, String mensaje) {
     	if(!condicion) {
-    		enviarMensajeRevisores(mensaje);
+    		enviarMensajeRevisores(mensaje+" para la compra "+this.getId());
     		return false;
     	}
     	return true;
@@ -180,7 +184,17 @@ public class CompraPendiente {
     
     public void enviarMensajeRevisores(String texto) {
     	Mensaje unMensaje = new Mensaje(this, texto);
-    	usuariosRevisores.stream().forEach(unUsuario -> unUsuario.recibirMensaje(unMensaje)); 
+    	//usuariosRevisores.stream().forEach(unUsuario -> unUsuario.recibirMensaje(unMensaje)); 
+    	//TODO borrar lo de abajo y quedarse con esta linea comentada
+    	
+    	Usuario usuario = RepositorioUsuarios.getUsuario("pepe");
+		
+    	//transaction ya activa de antes de entrar al metodo
+    	EntityManager em = PerThreadEntityManagers.getEntityManager();
+    	em.persist(unMensaje);
+		usuario.bandejaDeEntrada.agregarMensaje(unMensaje);
+		
+    	
     }
     
     public void setEntidad(Entidad entidad) {
@@ -195,11 +209,13 @@ public class CompraPendiente {
     }
     
     public void validarCompra() {
+    	System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa se intenta validar la compra "+this.getId());
 	    if(verificarQueEsValida()) {
 			Compra compra = new Compra(proveedor, medioPago, fecha, presupuestos, detalle, usuariosRevisores, etiquetas);
 			entidad.agregarCompra(compra);
-			enviarMensajeRevisores("La compra fue validada.");
-		}    	
+			enviarMensajeRevisores("La compra "+this.getId()+" fue validada.");
+		}
+
     }
     
 }
