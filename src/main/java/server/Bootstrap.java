@@ -3,6 +3,7 @@ package server;
 import java.io.FileNotFoundException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.time.LocalDate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -29,13 +30,15 @@ public class Bootstrap extends AbstractPersistenceTest implements WithGlobalEnti
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		CompraPendiente compra = new CompraPendiente();
+		compra.setFecha(LocalDate.now());
+		compra.getDetalle().setMoneda("ninguna");
 		Usuario usuario = RepositorioUsuarios.crearUsuario("pepe","1234",TipoUsuario.ESTANDAR);
 		transaction.begin();
 		entityManager.persist(compra);
 		transaction.commit();
-		usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 1"));
+		/*usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 1"));
 		usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 2"));
 		usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 3"));
-		usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 4"));
+		usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 4"));*/ //no deja borrar las compras pendientes porque la tabla mensajes se las guarda de FK
 	}
 }

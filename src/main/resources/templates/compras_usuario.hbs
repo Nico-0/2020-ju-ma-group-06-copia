@@ -35,7 +35,11 @@
 					<tr>
 						<td>{{id}}</td>
                         <td><a href="/compra/editar">Editar</a></th>
-                        <td><a href = "a">Borrar</a></td>
+                        <td>
+                        	<form action="/usuario/compras/delete/{{id}}" method="post">
+                        	<input type="submit" value="Borrar" >
+                        	</form>
+                        </td>
 					</tr>
 					{{/each}}
                 </table>

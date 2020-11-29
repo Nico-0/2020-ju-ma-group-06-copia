@@ -159,8 +159,18 @@ public class UsuarioController implements WithGlobalEntityManager{
 		res.redirect("/usuario/crear");
 		return null;		
 	}
-
 	
-
+	public Void borrar_compra(Request req, Response res){	
+		EntityManager em = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = em.getTransaction();
+		String idB = req.params("idBorrado");
+		
+		transaction.begin();
+		em.createQuery("delete from CompraPendiente where id = "+idB).executeUpdate();
+		transaction.commit();
+		
+		res.redirect("/usuario/compras");
+		return null;
+	}
 	
 }
