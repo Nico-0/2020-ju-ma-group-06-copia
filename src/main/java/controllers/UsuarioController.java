@@ -43,7 +43,7 @@ public class UsuarioController implements WithGlobalEntityManager{
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		Map<String, List<CompraPendiente>> model = new HashMap<>();		
 		List<CompraPendiente> compras = entityManager
-				.createQuery("from CompraPendiente")
+				.createQuery("from CompraPendiente", CompraPendiente.class)
 				.getResultList();
 		model.put("compras", compras);
 		return new ModelAndView(model, "compras_usuario.hbs");
@@ -57,6 +57,7 @@ public class UsuarioController implements WithGlobalEntityManager{
 		Long detalle_id = new Long(req.queryParams("detalle"));
 		Long proveedor_id = new Long(req.queryParams("proveedor"));
 		Long medioPago_id = new Long(req.queryParams("medio_pago"));
+		Long criterio_pago_id = new Long(req.queryParams("criterio"));
 		//TODO como tomar el valor de criterioDeSeleccion cuando no es un campo de texto?
 		
 		Detalle detalle = em.find(Detalle.class, detalle_id);
@@ -79,6 +80,7 @@ public class UsuarioController implements WithGlobalEntityManager{
 		compra.setProveedor(proveedor);
 		compra.setMedioPago(medio_pago);
 		compra.setDetalle(detalle);
+		compra.setCriterioSeleccion(criterio_pago_id);
 		
 		transaction.begin();
 		em.persist(compra);

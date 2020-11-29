@@ -33,7 +33,7 @@
                     </tr>
                     {{#each compras}}
 					<tr>
-						<td>{{id}}</td>
+						<td>{{criterioDeSeleccion}}</td>
                         <td><a href="/compra/editar">Editar</a></th>
                         <td><a href = "a">Borrar</a></td>
 					</tr>
@@ -53,10 +53,12 @@
                     <label class = "label2">Medio de Pago</label>
                     <input type="text" id="medio_pago" name="medio_pago" placeholder="Ingrese nuevo id medio de pago..." />
                     <label class = "label2">Criterio Presupuestario</label>
-                    <select class="combo">
-                        <option value="Select">Elija una opción...</option>
-                        <option value="estandar">Más barato</option>
-                        <option value="estandar">Sin creterio</option>
+                    <select class="combo" name="criterio">
+                        <option value="0">Elija una opción...</option>
+                        <option value="1">Sin creterio</option>
+                        <option value="2">Más barato</option>
+                        <option value="3">Más caro</option>
+                        <option value="4">Lo dejo a su criterio</option>
                     </select>
                     <br />
                     <input class = "submit_azul" type="submit" value="Crear" >
