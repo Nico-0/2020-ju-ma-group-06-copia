@@ -8,10 +8,12 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import controllers.BandejaDeEntradaController;
 import controllers.Compras;
+import controllers.CrearEntidadBase;
+import controllers.CrearEntidadJuridica;
 import controllers.Presupuestos;
-import controllers.Entidad;
-import controllers.EntidadJuridica;
-import controllers.EntidadBase;
+import controllers.MenuEntidadesController;
+import controllers.EntidadJuridicaController;
+import controllers.EntidadBaseController;
 import controllers.LoginController;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -30,13 +32,16 @@ public class Router {
 		Spark.staticFiles.location("/public");
 		
 		UsuarioController usuario = new UsuarioController();
-		Entidad entidad = new Entidad();
+		MenuEntidadesController entidad = new MenuEntidadesController();
 		Compras compras = new Compras();
 		Presupuestos presupuestos = new Presupuestos();
-		EntidadJuridica entidadJuridica = new EntidadJuridica();
-		EntidadBase entidadBase = new EntidadBase();
+		EntidadJuridicaController entidadJuridica = new EntidadJuridicaController();
+		EntidadBaseController entidadBase = new EntidadBaseController();
 		LoginController loginController = new LoginController();
 		BandejaDeEntradaController bandejaDeEntrada = new BandejaDeEntradaController();
+		
+		CrearEntidadBase crearEntidadBase = new CrearEntidadBase();
+		CrearEntidadJuridica crearEntidadJuridica = new CrearEntidadJuridica();
 		
 		Spark.before((request, response)-> {
 			if(!request.pathInfo().equals("/login") &&
@@ -56,12 +61,18 @@ public class Router {
 		Spark.post("/login", loginController::login, engine);
 		Spark.get("/usuario", usuario::menuUsuario, engine);
 		
-		Spark.get("/entidades", entidad::login, engine);
+		Spark.get("/entidades", entidad::show, engine);
 		Spark.get("/usuario/compras", usuario::compras,engine);
 		Spark.post("/usuario/compras", usuario::crear_compra);
 		Spark.get("/usuario/bandeja_de_entrada", bandejaDeEntrada::bandejaDeEntrada,engine);
 		Spark.get("/usuario/crear", usuario::crear,engine);
 		Spark.post("/usuario/crear", usuario::creacion);
+		
+		Spark.get("/entidades/crear_entidad_juridica", crearEntidadJuridica::show,engine);
+		Spark.get("/entidades/crear_entidad_base", crearEntidadBase::show,engine);
+		Spark.post("/entidades/crear_entidad_juridica", crearEntidadJuridica::crear,engine);
+		Spark.post("/entidades/crear_entidad_base", crearEntidadBase::crear,engine);
+		
 		
 		Spark.get("/entidades/entidad_juridica", entidad::entidadJuridica,engine);
 		Spark.get("/entidades/entidad_base", entidad::entidadBase,engine);

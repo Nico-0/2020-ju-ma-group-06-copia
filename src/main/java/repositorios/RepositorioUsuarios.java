@@ -1,4 +1,4 @@
-package dominio;
+package repositorios;
 
 import java.io.FileNotFoundException;
 import java.security.NoSuchAlgorithmException;

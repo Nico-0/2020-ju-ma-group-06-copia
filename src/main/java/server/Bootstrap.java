@@ -13,11 +13,11 @@ import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
-import dominio.RepositorioUsuarios;
 import dominio.presupuestos.CompraPendiente;
 import dominio.usuario.Mensaje;
 import dominio.usuario.TipoUsuario;
 import dominio.usuario.Usuario;
+import repositorios.RepositorioUsuarios;
 
 public class Bootstrap extends AbstractPersistenceTest implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps{
 

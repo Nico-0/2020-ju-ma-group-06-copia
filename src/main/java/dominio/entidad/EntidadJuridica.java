@@ -56,4 +56,7 @@ public abstract class EntidadJuridica extends Entidad {
 		return categorias.stream().allMatch(categoria -> categoria.puedeAgregarEntidadesBase());
 	}
 	
+	public String getTipo() {
+		return "Juridica";
+	}
 }

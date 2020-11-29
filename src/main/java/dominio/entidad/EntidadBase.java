@@ -11,6 +11,10 @@ public class EntidadBase extends Entidad {
 
 	private String descripcion;	
 	
+	public EntidadBase() {
+		
+	}
+	
 	public EntidadBase(String nombreFicticio, String descripcion) {
 		Validate.notNull(nombreFicticio, "nombre ficticio faltante");
 		Validate.notNull(descripcion, "descripcion faltante");
@@ -22,4 +26,7 @@ public class EntidadBase extends Entidad {
         return categorias.stream().allMatch(categoria -> categoria.puedeAgregarseAEntidadJuridica());
     }
     
+	public String getTipo() {
+		return "Base";
+	}
 }

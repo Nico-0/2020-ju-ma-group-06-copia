@@ -5,8 +5,12 @@ import spark.Request;
 import spark.Response;
 import spark.Spark;
 
-public class EntidadBase {
+public class EntidadBaseController {
 
+	public ModelAndView crear(Request req, Response res){
+		return new ModelAndView(null, "crearEntidadBase.hbs");
+	}
+	
 	public ModelAndView compras(Request req, Response res){
 		return new ModelAndView(null, "compras.hbs");
 	}

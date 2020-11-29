@@ -45,6 +45,12 @@ public abstract class Entidad {
 	@Transient
 	private GeneradorReporte reporte;
 	
+	public String getNombre() {
+		return nombreFicticio;
+	}
+	
+	public abstract String getTipo();
+	
 	public List<Compra> getCompras() {
 		return compras;
 	}
