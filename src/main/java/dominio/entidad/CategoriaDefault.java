@@ -1,9 +1,13 @@
 package dominio.entidad;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.compra.Compra;
 
@@ -36,19 +40,35 @@ public class CategoriaDefault extends Categoria {
     }
 
 	public void setBloquearNuevosEgresos(boolean bloquearNuevasCompras) {
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
 		this.bloquearNuevasCompras = bloquearNuevasCompras;
+		transaction.commit();
 	}
 
 	public void setEgresosMaximos(double egresosMaximos) {
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
 		this.egresosMaximos = egresosMaximos;
+		transaction.commit();
     }
 
 	public void setBloquarAgregarEntidadesBase(boolean bloquearAgregarEntidadesBase) {
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
 		this.bloquearAgregarEntidadesBase = bloquearAgregarEntidadesBase;
+		transaction.commit();
 	} 
 
 	public void setBloquearFormarParteEntidadJuridica(boolean bloquearFormarParteEntidadJuridica) {
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
 		this.bloquearFormarParteEntidadJuridica = bloquearFormarParteEntidadJuridica;
+		transaction.commit();
     }
 
     public void validarAgregarEntidadBase(EntidadJuridica entidad, EntidadBase entidadBase){
@@ -98,10 +118,14 @@ public class CategoriaDefault extends Categoria {
     }
     
     public String getUrlView() {
-    	return "/categorias/" + id.toString();
+    	return "/categorias/categorias_default/" + id.toString();
     }
     
     public String getUrlDelete() {
     	return "/categorias/" + id.toString() + "/delete";
+    }
+    
+    public String getUrlEditar() {
+    	return "/categorias/categorias_default/" + id.toString() + "/editar";
     }
 }

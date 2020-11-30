@@ -12,6 +12,7 @@ import controllers.CrearCategoriaDefault;
 import controllers.CrearEmpresa;
 import controllers.CrearEntidadBase;
 import controllers.CrearOrganizacionSocial;
+import controllers.EditarCategoriaDefault;
 import controllers.Presupuestos;
 import controllers.MenuEntidadesController;
 import controllers.EntidadJuridicaController;
@@ -55,6 +56,7 @@ public class Router {
 		// Categorias
 		MenuCategorias menuCategorias = new MenuCategorias();
 		CrearCategoriaDefault crearCategoriaDefault = new CrearCategoriaDefault();
+		EditarCategoriaDefault editarCategoriaDefault = new EditarCategoriaDefault();
 		
 		Spark.before((request, response)-> {
 			if(!request.pathInfo().equals("/login") &&
@@ -97,8 +99,11 @@ public class Router {
 		Spark.get("/entidades/entidades_base/:id", entidad::mostrarEntidadBase,engine);
 		
 		Spark.get("/categorias", menuCategorias::show, engine);
-		Spark.get("categorias/:id", menuCategorias::mostrarCategoria, engine);
 		Spark.get("/categorias/:id/delete", menuCategorias::borrarCategoria, engine);
+		Spark.get("categorias/categorias_default/:id", menuCategorias::mostrarCategoriaDefault, engine);
+		
+		Spark.get("/categorias/categorias_default/:id/editar", editarCategoriaDefault::show, engine);
+		Spark.post("/categorias/categorias_default/:id/editar", editarCategoriaDefault::editar, engine);
 		
 		Spark.get("/categorias/crear_categoria_default", crearCategoriaDefault::show, engine);
 		Spark.post("/categorias/crear_categoria_default", crearCategoriaDefault::crear, engine);

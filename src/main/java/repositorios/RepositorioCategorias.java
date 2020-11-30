@@ -40,28 +40,31 @@ public class RepositorioCategorias {
 
 	public static void crearCategoriaDefault(String nombre, boolean bloquearNuevasCompras,
 			boolean bloquearAgregarEntidadesBase, boolean bloquearFormarParteEntidadJuridica, Long egresosMaximos) {
-
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		CategoriaDefault categoriaDefault = new CategoriaDefault(nombre, bloquearNuevasCompras, 
 				bloquearAgregarEntidadesBase, bloquearFormarParteEntidadJuridica, egresosMaximos);
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		entityManager.persist(categoriaDefault);
-		transaction.commit();
+		transaction.commit();;
 	}
-
+	
+	public static void editarCategoriaDefault(Long id, String nombre, boolean bloquearNuevasCompras,
+			boolean bloquearAgregarEntidadesBase, boolean bloquearFormarParteEntidadJuridica, Long egresosMaximos) {
+		Categoria categoriaDefault = getCategoria(id);
+		categoriaDefault.setBloquarAgregarEntidadesBase(bloquearAgregarEntidadesBase);
+		categoriaDefault.setBloquearFormarParteEntidadJuridica(bloquearFormarParteEntidadJuridica);
+		categoriaDefault.setBloquearNuevosEgresos(bloquearNuevasCompras);
+		categoriaDefault.setEgresosMaximos(egresosMaximos);
+		categoriaDefault.setNombre(nombre);
+	}
+	
 	public static Categoria getCategoria(Long id) {
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		Categoria categoria;
-		List<Categoria> listaCategorias = entityManager
+		return (Categoria) entityManager
 				.createQuery("from Categoria where id = :id")
 				.setParameter("id", id)
-				.getResultList();
-		if(!listaCategorias.isEmpty()) {
-			categoria = listaCategorias.get(0);
-			return categoria;
-		}		
-		return null;
+				.getSingleResult();
 	}
 
 	public static List<Entidad> getEntidades(Long id) {

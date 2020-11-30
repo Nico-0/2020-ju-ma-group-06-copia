@@ -3,10 +3,14 @@ package dominio.entidad;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.compra.Compra;
 import repositorios.RepositorioCategorias;
@@ -29,4 +33,11 @@ public abstract class Categoria {
     public List<Entidad> getEntidades() {
     	return RepositorioCategorias.getEntidades(id);
     }
+	public void setNombre(String nombre) {
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		this.nombre = nombre;
+		transaction.commit();
+	}
 }

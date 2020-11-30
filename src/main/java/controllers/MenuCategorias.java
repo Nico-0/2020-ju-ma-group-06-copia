@@ -13,9 +13,9 @@ public class MenuCategorias {
 		return new ModelAndView(new RepositorioCategorias(), "menuCategorias.hbs");
 	}
 	
-	public ModelAndView mostrarCategoria(Request req, Response res){
+	public ModelAndView mostrarCategoriaDefault(Request req, Response res){
 		Categoria categoria = RepositorioCategorias.getCategoria(new Long(req.params("id")));
-		return new ModelAndView(categoria, "mostrarCategoria.hbs");
+		return new ModelAndView(categoria, "mostrarCategoriaDefault.hbs");
 	}
 
 	public ModelAndView borrarCategoria(Request req, Response res){
