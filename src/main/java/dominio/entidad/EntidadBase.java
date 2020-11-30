@@ -32,6 +32,10 @@ public class EntidadBase extends Entidad {
 	
 	@Override
 	public String getUrlView() {
-		return "/entidades/entidades_base/" + id.toString();
+		return "/entidades/entidades_base/" + id.toString() + "/";
+	}
+	
+	public String getDescripcion() {
+		return descripcion;
 	}
 }

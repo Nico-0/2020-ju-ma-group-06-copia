@@ -31,13 +31,9 @@ public abstract class Categoria {
     public abstract boolean puedeAgregarEntidadesBase();
     
     public List<Entidad> getEntidades() {
-    	return RepositorioCategorias.getEntidades(id);
+    	return RepositorioCategorias.getInstance().getEntidades(id);
     }
 	public void setNombre(String nombre) {
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
-		transaction.begin();
 		this.nombre = nombre;
-		transaction.commit();
 	}
 }

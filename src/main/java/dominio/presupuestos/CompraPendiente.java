@@ -187,7 +187,7 @@ public class CompraPendiente {
     	//usuariosRevisores.stream().forEach(unUsuario -> unUsuario.recibirMensaje(unMensaje)); 
     	//TODO borrar lo de abajo y quedarse con esta linea comentada
     	
-    	Usuario usuario = RepositorioUsuarios.getUsuario("pepe");
+    	Usuario usuario = RepositorioUsuarios.getInstance().getUsuario("pepe");
 		
     	//transaction ya activa de antes de entrar al metodo
     	EntityManager em = PerThreadEntityManagers.getEntityManager();

@@ -20,8 +20,12 @@ public class Detalle {
     
 	String moneda;
 	
+	public List<Item> getItems() {
+		return items;
+	}
+	
     public double getTotal() {
-        return items.stream().mapToDouble(item -> item.get_valor_total()).sum();
+        return items.stream().mapToDouble(item -> item.getValorTotal()).sum();
     }
 
     public boolean esIgualA(Detalle detalle) {

@@ -28,7 +28,7 @@ public class LoginController {
 		String contrasenia = req.queryParams("contrasenia");
 		//String tipoUsuario = req.queryParams("tipoUsuario");
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		Usuario usuario = RepositorioUsuarios.getUsuario(nombre);
+		Usuario usuario = RepositorioUsuarios.getInstance().getUsuario(nombre);
 		if(usuario != null && usuario.laContraseniaEs(contrasenia)) {
 			res.cookie("usuario_logueado", nombre);
 			res.redirect("/");

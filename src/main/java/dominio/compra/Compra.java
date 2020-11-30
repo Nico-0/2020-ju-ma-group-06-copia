@@ -49,6 +49,34 @@ public class Compra {
 		return detalle.getTotal();
 	}
 
+	public String getId() {
+		return id.toString();
+	}
+	
+	public List<Presupuesto> getPresupuestos() {
+		return presupuestos;
+	}
+	
+	public List<Item> getDetalle() {
+		return detalle.getItems();
+	}
+	
+	public Proveedor getProveedor() {
+		return proveedor;
+	}
+	
+	public String getMedioPago() {
+		return medioPago.toString();
+	}
+	
+	public String getDocumentoComercial() {
+		return documentoComercial.toString();
+	}
+	
+	public List<String> getEtiquetas() {
+		return etiquetas;
+	}
+	
 	public String mes() {
 		Month mes = fecha.getMonth();
 		String nombre = mes.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
@@ -91,10 +119,6 @@ public class Compra {
 	
 	public boolean esDelMes(String mes) {
 		return this.mes().equals(mes);
-	}
-	
-	public List<String> getEtiquetas() {
-		return etiquetas;
 	}
 	
 	public void agregarEtiqueta(String etiqueta) {

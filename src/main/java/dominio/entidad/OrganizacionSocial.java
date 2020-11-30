@@ -23,6 +23,6 @@ public class OrganizacionSocial extends EntidadJuridica {
 	
 	@Override
 	public String getUrlView() {
-		return "/entidades/organizaciones_sociales/" + id.toString();
+		return "/entidades/organizaciones_sociales/" + id.toString() + "/";
 	}
 }

@@ -9,16 +9,25 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 import dominio.usuario.TipoUsuario;
 import dominio.usuario.Usuario;
 
-public class RepositorioUsuarios {
+public class RepositorioUsuarios implements WithGlobalEntityManager {
 
-	public static Usuario getUsuario(String nombre) {
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+	private static RepositorioUsuarios instance = null;
+	
+	public static RepositorioUsuarios getInstance(){
+		if (instance == null) {
+			instance = new RepositorioUsuarios();
+		}
+		return instance;
+	}
+	
+	public Usuario getUsuario(String nombre) {
 		Usuario usuario;
-		List<Usuario> listaUsuarios = entityManager
+		List<Usuario> listaUsuarios = entityManager()
 				.createQuery("from Usuario where nombre = :nombre")
 				.setParameter("nombre", nombre)
 				.getResultList();
@@ -29,13 +38,12 @@ public class RepositorioUsuarios {
 		return null;
 	}
 
-	public static Usuario crearUsuario(String nombre, String contrasenia, TipoUsuario tipoUsuario) throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
+	public Usuario crearUsuario(String nombre, String contrasenia, TipoUsuario tipoUsuario) throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
+		EntityTransaction transaction = entityManager().getTransaction();
 		Usuario usuario = new Usuario(nombre,contrasenia,tipoUsuario);
 		transaction.begin();
-		entityManager.persist(usuario.bandejaDeEntrada);
-		entityManager.persist(usuario);	
+		entityManager().persist(usuario.bandejaDeEntrada);
+		entityManager().persist(usuario);	
 		transaction.commit();
 		return usuario;
 	}

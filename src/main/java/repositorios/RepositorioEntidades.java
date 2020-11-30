@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 import dominio.compra.Item;
 import dominio.entidad.Empresa;
@@ -17,66 +18,59 @@ import dominio.entidad.OrganizacionSocial;
 import dominio.entidad.TipoEmpresa;
 import dominio.usuario.Usuario;
 
-public class RepositorioEntidades {
+public class RepositorioEntidades implements WithGlobalEntityManager{
 	
-
-	public static void crearEntidadBase(String nombre, String descripcion) {
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+	private static RepositorioEntidades instance = null;
+	
+	public static RepositorioEntidades getInstance(){
+		if (instance == null) {
+			instance = new RepositorioEntidades();
+		}
+		return instance;
+	}
+	
+	public void crearEntidadBase(String nombre, String descripcion) {
 		EntidadBase entidadBase = new EntidadBase(nombre, descripcion);
-		EntityTransaction transaction = entityManager.getTransaction();
+		EntityTransaction transaction = entityManager().getTransaction();
 		transaction.begin();
-		entityManager.persist(entidadBase);
+		entityManager().persist(entidadBase);
 		transaction.commit();
 	}
 	
-	public static void crearOrganizacionSocial(String razonSocial, String nombre, String cuit, String direccionPostal) {
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+	public void crearOrganizacionSocial(String razonSocial, String nombre, String cuit, String direccionPostal) {
 		List<EntidadBase> entidadesBase = new ArrayList<EntidadBase>();
 		OrganizacionSocial organizacionSocial = new OrganizacionSocial(razonSocial, nombre, cuit, direccionPostal, entidadesBase);
-		EntityTransaction transaction = entityManager.getTransaction();
+		EntityTransaction transaction = entityManager().getTransaction();
 		transaction.begin();
-		entityManager.persist(organizacionSocial);
+		entityManager().persist(organizacionSocial);
 		transaction.commit();
 	}
 	
-	public static void crearEmpresa(String razonSocial, String nombre, String cuit, String direccionPostal, TipoEmpresa tipoEmpresa) {
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+	public void crearEmpresa(String razonSocial, String nombre, String cuit, String direccionPostal, TipoEmpresa tipoEmpresa) {
 		List<EntidadBase> entidadesBase = new ArrayList<EntidadBase>();
 		Empresa empresa = new Empresa(razonSocial, nombre, cuit, direccionPostal, tipoEmpresa, entidadesBase);
-		EntityTransaction transaction = entityManager.getTransaction();
+		EntityTransaction transaction = entityManager().getTransaction();
 		transaction.begin();
-		entityManager.persist(empresa);
+		entityManager().persist(empresa);
 		transaction.commit();
 	}
 	
 	public List<Entidad> getEntidades() {
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		List<Entidad> listaEntidades = entityManager
-				.createQuery("from Entidad")
-				.getResultList();
-		return listaEntidades;
+		return entityManager().createQuery("from Entidad").getResultList();
 	}
 
-	public static void borrarEntidad(Long id) {
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
-		Entidad entidad = getEntidad(id);
+	public void borrarEntidad(Long id) {
+		EntityTransaction transaction = entityManager().getTransaction();
+		Entidad entidad = this.getEntidad(id);
 		transaction.begin();
-		entityManager.remove(entidad);
+		entityManager().remove(entidad);
 		transaction.commit();
 	}
 
-	private static Entidad getEntidad(Long id) {
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		Entidad entidad;
-		List<Entidad> listaEntidades = entityManager
+	public Entidad getEntidad(Long id) {
+		return (Entidad) entityManager()
 				.createQuery("from Entidad where id = :id")
 				.setParameter("id", id)
-				.getResultList();
-		if(!listaEntidades.isEmpty()) {
-			entidad = listaEntidades.get(0);
-			return entidad;
-		}		
-		return null;
+				.getSingleResult();
 	}
 }

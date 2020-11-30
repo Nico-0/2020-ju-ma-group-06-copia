@@ -14,13 +14,13 @@ public class MenuCategorias {
 	}
 	
 	public ModelAndView mostrarCategoriaDefault(Request req, Response res){
-		Categoria categoria = RepositorioCategorias.getCategoria(new Long(req.params("id")));
+		Categoria categoria = RepositorioCategorias.getInstance().getCategoria(new Long(req.params("id")));
 		return new ModelAndView(categoria, "mostrarCategoriaDefault.hbs");
 	}
 
 	public ModelAndView borrarCategoria(Request req, Response res){
 		Long id = new Long(req.params("id"));
-		RepositorioCategorias.borrarCategoria(id);
+		RepositorioCategorias.getInstance().borrarCategoria(id);
 		res.redirect("/categorias");
 		return null;
 	}

@@ -40,35 +40,19 @@ public class CategoriaDefault extends Categoria {
     }
 
 	public void setBloquearNuevosEgresos(boolean bloquearNuevasCompras) {
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
-		transaction.begin();
 		this.bloquearNuevasCompras = bloquearNuevasCompras;
-		transaction.commit();
 	}
 
 	public void setEgresosMaximos(double egresosMaximos) {
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
-		transaction.begin();
 		this.egresosMaximos = egresosMaximos;
-		transaction.commit();
     }
 
 	public void setBloquarAgregarEntidadesBase(boolean bloquearAgregarEntidadesBase) {
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
-		transaction.begin();
 		this.bloquearAgregarEntidadesBase = bloquearAgregarEntidadesBase;
-		transaction.commit();
 	} 
 
 	public void setBloquearFormarParteEntidadJuridica(boolean bloquearFormarParteEntidadJuridica) {
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
-		transaction.begin();
 		this.bloquearFormarParteEntidadJuridica = bloquearFormarParteEntidadJuridica;
-		transaction.commit();
     }
 
     public void validarAgregarEntidadBase(EntidadJuridica entidad, EntidadBase entidadBase){

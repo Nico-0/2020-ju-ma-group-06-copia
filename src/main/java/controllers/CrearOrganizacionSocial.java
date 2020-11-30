@@ -17,7 +17,7 @@ public class CrearOrganizacionSocial {
 		String direccionPostal= req.queryParams("direccion_postal");
 		String cuit = req.queryParams("cuit");
 		
-		RepositorioEntidades.crearOrganizacionSocial(razonSocial, nombre, cuit, direccionPostal);
+		RepositorioEntidades.getInstance().crearOrganizacionSocial(razonSocial, nombre, cuit, direccionPostal);
 		res.redirect("/entidades");
 		return null;
 	}

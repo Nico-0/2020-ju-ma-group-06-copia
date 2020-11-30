@@ -23,6 +23,22 @@ public abstract class EntidadJuridica extends Entidad {
 	@OneToMany
 	private List<EntidadBase> entidades_usadas = new ArrayList<EntidadBase>();
 	
+	public String getRazonSocial() {
+		return razonSocial;
+	}
+	
+	public String getCuit() {
+		return cuit;
+	}
+	
+	public String getDireccionPostal() {
+		return direccionPostal;
+	}
+	
+	public String getCodigoInscripcion() {
+		return codigoInscripcion;
+	}
+	
 	public EntidadJuridica() {
 		
 	}

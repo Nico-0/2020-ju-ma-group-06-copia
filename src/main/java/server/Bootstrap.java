@@ -32,7 +32,7 @@ public class Bootstrap extends AbstractPersistenceTest implements WithGlobalEnti
 		CompraPendiente compra = new CompraPendiente();
 		compra.setFecha(LocalDate.now());
 		compra.getDetalle().setMoneda("ninguna");
-		Usuario usuario = RepositorioUsuarios.getUsuario("pepe");
+		Usuario usuario = RepositorioUsuarios.getInstance().getUsuario("pepe");
 		//Usuario usuario = RepositorioUsuarios.crearUsuario("pepe", "1234", TipoUsuario.ESTANDAR);
 		transaction.begin();
 		entityManager.persist(compra);

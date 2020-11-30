@@ -9,7 +9,7 @@ import spark.Response;
 public class EditarCategoriaDefault {
 	
 	public ModelAndView show(Request req, Response res) {
-		Categoria categoria = RepositorioCategorias.getCategoria(new Long(req.params("id")));
+		Categoria categoria = RepositorioCategorias.getInstance().getCategoria(new Long(req.params("id")));
 		return new ModelAndView(categoria, "editarCategoriaDefault.hbs");
 	}
 	
@@ -24,7 +24,7 @@ public class EditarCategoriaDefault {
 			egresosMaximos = (long) 0;
 		else
 			egresosMaximos = Long.parseLong(req.queryParams("egresosMaximos"));
-		RepositorioCategorias.editarCategoriaDefault(id, nombre, bloquearNuevasCompras, bloquearAgregarEntidadesBase, bloquearFormarParteEntidadJuridica, egresosMaximos);
+		RepositorioCategorias.getInstance().editarCategoriaDefault(id, nombre, bloquearNuevasCompras, bloquearAgregarEntidadesBase, bloquearFormarParteEntidadJuridica, egresosMaximos);
 		res.redirect("/categorias/categorias_default/" + id.toString());
 		return null;
 	}

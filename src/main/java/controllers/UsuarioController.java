@@ -37,7 +37,7 @@ import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 public class UsuarioController implements WithGlobalEntityManager{
 
 	public ModelAndView menuUsuario(Request req, Response res) {
-		Usuario usuario = RepositorioUsuarios.getUsuario(req.cookie("usuario_logueado"));
+		Usuario usuario = RepositorioUsuarios.getInstance().getUsuario(req.cookie("usuario_logueado"));
 		return new ModelAndView(usuario, "menu_usuario.hbs");
 	}
 	

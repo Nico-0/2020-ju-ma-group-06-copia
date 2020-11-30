@@ -32,7 +32,7 @@ public class BandejaDeEntradaController implements WithGlobalEntityManager{
 
 
 	public ModelAndView bandejaDeEntrada(Request req, Response res){
-		Usuario usuario = RepositorioUsuarios.getUsuario(req.cookie("usuario_logueado"));
+		Usuario usuario = RepositorioUsuarios.getInstance().getUsuario(req.cookie("usuario_logueado"));
 		return new ModelAndView(usuario, "bandeja_entrada.hbs");
 	}
 }

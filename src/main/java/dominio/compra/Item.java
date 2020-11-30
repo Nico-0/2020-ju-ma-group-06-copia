@@ -15,6 +15,19 @@ public class Item {
 	private int cantidad;
 	public double valorUnitario;
 
+	public String getDescripcion() {
+		return descripcion;
+	}
+	
+	public String getCantidad() {
+		return String.valueOf(cantidad);
+	}
+	
+	public String getValorUnitario() {
+		return String.valueOf(valorUnitario);
+	}
+	
+	
 	public Item() { //rompe hibernate sin esto al crear item en la app
 	}
 	
@@ -27,7 +40,7 @@ public class Item {
 		this.cantidad = cantidad;
 	}
 
-	public double get_valor_total() {
+	public double getValorTotal() {
 		return valorUnitario * cantidad;
 	}
 

@@ -89,5 +89,13 @@ public abstract class Entidad {
 
     public long getId(){
     	  return this.id;
-     } 
+     }
+    
+    public List<Categoria> getCategorias() {
+    	return categorias;
+    }
+    
+    public String getFecha() {
+    	return fecha.toString();
+    }
 }

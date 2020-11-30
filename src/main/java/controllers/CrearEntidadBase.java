@@ -21,7 +21,7 @@ public class CrearEntidadBase {
 		// Agregar entidad base a la base de datos
 		String nombre = req.queryParams("nombre");
 		String descripcion = req.queryParams("descripcion");
-		RepositorioEntidades.crearEntidadBase(nombre,descripcion);
+		RepositorioEntidades.getInstance().crearEntidadBase(nombre,descripcion);
 		res.redirect("/entidades");
 		return null;
 	}

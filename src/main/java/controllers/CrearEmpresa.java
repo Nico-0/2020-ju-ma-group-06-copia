@@ -18,7 +18,7 @@ public class CrearEmpresa {
 		String cuit = req.queryParams("cuit");
 		TipoEmpresa tipoEmpresa = toTipoEmpresa(req.queryParams("tipo_empresa"));
 		
-		RepositorioEntidades.crearEmpresa(razonSocial, nombre, cuit, direccionPostal, tipoEmpresa);
+		RepositorioEntidades.getInstance().crearEmpresa(razonSocial, nombre, cuit, direccionPostal, tipoEmpresa);
 		res.redirect("/entidades");
 		return null;
 	}

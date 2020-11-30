@@ -1,13 +1,26 @@
 {{#partial "contenido"}}
 
 <form class = "content">
-    <a class = "link_boton" href = "entidad_juridica/compras">  Compras  </a>
-    <br/>
-    <a class = "link_boton" href = "entidad_juridica/reportes_mensuales">  Ver reporte mensual   </a>
-    <br/>
-    <a class = "link_boton" href = "entidad_juridica/categorias">  Categorías  </a>
-    <br/>
-    <a class = "link_boton" href = "entidad_juridica/entidades_base">  Entidades  </a>
+
+	Id: {{ id }}	<br/>
+	Nombre: {{ nombre }}	<br/>
+	
+	Razon Social: {{ razonSocial }}	<br/>
+	CUIT:  {{ cuit }}	<br/>
+	Direccion postal: {{ direccionPostal }}	<br/>
+	Codigo de inscripcion: {{ codigoInscripcion }}	<br/>
+	
+	Tabla de compras:
+	
+	Tabla de categorias:
+	
+	<a class = "link_boton" href = "agregar_categoria">  Agregar Categoria  </a>
+	
+	Tabla de entidades:
+	
+	<a class = "link_boton" href = "agregar_entidad_base">  Agregar Entidad Base  </a>
+
+    <a class = "link_boton" href = "entidad_juridica/reportes_mensuales">  Ver reporte mensual ???  </a>
     <br/>
     <a class = "link_boton" href = "/entidades">  Volver  </a>
 </form>

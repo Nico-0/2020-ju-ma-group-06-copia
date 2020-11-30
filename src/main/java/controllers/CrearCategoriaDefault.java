@@ -21,8 +21,8 @@ public class CrearCategoriaDefault {
 			egresosMaximos = (long) 0;
 		else
 			egresosMaximos = Long.parseLong(req.queryParams("egresosMaximos"));
-		RepositorioCategorias.crearCategoriaDefault(nombre, bloquearNuevasCompras, bloquearAgregarEntidadesBase,
-				bloquearFormarParteEntidadJuridica, egresosMaximos);
+		RepositorioCategorias.getInstance().crearCategoriaDefault(nombre, bloquearNuevasCompras,
+				bloquearAgregarEntidadesBase, bloquearFormarParteEntidadJuridica, egresosMaximos);
 		res.redirect("/categorias");
 		return null;
 	}
