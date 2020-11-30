@@ -6,6 +6,8 @@ import dominio.compra.MedioPago;
 import dominio.compra.Proveedor;
 import dominio.presupuestos.CompraPendiente;
 import dominio.presupuestos.Detalle;
+import dominio.presupuestos.RepositorioComprasPendientes;
+import dominio.usuario.Mensaje;
 import dominio.usuario.TipoUsuario;
 import dominio.usuario.Usuario;
 import repositorios.RepositorioUsuarios;
@@ -101,6 +103,18 @@ public class UsuarioController implements WithGlobalEntityManager{
 		return null;	
 	}
 	
+	public Void validar_compras(Request req, Response res){
+		EntityManager em = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = em.getTransaction();
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa se validan compras");
+		
+		transaction.begin();
+		RepositorioComprasPendientes.getInstance().validarCompras();
+		transaction.commit();
+		
+		res.redirect("/compras");
+		return null;
+	}
 	public ModelAndView crear(Request req, Response res){
 		return new ModelAndView(null, "crear_compra.hbs");
 	}
@@ -181,6 +195,18 @@ public class UsuarioController implements WithGlobalEntityManager{
 		transaction.commit();
 		
 		res.redirect("/compras");
+		return null;
+	}
+	
+	public Void limpiar_bandeja(Request req, Response res){	
+		EntityManager em = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = em.getTransaction();
+		
+		transaction.begin();
+		em.createQuery("delete from Mensaje").executeUpdate();
+		transaction.commit();
+		
+		res.redirect("/bandeja_de_mensajes");
 		return null;
 	}
 	

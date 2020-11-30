@@ -32,7 +32,7 @@ public class Usuario {
 	private byte[] salt;
 	
 	@OneToOne(fetch = FetchType.LAZY)
-	public BandejaDeMensajes bandejaDeEntrada = new BandejaDeMensajes();
+	public BandejaDeMensajes bandejaDeEntrada;
 	
 	private TipoUsuario tipoUsuario;
 	
@@ -54,6 +54,8 @@ public class Usuario {
 		this.nombre = usuario;
 		this.hashedPassword = hashearContrasenia(contrasenia);
 		this.tipoUsuario = tipoUsuario;
+		
+		this.bandejaDeEntrada = new BandejaDeMensajes();
 	}
 	
 	private void inicializarSalt() {
