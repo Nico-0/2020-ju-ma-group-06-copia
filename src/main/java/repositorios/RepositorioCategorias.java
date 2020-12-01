@@ -22,7 +22,7 @@ import dominio.presupuestos.CompraPendiente;
 import dominio.presupuestos.RepositorioComprasPendientes;
 import dominio.usuario.Usuario;
 
-public class RepositorioCategorias implements WithGlobalEntityManager {
+public class RepositorioCategorias {
 	private static RepositorioCategorias instance = null;
 	
 	public static RepositorioCategorias getInstance(){
@@ -33,31 +33,35 @@ public class RepositorioCategorias implements WithGlobalEntityManager {
 	}
 	
 	public List<Categoria> getCategorias() {
-		return entityManager().createQuery("from Categoria").getResultList();
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		return entityManager.createQuery("from Categoria").getResultList();
 	}
 
 	public void borrarCategoria(Long id) {
 		Categoria categoria = this.getCategoria(id);
-		EntityTransaction transaction = entityManager().getTransaction();
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
-		entityManager().remove(categoria);
+		entityManager.remove(categoria);
 		transaction.commit();
 	}
 
 	public void crearCategoriaDefault(String nombre, boolean bloquearNuevasCompras,
 			boolean bloquearAgregarEntidadesBase, boolean bloquearFormarParteEntidadJuridica, Long egresosMaximos) {
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		CategoriaDefault categoriaDefault = new CategoriaDefault(nombre, bloquearNuevasCompras, 
 				bloquearAgregarEntidadesBase, bloquearFormarParteEntidadJuridica, egresosMaximos);
-		EntityTransaction transaction = entityManager().getTransaction();
+		final EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
-		entityManager().persist(categoriaDefault);
+		entityManager.persist(categoriaDefault);
 		transaction.commit();
 	}
 	
 	public void editarCategoriaDefault(Long id, String nombre, boolean bloquearNuevasCompras,
 			boolean bloquearAgregarEntidadesBase, boolean bloquearFormarParteEntidadJuridica, Long egresosMaximos) {
 		Categoria categoriaDefault = getCategoria(id);
-		EntityTransaction transaction = entityManager().getTransaction();
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		final EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		categoriaDefault.setBloquarAgregarEntidadesBase(bloquearAgregarEntidadesBase);
 		categoriaDefault.setBloquearFormarParteEntidadJuridica(bloquearFormarParteEntidadJuridica);
@@ -68,13 +72,15 @@ public class RepositorioCategorias implements WithGlobalEntityManager {
 	}
 	
 	public Categoria getCategoria(Long id) {
-		return (Categoria) entityManager()
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		return (Categoria) entityManager
 				.createQuery("from Categoria where id = :id")
 				.setParameter("id", id)
 				.getSingleResult();
 	}
 
 	public List<Entidad> getEntidades(Long id) {
-		return entityManager().createQuery("from Entidad").getResultList();
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		return entityManager.createQuery("from Entidad").getResultList();
 	}
 }

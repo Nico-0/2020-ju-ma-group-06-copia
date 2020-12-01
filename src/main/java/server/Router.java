@@ -13,10 +13,9 @@ import controllers.CrearEmpresa;
 import controllers.CrearEntidadBase;
 import controllers.CrearOrganizacionSocial;
 import controllers.EditarCategoriaDefault;
+import controllers.EditarCategoriasDeEntidad;
 import controllers.Presupuestos;
 import controllers.MenuEntidadesController;
-import controllers.EntidadJuridicaController;
-import controllers.EntidadBaseController;
 import controllers.LoginController;
 import controllers.MenuCategorias;
 import spark.Spark;
@@ -39,8 +38,6 @@ public class Router {
 		MenuEntidadesController entidad = new MenuEntidadesController();
 		Compras compras = new Compras();
 		Presupuestos presupuestos = new Presupuestos();
-		EntidadJuridicaController entidadJuridica = new EntidadJuridicaController();
-		EntidadBaseController entidadBase = new EntidadBaseController();
 		
 		// Login
 		LoginController loginController = new LoginController();
@@ -52,6 +49,7 @@ public class Router {
 		CrearEntidadBase crearEntidadBase = new CrearEntidadBase();
 		CrearOrganizacionSocial crearOrganizacionSocial = new CrearOrganizacionSocial();
 		CrearEmpresa crearEmpresa = new CrearEmpresa();
+		EditarCategoriasDeEntidad editarCategoriasDeEntidad = new EditarCategoriasDeEntidad();
 		
 		// Categorias
 		MenuCategorias menuCategorias = new MenuCategorias();
@@ -74,7 +72,6 @@ public class Router {
 		
 		Spark.get("/login", loginController::show, engine);
 		Spark.post("/login", loginController::login, engine);
-		Spark.get("/usuario", usuario::menuUsuario, engine);
 		
 		Spark.get("/entidades", entidad::show, engine);
 		Spark.get("/compras", usuario::compras,engine);
@@ -86,7 +83,8 @@ public class Router {
 		Spark.post("/compras/delete/:idBorrado", usuario::borrar_compra);
 		Spark.get("/usuario/crear", usuario::crear,engine);
 		Spark.post("/usuario/crear", usuario::creacion);
-		
+	
+		// Menu entidades
 		Spark.get("/entidades/crear_empresa", crearEmpresa::show,engine);
 		Spark.get("/entidades/crear_organizacion_social", crearOrganizacionSocial::show,engine);
 		Spark.get("/entidades/crear_entidad_base", crearEntidadBase::show,engine);
@@ -96,10 +94,11 @@ public class Router {
 		
 		Spark.get("/entidades/:id/delete", entidad::borrarEntidad, engine);
 		
-		Spark.get("/entidades/organizaciones_sociales/:id", entidad::mostrarOrganizacionSocial, engine);
-		Spark.get("/entidades/empresas/:id", entidad::mostrarEmpresa,engine);
-		Spark.get("/entidades/entidades_base/:id", entidad::mostrarEntidadBase,engine);
+		Spark.get("/entidades/organizaciones_sociales/:id/", entidad::mostrarOrganizacionSocial, engine);
+		Spark.get("/entidades/empresas/:id/", entidad::mostrarEmpresa,engine);
+		Spark.get("/entidades/entidades_base/:id/", entidad::mostrarEntidadBase,engine);
 		
+		// Menu categorias
 		Spark.get("/categorias", menuCategorias::show, engine);
 		Spark.get("/categorias/:id/delete", menuCategorias::borrarCategoria, engine);
 		Spark.get("categorias/categorias_default/:id", menuCategorias::mostrarCategoriaDefault, engine);
@@ -116,15 +115,9 @@ public class Router {
 
 		Spark.get("/presupuesto/editar", presupuestos::editarPresupuesto, engine);
 		
-		Spark.get("/entidades/entidad_juridica/compras", entidadJuridica::compras, engine);
-		Spark.get("/entidades/entidad_juridica/reportes_mensuales", entidadJuridica::reportesMensuales, engine);
-		Spark.get("/entidades/entidad_juridica/categorias", entidadJuridica::categorias, engine);
-		Spark.get("/entidades/entidad_juridica/entidades_base", entidadJuridica::entidadesBase, engine);
-
-		Spark.get("/entidades/entidad_base/compras", entidadBase::compras, engine);
-		Spark.get("/entidades/entidad_base/reportes_mensuales", entidadBase::reportesMensuales, engine);
-		Spark.get("/entidades/entidad_base/categorias", entidadBase::categorias, engine);	
-		
+		Spark.get("/entidades/:tipo_entidad/:id_entidad/editar_categorias", editarCategoriasDeEntidad::show, engine);
+		Spark.get("/entidades/:tipo_entidad/:id_entidad/agregar_categoria/:id_categoria", editarCategoriasDeEntidad::agregarCategoria, engine);
+		Spark.get("/entidades/:tipo_entidad/:id_entidad/quitar_categoria/:id_categoria", editarCategoriasDeEntidad::quitarCategoria, engine);
 		
 		Spark.get("/usuario/crear/erroritem", (request, response) -> {
 			return "no existe detalle con ese ID";
@@ -137,6 +130,11 @@ public class Router {
 		});
 		Spark.get("/compras/errorproveedor", (request, response) -> {
 			return "no existe proveedor con ese ID";
+		});
+		
+		Spark.after((request, response) -> {
+            PerThreadEntityManagers.getEntityManager();
+            PerThreadEntityManagers.closeEntityManager();
 		});
 		
 	}

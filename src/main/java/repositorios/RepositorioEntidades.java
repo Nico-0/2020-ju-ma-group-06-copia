@@ -18,7 +18,7 @@ import dominio.entidad.OrganizacionSocial;
 import dominio.entidad.TipoEmpresa;
 import dominio.usuario.Usuario;
 
-public class RepositorioEntidades implements WithGlobalEntityManager{
+public class RepositorioEntidades {
 	
 	private static RepositorioEntidades instance = null;
 	
@@ -30,45 +30,51 @@ public class RepositorioEntidades implements WithGlobalEntityManager{
 	}
 	
 	public void crearEntidadBase(String nombre, String descripcion) {
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		final EntityTransaction transaction = entityManager.getTransaction();
 		EntidadBase entidadBase = new EntidadBase(nombre, descripcion);
-		EntityTransaction transaction = entityManager().getTransaction();
 		transaction.begin();
-		entityManager().persist(entidadBase);
+		entityManager.persist(entidadBase);
 		transaction.commit();
 	}
 	
 	public void crearOrganizacionSocial(String razonSocial, String nombre, String cuit, String direccionPostal) {
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		final EntityTransaction transaction = entityManager.getTransaction();
 		List<EntidadBase> entidadesBase = new ArrayList<EntidadBase>();
 		OrganizacionSocial organizacionSocial = new OrganizacionSocial(razonSocial, nombre, cuit, direccionPostal, entidadesBase);
-		EntityTransaction transaction = entityManager().getTransaction();
 		transaction.begin();
-		entityManager().persist(organizacionSocial);
+		entityManager.persist(organizacionSocial);
 		transaction.commit();
 	}
 	
 	public void crearEmpresa(String razonSocial, String nombre, String cuit, String direccionPostal, TipoEmpresa tipoEmpresa) {
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		final EntityTransaction transaction = entityManager.getTransaction();
 		List<EntidadBase> entidadesBase = new ArrayList<EntidadBase>();
 		Empresa empresa = new Empresa(razonSocial, nombre, cuit, direccionPostal, tipoEmpresa, entidadesBase);
-		EntityTransaction transaction = entityManager().getTransaction();
 		transaction.begin();
-		entityManager().persist(empresa);
+		entityManager.persist(empresa);
 		transaction.commit();
 	}
 	
 	public List<Entidad> getEntidades() {
-		return entityManager().createQuery("from Entidad").getResultList();
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		return entityManager.createQuery("from Entidad").getResultList();
 	}
 
 	public void borrarEntidad(Long id) {
-		EntityTransaction transaction = entityManager().getTransaction();
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		final EntityTransaction transaction = entityManager.getTransaction();
 		Entidad entidad = this.getEntidad(id);
 		transaction.begin();
-		entityManager().remove(entidad);
+		entityManager.remove(entidad);
 		transaction.commit();
 	}
 
 	public Entidad getEntidad(Long id) {
-		return (Entidad) entityManager()
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		return (Entidad) entityManager
 				.createQuery("from Entidad where id = :id")
 				.setParameter("id", id)
 				.getSingleResult();

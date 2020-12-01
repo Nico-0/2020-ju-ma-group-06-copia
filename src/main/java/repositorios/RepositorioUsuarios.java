@@ -14,7 +14,7 @@ import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import dominio.usuario.TipoUsuario;
 import dominio.usuario.Usuario;
 
-public class RepositorioUsuarios implements WithGlobalEntityManager {
+public class RepositorioUsuarios {
 
 	private static RepositorioUsuarios instance = null;
 	
@@ -26,8 +26,9 @@ public class RepositorioUsuarios implements WithGlobalEntityManager {
 	}
 	
 	public Usuario getUsuario(String nombre) {
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		Usuario usuario;
-		List<Usuario> listaUsuarios = entityManager()
+		List<Usuario> listaUsuarios = entityManager
 				.createQuery("from Usuario where nombre = :nombre")
 				.setParameter("nombre", nombre)
 				.getResultList();
@@ -39,11 +40,12 @@ public class RepositorioUsuarios implements WithGlobalEntityManager {
 	}
 
 	public Usuario crearUsuario(String nombre, String contrasenia, TipoUsuario tipoUsuario) throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
-		EntityTransaction transaction = entityManager().getTransaction();
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		final EntityTransaction transaction = entityManager.getTransaction();
 		Usuario usuario = new Usuario(nombre,contrasenia,tipoUsuario);
 		transaction.begin();
-		entityManager().persist(usuario.bandejaDeEntrada);
-		entityManager().persist(usuario);	
+		entityManager.persist(usuario.bandejaDeEntrada);
+		entityManager.persist(usuario);	
 		transaction.commit();
 		return usuario;
 	}

@@ -10,6 +10,8 @@ import java.util.Locale;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -20,8 +22,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import org.hsqldb.Table;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.compra.Compra;
+import repositorios.RepositorioCategorias;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -44,6 +48,8 @@ public abstract class Entidad {
 	
 	@Transient
 	private GeneradorReporte reporte;
+	
+	String tabla;
 	
 	public String getNombre() {
 		return nombreFicticio;
@@ -74,11 +80,19 @@ public abstract class Entidad {
 	}
 
 	public void agregarCategoria(Categoria categoria) {
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		final EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
 		categorias.add(categoria);
+		transaction.commit();
 	}
 	
 	public void quitarCategoria(Categoria categoria) {
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		final EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
 		categorias.remove(categoria);
+		transaction.commit();
 	}
 	
 	public String getUrlDelete() {
@@ -97,5 +111,53 @@ public abstract class Entidad {
     
     public String getFecha() {
     	return fecha.toString();
+    }
+    
+    public String getTablaCategorias() {
+    	tabla = "<table>" + 
+    			"    	<tr>" + 
+    			"            <th> Id </th>" + 
+    			"            <th> Nombre </th>" + 
+    			"            <th></th>" + 
+    			"            <th></th>" + 
+    			"        </tr>";
+    	categorias.stream().forEach((categoria) -> {tabla = tabla + 
+			    			"<tr>" + 
+			    			"   <td> " + categoria.getId() + "</td>" + 
+			    			"   <td> " + categoria.getNombre() + "</td>" + 
+			    			"   <td><a href = " + categoria.getUrlView() + ">Ver</a></th>" +
+			    			"</tr>";});
+    	return tabla;
+    }
+    
+    public String getTablaCategoriasEditar() {
+    	List<Categoria> todasLasCategorias = RepositorioCategorias.getInstance().getCategorias(); 
+    	tabla = "<table>" + 
+    			"    	<tr>" + 
+    			"            <th> Id </th>" + 
+    			"            <th> Nombre </th>" + 
+    			"            <th></th>" + 
+    			"            <th></th>" + 
+    			"            <th></th>" + 
+    			"        </tr>";
+    	todasLasCategorias.stream().forEach((categoria) -> {tabla = tabla + 
+			    			"<tr>" + 
+			    			"   <td> " + categoria.getId() + "</td>" + 
+			    			"   <td> " + categoria.getNombre() + "</td>" + 
+			    			"   <td><a href = " + categoria.getUrlView() + ">Ver</a></th>";
+    						if(categorias.contains(categoria))
+    							tabla = tabla +
+    							"<td><a href = " + this.getUrlView() + "quitar_categoria/" + categoria.getId() + ">Quitar Categoria</a></th>" +
+    					    	"</tr>";
+    						else
+    							tabla = tabla +
+    							"<td><a href = " + this.getUrlView() + "agregar_categoria/" + categoria.getId() + ">Agregar Categoria</a></th>" +
+    							"</tr>";	
+			    			});
+    	return tabla + "<table>";
+    }
+    
+    public String getUrlEditarCategorias() {
+    	return this.getUrlView() + "editar_categorias";
     }
 }

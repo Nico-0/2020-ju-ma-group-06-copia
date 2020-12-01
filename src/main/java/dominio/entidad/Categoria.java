@@ -36,4 +36,13 @@ public abstract class Categoria {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+    public String getId() {
+    	return id.toString();
+    }
+    
+    public String getNombre() {
+    	return nombre;
+    }
+    
+	protected abstract String getUrlView();
 }

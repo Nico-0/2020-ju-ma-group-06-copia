@@ -72,14 +72,6 @@ public class CategoriaDefault extends Categoria {
 		return !bloquearAgregarEntidadesBase;
 	}
     
-    public String getId() {
-    	return id.toString();
-    }
-    
-    public String getNombre() {
-    	return nombre;
-    }
-    
     public String getBloquearNuevasCompras(){
     	return this.toString(bloquearNuevasCompras);
     }

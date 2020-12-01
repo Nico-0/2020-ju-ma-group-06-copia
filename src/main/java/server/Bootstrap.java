@@ -32,14 +32,14 @@ public class Bootstrap extends AbstractPersistenceTest implements WithGlobalEnti
 		CompraPendiente compra = new CompraPendiente();
 		compra.setFecha(LocalDate.now());
 		compra.getDetalle().setMoneda("ninguna");
-		Usuario usuario = RepositorioUsuarios.getInstance().getUsuario("pepe");
-		//Usuario usuario = RepositorioUsuarios.crearUsuario("pepe", "1234", TipoUsuario.ESTANDAR);
+		//Usuario usuario = RepositorioUsuarios.getInstance().getUsuario("pepe");
+		Usuario usuario = RepositorioUsuarios.getInstance().crearUsuario("pepe", "1234", TipoUsuario.ESTANDAR);
 		transaction.begin();
 		entityManager.persist(compra);
 		transaction.commit();
-		/*usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 1"));
+		usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 1"));
 		usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 2"));
 		usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 3"));
-		usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 4"));*/ //no deja borrar las compras pendientes porque la tabla mensajes se las guarda de FK
+		usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 4")); //no deja borrar las compras pendientes porque la tabla mensajes se las guarda de FK
 	}
 }
