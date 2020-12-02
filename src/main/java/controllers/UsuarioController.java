@@ -45,7 +45,37 @@ public class UsuarioController implements WithGlobalEntityManager{
 	
 	
 	public ModelAndView crear(Request req, Response res){
-		return new ModelAndView(null, "crear_compra.hbs");
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		Map<String, Object> model = new HashMap<>();		
+		List<Detalle> detalles = entityManager
+				.createQuery("from Detalle order by id DESC", Detalle.class)
+				.getResultList();
+		List<Item> items = entityManager
+				.createQuery("from Item order by id DESC", Item.class)
+				.getResultList();
+		List<Proveedor> proveedores = entityManager
+				.createQuery("from Proveedor order by id DESC", Proveedor.class)
+				.getResultList();
+		List<DireccionPostal> direcciones = entityManager
+				.createQuery("from DireccionPostal order by id DESC", DireccionPostal.class)
+				.getResultList();
+		List<MedioPago> mediospago = entityManager
+				.createQuery("from MedioPago order by id DESC", MedioPago.class)
+				.getResultList();
+		List<DocumentoComercial> documentos = entityManager
+				.createQuery("from DocumentoComercial order by id DESC", DocumentoComercial.class)
+				.getResultList();
+		//no era necesario hacer traerse la base completa de cada tabla pero si era facil
+		
+		model.put("detalle", detalles.get(0));
+		model.put("item", items.get(0));
+		model.put("proveedor", proveedores.get(0));
+		model.put("direccionpostal", direcciones.get(0));
+		model.put("mediopago", mediospago.get(0));
+		model.put("documentocomercial", documentos.get(0));
+
+
+		return new ModelAndView(model, "crear_compra.hbs");
 	}
 	
 	public Void creacion(Request req, Response res){	//los queryparam salen del campo name

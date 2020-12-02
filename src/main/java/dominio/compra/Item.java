@@ -31,6 +31,10 @@ public class Item {
 	public Item() { //rompe hibernate sin esto al crear item en la app
 	}
 	
+    public long getId(){
+  	  return this.id;
+    } 
+	
 	public Item(String descripcion, float valorUnitario, int cantidad) {
 		Validate.notNull(descripcion, "descripcion faltante");
 		Validate.notNull(valorUnitario, "valor total faltante");

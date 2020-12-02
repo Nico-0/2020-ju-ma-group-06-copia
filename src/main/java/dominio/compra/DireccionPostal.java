@@ -44,7 +44,9 @@ public class DireccionPostal {
 		return mercado_libre.obtenerProvinciaDeZip(provincia);
 	}
 	
-	
+    public long getId(){
+  	  return this.id;
+    } 
 	
 	
 	public void setterCiudad(String ciudad) {
