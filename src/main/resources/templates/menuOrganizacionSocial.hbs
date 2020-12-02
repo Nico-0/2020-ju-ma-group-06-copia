@@ -12,14 +12,49 @@
 	
 	Tabla de compras:
 	
+	<div>
+        <table>
+    	<tr>
+            <th> Id </th>
+            <th> Nombre </th>
+            <th></th>
+        </tr>
+    	{{#each compras}}
+    		<tr>
+    		<td>{{ id }}</td>
+       		<td>{{ nombre }}</td>
+       		<td><a href = "{{urlView}}">Ver</a></th>
+       		</tr>
+    	{{/each}}
+    	</table>
+    </div>
+	
 	Tabla de categorias:
 	
-	<a class = "link_boton" href = "agregar_categoria">  Agregar Categoria  </a>
+	<div>
+        <table>
+    	<tr>
+            <th> Id </th>
+            <th> Nombre </th>
+            <th></th>
+        </tr>
+    	{{#each categorias}}
+    		<tr>
+    		<td>{{ id }}</td>
+       		<td>{{ nombre }}</td>
+       		<td><a href = "{{urlView}}">Ver</a></th>
+       		</tr>
+    	{{/each}}
+    	</table>
+    </div>
 	
-	Tabla de entidades:
+	<a class = "link_boton" href = {{urlEditarCategorias}}>  Editar Categorias  </a>
+	<br/>
 	
-	<a class = "link_boton" href = "agregar_entidad_base">  Agregar Entidad Base  </a>
-
+	Tabla de entidades base (FALTA):
+	
+	<a class = "link_boton" href = {{urlEditarEntidadesBase}}>  Editar Entidades Base  </a>
+	
     <a class = "link_boton" href = "entidad_juridica/reportes_mensuales">  Ver reporte mensual ???  </a>
     <br/>
     <a class = "link_boton" href = "/entidades">  Volver  </a>
