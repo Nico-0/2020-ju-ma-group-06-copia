@@ -12,6 +12,7 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.compra.MedioPago;
 import dominio.compra.Proveedor;
+import dominio.entidad.Entidad;
 import dominio.presupuestos.CompraPendiente;
 import dominio.presupuestos.Detalle;
 import dominio.presupuestos.RepositorioComprasPendientes;
@@ -50,21 +51,29 @@ public class ComprasController {
 		Long detalle_id = new Long(req.queryParams("detalle"));
 		Long proveedor_id = new Long(req.queryParams("proveedor"));
 		Long medioPago_id = new Long(req.queryParams("medio_pago"));
+		Long entidad_id = new Long(req.queryParams("entidad"));
 		Long criterio_pago_id = new Long(req.queryParams("criterio"));
-		//TODO como tomar el valor de criterioDeSeleccion cuando no es un campo de texto?
 		
 		Detalle detalle = em.find(Detalle.class, detalle_id);
 		if(detalle == null) {
-			res.redirect("/compras/errordetalle");
+			res.redirect("/compras/error/errordetalle");
 			return null;
 		}
 		Proveedor proveedor = em.find(Proveedor.class, proveedor_id);
 		if(proveedor == null) {
-			res.redirect("/compras/errorproveedor");
+			res.redirect("/compras/error/errorproveedor");
 			return null;
 		}
 		MedioPago medio_pago = em.find(MedioPago.class, medioPago_id);
-		//TODO crear medios de pago y verificar aca que existan
+		if(medio_pago == null) {
+			res.redirect("/compras/error/errormediopago");
+			return null;
+		}
+		Entidad entidad = em.find(Entidad.class, entidad_id);
+		if(entidad == null) {
+			res.redirect("/compras/error/errorentidad");
+			return null;
+		}
 		
 		CompraPendiente compra = new CompraPendiente();
 		
@@ -74,6 +83,7 @@ public class ComprasController {
 		compra.setMedioPago(medio_pago);
 		compra.setDetalle(detalle);
 		compra.setCriterioSeleccion(criterio_pago_id);
+		compra.setEntidad(entidad);
 		
 		transaction.begin();
 		em.persist(compra);

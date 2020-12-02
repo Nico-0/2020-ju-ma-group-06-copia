@@ -13,4 +13,19 @@ public class DocumentoComercial {
 	
 	private int numero_documento;
 	private TipoDocumentoComercial tipoDocumentoComercial;
+	
+	public void setNumDocumento(int num_documento){
+		this.numero_documento = num_documento;
+	}
+	
+	public void setTipoDocumento(Long tipo_doc){
+		this.tipoDocumentoComercial = null;
+		
+    	if(tipo_doc == 0)
+    	this.tipoDocumentoComercial = TipoDocumentoComercial.SIN_DOCUMENTO;
+    	if(tipo_doc == 1) 
+    	this.tipoDocumentoComercial = TipoDocumentoComercial.FACTURA;
+    	if(tipo_doc == 2)
+    	this.tipoDocumentoComercial = TipoDocumentoComercial.TICKET;
+	}
 }

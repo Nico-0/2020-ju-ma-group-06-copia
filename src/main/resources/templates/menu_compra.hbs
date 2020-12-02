@@ -18,7 +18,7 @@
                     </tr>                 
                     <tr>
                         <td>Cantidad de presupuestos actuales: </td>
-                        <td>{{CantidadPresupActuales}}</th>
+                        <td>{{cantidadpresupactuales}}</th>
                     </tr>
                     <tr>
                         <td>ID de su proveedor: </td>
@@ -26,11 +26,11 @@
                     </tr>
                      <tr>
                         <td>Criterio de seleccion de presupuesto: </td>
-                        <td> {{CriterioSeleccion}} </th>
+                        <td> {{criterioseleccion}} </th>
                     </tr>
                     <tr>
                         <td>Cantidad presupuestos requeridos: </td>
-                        <td> {{CantidadPresupRequeridos}} </th>
+                        <td> {{cantidadpresuprequeridos}} </th>
                     </tr>
                     <tr>
                         <td>Fecha de creacion original: </td>
@@ -38,11 +38,11 @@
                     </tr>
                     <tr>
                         <td>ID de su MedioDePago: </td>
-                        <td> {{medioPago}} </th>
+                        <td> {{mediopago.id}} </th>
                     </tr>
                     <tr>
                         <td>ID de su entidad: </td>
-                        <td> {{entidad}} </th>
+                        <td> {{entidad.id}} </th>
                     </tr>
                 </table>
             </div>
@@ -58,7 +58,9 @@ Proceda con cuidado, ningun cambio se puede revertir
                     <input type="text" id="proveedor" name="proveedor" value="{{proveedor.id}}" placeholder="Ingrese nuevo proveedor..." />
                     <br />
                     <label class = "label2">Medio de Pago</label>
-                    <input type="text" id="medio_pago" name="medio_pago" value="{{medioPago}}" placeholder="Ingrese nuevo id medio de pago..." />
+                    <input type="text" id="medio_pago" name="medio_pago" value="{{mediopago.id}}" placeholder="Ingrese nuevo id medio de pago..." />
+                    <label class = "label2">Entidad</label>
+                    <input type="text" id="entidad" name="entidad" value="{{entidad.id}}" placeholder="Ingrese nuevo id de entidad..." />                    
                     <label class = "label2">Criterio Presupuestario</label>
                     <select class="combo" name="criterio">
                         <option value="0">...No modificar...</option>

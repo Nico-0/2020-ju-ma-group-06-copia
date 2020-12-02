@@ -74,7 +74,7 @@ public class CompraPendiente {
     	  return this.proveedor;
     }
     
-    public MedioPago getMedioPago(){
+    public MedioPago getMediopago(){//si se pone mas de una mayuscula hibernate no lo detecta
   	  return this.medioPago;
     } 
     
@@ -82,17 +82,17 @@ public class CompraPendiente {
     	  return this.entidad;
     }   
     
-    public long getCantidadPresupActuales(){
+    public long getCantidadpresupactuales(){ //si se pone mas de una mayuscula hibernate no lo detecta
   	  return this.presupuestos.size();
     }
     
-    public int getCantidadPresupRequeridos(){
+    public int getCantidadpresuprequeridos(){ //si se pone mas de una mayuscula hibernate no lo detecta
     	  return this.cantidadPresupuestosRequeridos;
       }
     
-    public String getCriterioSeleccion(){
+    public String getCriterioseleccion(){ //si se pone mas de una mayuscula hibernate no lo detecta
     	  return this.criterioDeSeleccion.toString();
-    } 
+      } 
     
     public void setCriterioSeleccion(Long id_criterio) {
     	if(id_criterio == 0)
@@ -137,7 +137,7 @@ public class CompraPendiente {
     public boolean verificarCantidadPresupuestos() {
     	return validarCondicion(presupuestos.size() == cantidadPresupuestosRequeridos,
     			"La cantidad de presupuestos cargada es incorrecta. Se necesitan " + 
-    			presupuestos.size() + "y se han cargado " + cantidadPresupuestosRequeridos);
+    			cantidadPresupuestosRequeridos + " y se han cargado " + presupuestos.size());
     }
     
     public boolean verificarDetallePresupuesto() {

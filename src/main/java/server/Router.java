@@ -38,7 +38,7 @@ public class Router {
 		
 		UsuarioController usuario = new UsuarioController();
 		MenuEntidadesController entidad = new MenuEntidadesController();
-		ComprasController comprascon = new ComprasController();
+		ComprasController comprascontr = new ComprasController();
 		Compras compras = new Compras();
 		Presupuestos presupuestos = new Presupuestos();
 		
@@ -83,11 +83,11 @@ public class Router {
 		Spark.post("/bandeja_de_entrada/limpiar", bandejaDeEntrada::limpiar_bandeja);
 		
 		//Compras
-		Spark.get("/compras", comprascon::compras,engine);
-		Spark.get("/compras/:idCompra", comprascon::menu_compra,engine);
-		Spark.post("/compras", comprascon::crear_compra);
-		Spark.post("/compras/validar", comprascon::validar_compras);
-		Spark.post("/compras/delete/:idBorrado", comprascon::borrar_compra);
+		Spark.get("/compras", comprascontr::compras,engine);
+		Spark.get("/compras/:idCompra", comprascontr::menu_compra,engine);
+		Spark.post("/compras", comprascontr::crear_compra);
+		Spark.post("/compras/validar", comprascontr::validar_compras);
+		Spark.post("/compras/delete/:idBorrado", comprascontr::borrar_compra);
 		
 		//componentes de una compra
 		Spark.get("/compra/editar", compras::editarCompra, engine);
@@ -140,11 +140,17 @@ public class Router {
 		Spark.get("/usuario/crear/errordp", (request, response) -> {
 			return "no existe proveedor con ese ID";
 		});
-		Spark.get("/compras/errordetalle", (request, response) -> {
+		Spark.get("/compras/error/errordetalle", (request, response) -> {
 			return "no existe detalle con ese ID";
 		});
-		Spark.get("/compras/errorproveedor", (request, response) -> {
+		Spark.get("/compras/error/errorproveedor", (request, response) -> {
 			return "no existe proveedor con ese ID";
+		});
+		Spark.get("/compras/error/errormediopago", (request, response) -> {
+			return "no existe medioDePago con ese ID";
+		});
+		Spark.get("/compras/error/errorentidad", (request, response) -> {
+			return "no existe entidad con ese ID";
 		});
 		
 		Spark.after((request, response) -> {

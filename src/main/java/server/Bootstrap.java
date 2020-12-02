@@ -41,6 +41,6 @@ public class Bootstrap extends AbstractPersistenceTest implements WithGlobalEnti
 		usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 1"));
 		usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 2"));
 		usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 3"));
-		usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 4")); //no deja borrar las compras pendientes porque la tabla mensajes se las guarda de FK
+		usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 4"));
 	}
 }

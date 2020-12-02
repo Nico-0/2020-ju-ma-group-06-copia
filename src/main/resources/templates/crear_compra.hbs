@@ -59,17 +59,17 @@
     </fieldset>
     <fieldset class = "formulario">
         <legend>Crear Medio de Pago</legend>
-        <form>
+        <form action="/usuario/crear" method="post">
             <label class = "label2">Identificador</label>
-            <input type="text" id="id_medio_pago" name="id_medio_pago" placeholder="Ingrese id medio de pago..." />
+            <input type="text" id="identificador_medio_pago" name="identificador_medio_pago" placeholder="Ingrese identificador medio de pago..." />
             <label class = "label2">Tipo Pago</label>
-            <select class="combo">
-                <option value="Select">Elija una opción...</option>
-                <option value="estandar">Tarjeta de Crédito</option>
-                <option value="estandar">Tarjeta de Débito</option>
-                <option value="estandar">Efectivo</option>
-                <option value="estandar">Cajero Automático</option>
-                <option value="estandar">Dinero Cuenta</option>
+            <select class="combo" name="tipo_pago">
+                <option value="null">Elija una opción...</option>
+                <option value="0">Tarjeta de Crédito</option>
+                <option value="1">Tarjeta de Débito</option>
+                <option value="2">Efectivo</option>
+                <option value="3">Cajero Automático</option>
+                <option value="4">Dinero Cuenta</option>
             </select>
             <br />
             <input class = "submit_azul" type="submit" value="Crear" >
@@ -78,22 +78,22 @@
     </fieldset>
     <fieldset class = "formulario">
         <legend>Crear Documento Comercial</legend>
-        <form>
+        <form action="/usuario/crear" method="post">
             <label class = "label2">Numero de Documento</label>
             <input type="text" id="numero_documento" name="numero_documento" placeholder="Ingrese número de documento..." />
             <label class = "label2">Tipo Documento</label>
-            <select class="combo">
-                <option value="Select">Elija una opción...</option>
-                <option value="estandar">Sin Documento</option>
-                <option value="estandar">Factura</option>
-                <option value="estandar">Ticket</option>
+            <select class="combo" name="tipo_doc">
+                <option value="null">Elija una opción...</option>
+                <option value="0">Sin Documento</option>
+                <option value="1">Factura</option>
+                <option value="2">Ticket</option>
             </select>
             <br/>
             <input class = "submit_azul" type="submit" value="Crear" >
             <input class = "submit_gris" type="submit" value="Cancelar" >
         </form>
     </fieldset>
-    <a class = "link_boton" href = "/usuario">  Volver  </a>
+    <a class = "link_boton" href = "/compras">  Volver  </a>
 </section>
 
 {{/partial}}

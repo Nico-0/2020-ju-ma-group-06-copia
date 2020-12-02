@@ -1,9 +1,11 @@
 package controllers;
 
 import dominio.compra.DireccionPostal;
+import dominio.compra.DocumentoComercial;
 import dominio.compra.Item;
 import dominio.compra.MedioPago;
 import dominio.compra.Proveedor;
+import dominio.compra.TipoPago;
 import dominio.presupuestos.CompraPendiente;
 import dominio.presupuestos.Detalle;
 import dominio.presupuestos.RepositorioComprasPendientes;
@@ -105,7 +107,46 @@ public class UsuarioController implements WithGlobalEntityManager{
 			transaction.begin();
 			em.persist(direccionPostal);
 			transaction.commit();
-		}		
+		}
+		
+		if(req.queryParams("identificador_medio_pago") != null) {
+
+			//tiene constructor para validaciones el mediopago asi que hubo que copiar el enum aca
+			Long tipo_pago =  new Long(req.queryParams("tipo_pago"));
+			TipoPago tipoDePago;
+	    	tipoDePago = null;
+	    	
+	        if(tipo_pago == 0)
+	        	tipoDePago = TipoPago.TARJETA_CREDITO;
+	        if(tipo_pago == 1) 
+	        	tipoDePago = TipoPago.TARJETA_DEBITO;
+	        if(tipo_pago == 2)
+	        	tipoDePago = TipoPago.EFECTIVO;
+	        if(tipo_pago == 3)
+	        	tipoDePago = TipoPago.CAJERO_AUTOMATICO;
+	        if(tipo_pago == 4)
+	        	tipoDePago = TipoPago.DINERO_CUENTA;
+						
+			MedioPago medioPago = new MedioPago(tipoDePago ,req.queryParams("identificador_medio_pago"));
+
+			transaction.begin();
+			em.persist(medioPago);
+			transaction.commit();
+			
+		}
+		
+		if(req.queryParams("numero_documento") != null) {
+						
+	        DocumentoComercial docComercial = new DocumentoComercial();
+	        
+	        docComercial.setNumDocumento(new Integer(req.queryParams("numero_documento")));
+	        docComercial.setTipoDocumento(new Long(req.queryParams("tipo_doc")));
+
+			transaction.begin();
+			em.persist(docComercial);
+			transaction.commit();
+			
+		}
 		
 		
 		res.redirect("/usuario/crear");
