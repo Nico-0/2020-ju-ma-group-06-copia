@@ -8,6 +8,7 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import controllers.BandejaDeEntradaController;
 import controllers.Compras;
+import controllers.ComprasController;
 import controllers.CrearCategoriaDefault;
 import controllers.CrearEmpresa;
 import controllers.CrearEntidadBase;
@@ -37,6 +38,7 @@ public class Router {
 		
 		UsuarioController usuario = new UsuarioController();
 		MenuEntidadesController entidad = new MenuEntidadesController();
+		ComprasController comprascon = new ComprasController();
 		Compras compras = new Compras();
 		Presupuestos presupuestos = new Presupuestos();
 		
@@ -77,13 +79,23 @@ public class Router {
 		Spark.get("logout", loginController::logout, engine);
 		
 		Spark.get("/entidades", entidad::show, engine);
-		Spark.get("/compras", usuario::compras,engine);
-		Spark.post("/compras", usuario::crear_compra);
-		Spark.post("/compras/validar", usuario::validar_compras);
-		Spark.get("/compras/:idCompra", usuario::menu_compra,engine);
 		Spark.get("/bandeja_de_entrada", bandejaDeEntrada::bandejaDeEntrada,engine);
-		Spark.post("/bandeja_de_entrada/limpiar", usuario::limpiar_bandeja);
-		Spark.post("/compras/delete/:idBorrado", usuario::borrar_compra);
+		Spark.post("/bandeja_de_entrada/limpiar", bandejaDeEntrada::limpiar_bandeja);
+		
+		//Compras
+		Spark.get("/compras", comprascon::compras,engine);
+		Spark.get("/compras/:idCompra", comprascon::menu_compra,engine);
+		Spark.post("/compras", comprascon::crear_compra);
+		Spark.post("/compras/validar", comprascon::validar_compras);
+		Spark.post("/compras/delete/:idBorrado", comprascon::borrar_compra);
+		
+		//componentes de una compra
+		Spark.get("/compra/editar", compras::editarCompra, engine);
+		Spark.get("/compra/editar/presupuestos", compras::presupuestos, engine);
+		Spark.get("/compra/editar/etiquetas", compras::etiquetas, engine);
+		
+		Spark.get("/presupuesto/editar", presupuestos::editarPresupuesto, engine);
+		
 		Spark.get("/usuario/crear", usuario::crear,engine);
 		Spark.post("/usuario/crear", usuario::creacion);
 	
@@ -112,11 +124,6 @@ public class Router {
 		Spark.get("/categorias/crear_categoria_default", crearCategoriaDefault::show, engine);
 		Spark.post("/categorias/crear_categoria_default", crearCategoriaDefault::crear, engine);
 		
-		Spark.get("/compra/editar", compras::editarCompra, engine);
-		Spark.get("/compra/editar/presupuestos", compras::presupuestos, engine);
-		Spark.get("/compra/editar/etiquetas", compras::etiquetas, engine);
-
-		Spark.get("/presupuesto/editar", presupuestos::editarPresupuesto, engine);
 		
 		Spark.get("/entidades/:tipo_entidad/:id_entidad/editar_categorias", editarCategoriasDeEntidad::show, engine);
 		Spark.get("/entidades/:tipo_entidad/:id_entidad/agregar_categoria/:id_categoria", editarCategoriasDeEntidad::agregarCategoria, engine);

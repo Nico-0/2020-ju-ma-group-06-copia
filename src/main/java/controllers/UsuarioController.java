@@ -41,80 +41,7 @@ public class UsuarioController implements WithGlobalEntityManager{
 		return new ModelAndView(usuario, "menu_usuario.hbs");
 	}*/
 	
-	public ModelAndView compras(Request req, Response res){
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		Map<String, List<CompraPendiente>> model = new HashMap<>();		
-		List<CompraPendiente> compras = entityManager
-				.createQuery("from CompraPendiente", CompraPendiente.class)
-				.getResultList();
-		model.put("compras", compras);
-		return new ModelAndView(model, "compras_usuario.hbs");
-	}
 	
-	public ModelAndView menu_compra(Request req, Response res){
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		String idC = req.params("idCompra");
-		
-		CompraPendiente compra = entityManager
-				.createQuery("from CompraPendiente where id = "+idC, CompraPendiente.class)
-				.getSingleResult();
-
-		return new ModelAndView(compra, "menu_compra.hbs");
-	}
-	
-	public Void crear_compra(Request req, Response res){
-		EntityManager em = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = em.getTransaction();
-		
-		int cant_presupuestos = new Integer(req.queryParams("cant_presup"));
-		Long detalle_id = new Long(req.queryParams("detalle"));
-		Long proveedor_id = new Long(req.queryParams("proveedor"));
-		Long medioPago_id = new Long(req.queryParams("medio_pago"));
-		Long criterio_pago_id = new Long(req.queryParams("criterio"));
-		//TODO como tomar el valor de criterioDeSeleccion cuando no es un campo de texto?
-		
-		Detalle detalle = em.find(Detalle.class, detalle_id);
-		if(detalle == null) {
-			res.redirect("/compras/errordetalle");
-			return null;
-		}
-		Proveedor proveedor = em.find(Proveedor.class, proveedor_id);
-		if(proveedor == null) {
-			res.redirect("/compras/errorproveedor");
-			return null;
-		}
-		MedioPago medio_pago = em.find(MedioPago.class, medioPago_id);
-		//TODO crear medios de pago y verificar aca que existan
-		
-		CompraPendiente compra = new CompraPendiente();
-		
-		compra.setFecha(LocalDate.now());
-		compra.setCantidadPresupuestosRequeridos(cant_presupuestos);
-		compra.setProveedor(proveedor);
-		compra.setMedioPago(medio_pago);
-		compra.setDetalle(detalle);
-		compra.setCriterioSeleccion(criterio_pago_id);
-		
-		transaction.begin();
-		em.persist(compra);
-		transaction.commit();
-		
-		res.redirect("/compras");
-		return null;	
-	}
-	
-	public Void validar_compras(Request req, Response res){
-		EntityManager em = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = em.getTransaction();
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa se validan compras");
-		
-		transaction.begin();
-		RepositorioComprasPendientes.getInstance().validarCompras();
-		transaction.commit();
-		
-		res.redirect("/compras");
-		return null;
-	}
 	public ModelAndView crear(Request req, Response res){
 		return new ModelAndView(null, "crear_compra.hbs");
 	}
@@ -185,24 +112,6 @@ public class UsuarioController implements WithGlobalEntityManager{
 		return null;		
 	}
 	
-	public Void borrar_compra(Request req, Response res){	
-		EntityManager em = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = em.getTransaction();
-		String idB = req.params("idBorrado");
-		
-		transaction.begin();
-		em.createQuery("delete from CompraPendiente where id = "+idB).executeUpdate();
-		transaction.commit();
-		
-		res.redirect("/compras");
-		return null;
-	}
-	
-	public Void limpiar_bandeja(Request req, Response res){	
-		Usuario usuario = RepositorioUsuarios.getInstance().getUsuario(req.cookie("usuario_logueado"));
-		usuario.limpiarBandeja();
-		res.redirect("/bandeja_de_entrada");
-		return null;
-	}
+
 	
 }
