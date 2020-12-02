@@ -81,6 +81,10 @@ public class RepositorioCategorias {
 
 	public List<Entidad> getEntidades(Long id) {
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		return entityManager.createQuery("from Entidad").getResultList();
+		return entityManager.createQuery("select entidad "
+				+ "from Entidad as entidad "
+				+ "left outer join entidad.categorias as categoriaEntidad "
+				+ "where categoriaEntidad.id="
+				+ String.valueOf(id)).getResultList();
 	}
 }
