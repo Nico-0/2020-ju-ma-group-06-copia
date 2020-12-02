@@ -1,21 +1,24 @@
-{{#partial "contenido"}}
-
-<form method="POST" action=/login class="content">
-    <label class = label1>Nombre</label>
-    <input type="text" id="nombre" name="nombre" placeholder="Ingrese nombre..." />
-    <label class = label1>Contraseña</label>
-    <input type="password" id="contrasenia" name="contrasenia" placeholder="Ingrese contraseña..." />
-    <label class = label1>Tipo de Usuario</label>
-    <select class="combo">
-        <option class="combo" value="Select">Elija una opción...</option>
-        <option value="estandar">Estándar</option>
-        <option value="admin">Administrador</option>
-    </select>
-    <br />
-    <input type="submit" value="Iniciar Sesi�n" class = "link_boton">
-    <a class = "link_boton" href = "/usuario">  Registrarse  </a>
-</form>
-
-{{/partial}}
-
-{{>layout.hbs}}
+<html>
+    <head>
+        <link rel="stylesheet" href="/dds.css" type="text/css" />
+    </head>
+	<body>
+	    <div>
+			<form method="POST" action=/login class="content">
+			    <label class = label1>Nombre</label>
+			    <input type="text" id="nombre" name="nombre" placeholder="Ingrese nombre..." />
+			    <label class = label1>Contraseña</label>
+			    <input type="password" id="contrasenia" name="contrasenia" placeholder="Ingrese contraseña..." />
+			    <label class = label1>Tipo de Usuario</label>
+			    <select class="combo">
+			        <option class="combo" value="Select">Elija una opción...</option>
+			        <option value="estandar">Estándar</option>
+			        <option value="admin">Administrador</option>
+			    </select>
+			    <br />
+			    <input type="submit" value="Iniciar Sesion" class = "link_boton">
+			    <a class = "link_boton" href = "/usuario">  Registrarse  </a>
+			</form>
+	    </div>
+	</body>
+</html>

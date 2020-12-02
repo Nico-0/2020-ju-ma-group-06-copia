@@ -35,11 +35,11 @@ import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 
 public class UsuarioController implements WithGlobalEntityManager{
-
+	/*
 	public ModelAndView menuUsuario(Request req, Response res) {
 		Usuario usuario = RepositorioUsuarios.getInstance().getUsuario(req.cookie("usuario_logueado"));
 		return new ModelAndView(usuario, "menu_usuario.hbs");
-	}
+	}*/
 	
 	public ModelAndView compras(Request req, Response res){
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
@@ -199,14 +199,9 @@ public class UsuarioController implements WithGlobalEntityManager{
 	}
 	
 	public Void limpiar_bandeja(Request req, Response res){	
-		EntityManager em = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = em.getTransaction();
-		
-		transaction.begin();
-		em.createQuery("delete from Mensaje").executeUpdate();
-		transaction.commit();
-		
-		res.redirect("/bandeja_de_mensajes");
+		Usuario usuario = RepositorioUsuarios.getInstance().getUsuario(req.cookie("usuario_logueado"));
+		usuario.limpiarBandeja();
+		res.redirect("/bandeja_de_entrada");
 		return null;
 	}
 	

@@ -87,4 +87,5 @@ public class RepositorioCategorias {
 				+ "where categoriaEntidad.id="
 				+ String.valueOf(id)).getResultList();
 	}
+
 }

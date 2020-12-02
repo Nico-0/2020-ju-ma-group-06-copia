@@ -52,8 +52,26 @@
 	<a class = "link_boton" href = {{urlEditarCategorias}}>  Editar Categorias  </a>
 	<br/>
 	
-	Tabla de entidades base(FALTA):
+	Tabla de entidades base:
 	
+	<div>
+        <table>
+    	<tr>
+            <th> Id </th>
+            <th> Nombre </th>
+            <th> </th>
+            <th> </th>
+        </tr>
+    	{{#each entidadesBase}}
+    		<tr>
+    		<td>{{ id }}</td>
+       		<td>{{ nombre }}</td>
+       		<td><a href = "{{ urlView }}"> Ver </a></th>
+       		</tr>
+    	{{/each}}
+    	</table>
+    </div>
+    
 	<a class = "link_boton" href = {{urlEditarEntidadesBase}}>  Editar Entidades Base  </a>
 
     <a class = "link_boton" href = "entidad_juridica/reportes_mensuales????">  Ver reporte mensual???   </a>

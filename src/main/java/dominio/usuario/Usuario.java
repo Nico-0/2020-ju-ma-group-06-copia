@@ -9,6 +9,7 @@ import java.util.Arrays;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -27,7 +28,9 @@ public class Usuario {
 	@GeneratedValue
 	private Long id;
 	
+	@Column(unique = true)
 	private String nombre;
+	
 	private byte[] hashedPassword;
 	private byte[] salt;
 	
@@ -81,6 +84,10 @@ public class Usuario {
 		entityManager.persist(unMensaje);
 		bandejaDeEntrada.agregarMensaje(unMensaje);
 		transaction.commit();
+	}
+
+	public void limpiarBandeja() {
+		bandejaDeEntrada.limpiar();
 	}
 	
 }

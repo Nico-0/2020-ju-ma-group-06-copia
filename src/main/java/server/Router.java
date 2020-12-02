@@ -14,6 +14,7 @@ import controllers.CrearEntidadBase;
 import controllers.CrearOrganizacionSocial;
 import controllers.EditarCategoriaDefault;
 import controllers.EditarCategoriasDeEntidad;
+import controllers.EditarEntidadesBaseDeEntidad;
 import controllers.Presupuestos;
 import controllers.MenuEntidadesController;
 import controllers.LoginController;
@@ -50,6 +51,7 @@ public class Router {
 		CrearOrganizacionSocial crearOrganizacionSocial = new CrearOrganizacionSocial();
 		CrearEmpresa crearEmpresa = new CrearEmpresa();
 		EditarCategoriasDeEntidad editarCategoriasDeEntidad = new EditarCategoriasDeEntidad();
+		EditarEntidadesBaseDeEntidad editarEntidadesBaseDeEntidad = new EditarEntidadesBaseDeEntidad();
 		
 		// Categorias
 		MenuCategorias menuCategorias = new MenuCategorias();
@@ -72,6 +74,7 @@ public class Router {
 		
 		Spark.get("/login", loginController::show, engine);
 		Spark.post("/login", loginController::login, engine);
+		Spark.get("logout", loginController::logout, engine);
 		
 		Spark.get("/entidades", entidad::show, engine);
 		Spark.get("/compras", usuario::compras,engine);
@@ -118,6 +121,11 @@ public class Router {
 		Spark.get("/entidades/:tipo_entidad/:id_entidad/editar_categorias", editarCategoriasDeEntidad::show, engine);
 		Spark.get("/entidades/:tipo_entidad/:id_entidad/agregar_categoria/:id_categoria", editarCategoriasDeEntidad::agregarCategoria, engine);
 		Spark.get("/entidades/:tipo_entidad/:id_entidad/quitar_categoria/:id_categoria", editarCategoriasDeEntidad::quitarCategoria, engine);
+		
+		Spark.get("/entidades/:tipo_entidad/:id_entidad/editar_entidades_base", editarEntidadesBaseDeEntidad::show, engine);
+		Spark.get("/entidades/:tipo_entidad/:id_entidad/agregar_entidad_base/:id_entidad_base", editarEntidadesBaseDeEntidad::agregarEntidadBase, engine);
+		Spark.get("/entidades/:tipo_entidad/:id_entidad/quitar_entidad_base/:id_entidad_base", editarEntidadesBaseDeEntidad::quitarEntidadBase, engine);
+		
 		
 		Spark.get("/usuario/crear/erroritem", (request, response) -> {
 			return "no existe detalle con ese ID";

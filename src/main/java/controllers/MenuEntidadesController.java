@@ -20,7 +20,7 @@ import spark.Spark;
 public class MenuEntidadesController {
 
 	public ModelAndView show(Request req, Response res){
-		return new ModelAndView(new RepositorioEntidades(), "entidades.hbs");
+		return new ModelAndView(RepositorioEntidades.getInstance(), "entidades.hbs");
 	}
 
 	public ModelAndView mostrarEntidadBase(Request req, Response res){

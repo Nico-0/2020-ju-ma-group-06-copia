@@ -79,4 +79,9 @@ public class RepositorioEntidades {
 				.setParameter("id", id)
 				.getSingleResult();
 	}
+
+	public List<EntidadBase> getEntidadesBase() {
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		return entityManager.createQuery("from EntidadBase").getResultList();
+	}
 }

@@ -10,7 +10,7 @@ import spark.Spark;
 public class MenuCategorias {
 	
 	public ModelAndView show(Request req, Response res){
-		return new ModelAndView(new RepositorioCategorias(), "menuCategorias.hbs");
+		return new ModelAndView(RepositorioCategorias.getInstance(), "menuCategorias.hbs");
 	}
 	
 	public ModelAndView mostrarCategoriaDefault(Request req, Response res){

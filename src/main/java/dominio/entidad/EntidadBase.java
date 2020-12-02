@@ -9,10 +9,15 @@ import org.apache.commons.lang3.Validate;
 @Entity
 public class EntidadBase extends Entidad {
 
-	private String descripcion;	
+	private String descripcion;
+	private boolean tieneEntidadJuridica;
 	
 	public EntidadBase() {
 		
+	}
+	
+	public void setTieneEntidadJuridica(boolean tieneEntidadJuridica) {
+		this.tieneEntidadJuridica = tieneEntidadJuridica;
 	}
 	
 	public EntidadBase(String nombreFicticio, String descripcion) {
@@ -20,10 +25,11 @@ public class EntidadBase extends Entidad {
 		Validate.notNull(descripcion, "descripcion faltante");
 		this.nombreFicticio = nombreFicticio;
 		this.descripcion = descripcion;
+		this.tieneEntidadJuridica = false;
 	}
 
     public boolean puedeAgregarseAEntidadJuridica() {
-        return categorias.stream().allMatch(categoria -> categoria.puedeAgregarseAEntidadJuridica());
+        return !tieneEntidadJuridica && categorias.stream().allMatch(categoria -> categoria.puedeAgregarseAEntidadJuridica());
     }
     
 	public String getTipo() {

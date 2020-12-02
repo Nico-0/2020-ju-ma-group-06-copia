@@ -43,4 +43,10 @@ public class LoginController {
 		return null;
 	}
 	
+	public ModelAndView logout(Request req, Response res) {
+		res.removeCookie("usuario_logueado");
+		res.redirect("/login");
+		return null;
+	}
+	
 }
