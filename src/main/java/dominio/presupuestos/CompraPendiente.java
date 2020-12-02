@@ -59,6 +59,10 @@ public class CompraPendiente {
   	  return this.id;
     }
     
+    public List<Presupuesto> getPresupuestos(){
+    	  return this.presupuestos;
+      }
+    
     public String getFecha(){
     	if(fecha == null)
     		return "NULL";

@@ -28,4 +28,8 @@ public class DocumentoComercial {
     	if(tipo_doc == 2)
     	this.tipoDocumentoComercial = TipoDocumentoComercial.TICKET;
 	}
+	
+    public long getId(){
+    	  return this.id;
+      }
 }

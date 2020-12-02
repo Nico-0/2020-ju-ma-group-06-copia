@@ -84,8 +84,11 @@ public class Router {
 		
 		//Compras
 		Spark.get("/compras", comprascontr::compras,engine);
-		Spark.get("/compras/:idCompra", comprascontr::menu_compra,engine);
 		Spark.post("/compras", comprascontr::crear_compra);
+		Spark.get("/compras/:idCompra", comprascontr::menu_compra,engine);
+		Spark.get("/compras/:idCompra/presupuestos", comprascontr::editar_presup,engine);
+		Spark.post("/compras/:idCompra/presupuestos", comprascontr::agregar_presupuesto);
+		Spark.post("/compras/:idCompra/presupuestos/:idPresup/borrar", comprascontr::borrar_presupuesto);
 		Spark.post("/compras/validar", comprascontr::validar_compras);
 		Spark.post("/compras/delete/:idBorrado", comprascontr::borrar_compra);
 		
@@ -151,6 +154,16 @@ public class Router {
 		});
 		Spark.get("/compras/error/errorentidad", (request, response) -> {
 			return "no existe entidad con ese ID";
+		});
+		
+		Spark.get("/presupuestos/error/errordetalle", (request, response) -> {
+			return "no existe detalle con ese ID";
+		});
+		Spark.get("/presupuestos/error/errorproveedor", (request, response) -> {
+			return "no existe proveedor con ese ID";
+		});
+		Spark.get("/presupuestos/error/errordocumento", (request, response) -> {
+			return "no existe documento con ese ID";
 		});
 		
 		Spark.after((request, response) -> {

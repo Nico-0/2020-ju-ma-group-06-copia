@@ -10,11 +10,13 @@ import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
+import dominio.compra.DocumentoComercial;
 import dominio.compra.MedioPago;
 import dominio.compra.Proveedor;
 import dominio.entidad.Entidad;
 import dominio.presupuestos.CompraPendiente;
 import dominio.presupuestos.Detalle;
+import dominio.presupuestos.Presupuesto;
 import dominio.presupuestos.RepositorioComprasPendientes;
 import spark.ModelAndView;
 import spark.Request;
@@ -119,4 +121,75 @@ public class ComprasController {
 		return null;
 	}
 	
+	public ModelAndView editar_presup(Request req, Response res){
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		String idC = req.params("idCompra");
+		
+		CompraPendiente compra = entityManager
+				.createQuery("from CompraPendiente where id = "+idC, CompraPendiente.class)
+				.getSingleResult();
+
+		return new ModelAndView(compra, "presupuestos_compra.hbs");
+	}
+	
+	public Void agregar_presupuesto(Request req, Response res){
+		EntityManager em = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = em.getTransaction();
+		
+		String compra_id_string = req.queryParams("id_compra");
+		Long compra_id = new Long(compra_id_string);
+		Long proveedor_id = new Long(req.queryParams("proveedor"));
+		Long detalle_id = new Long(req.queryParams("detalle"));
+		Long documento_id = new Long(req.queryParams("documento_comerical"));
+		
+		CompraPendiente compra = em.find(CompraPendiente.class, compra_id);
+		Presupuesto presupuesto = new Presupuesto();
+		
+		Proveedor proveedor = em.find(Proveedor.class, proveedor_id);
+		if(proveedor == null) {
+			res.redirect("/presupuestos/error/errorproveedor");
+			return null;
+		}
+		Detalle detalle = em.find(Detalle.class, detalle_id);
+		if(detalle == null) {
+			res.redirect("/presupuestos/error/errordetalle");
+			return null;
+		}
+		DocumentoComercial docComercial = em.find(DocumentoComercial.class, documento_id);
+		if(docComercial == null) {
+			res.redirect("/presupuestos/error/errordocumento");
+			return null;
+		}
+		
+		presupuesto.setProveedor(proveedor);
+		presupuesto.setDetalle(detalle);
+		presupuesto.setDocumentoComercial(docComercial);
+		compra.agregarPresupuesto(presupuesto);
+		
+		transaction.begin();
+		em.persist(presupuesto);
+		em.persist(compra);
+		transaction.commit();
+		
+		res.redirect("/compras/"+compra_id_string+"/presupuestos");
+		return null;
+	}
+	
+	public Void borrar_presupuesto(Request req, Response res){	
+		EntityManager em = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = em.getTransaction();
+		Long idCompra = new Long(req.params("idCompra"));
+		Long idBorrado = new Long(req.params("idPresup"));
+		
+		Presupuesto presupuesto = em.find(Presupuesto.class, idBorrado);
+		CompraPendiente compra = em.find(CompraPendiente.class, idCompra);
+		
+		transaction.begin();
+		em.remove(presupuesto);
+		compra.getPresupuestos().removeIf(presup -> presup.getId() == idBorrado);
+		transaction.commit();
+		
+		res.redirect("/compras/"+idCompra+"/presupuestos");
+		return null;
+	}
 }
