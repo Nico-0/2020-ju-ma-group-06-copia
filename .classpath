@@ -52,7 +52,7 @@
   <classpathentry kind="var" path="M2_REPO/org/mozilla/rhino/1.7R4/rhino-1.7R4.jar" sourcepath="M2_REPO/org/mozilla/rhino/1.7R4/rhino-1.7R4-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/github/jknack/handlebars-guava-cache/4.0.6/handlebars-guava-cache-4.0.6.jar" sourcepath="M2_REPO/com/github/jknack/handlebars-guava-cache/4.0.6/handlebars-guava-cache-4.0.6-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/google/guava/guava/14.0.1/guava-14.0.1.jar" sourcepath="M2_REPO/com/google/guava/guava/14.0.1/guava-14.0.1-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/com/github/jknack/handlebars-helpers/2.0.0/handlebars-helpers-2.0.0.jar" sourcepath="M2_REPO/com/github/jknack/handlebars-helpers/2.0.0/handlebars-helpers-2.0.0-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/com/sparkjava/spark-debug-tools/0.5/spark-debug-tools-0.5.jar" sourcepath="M2_REPO/com/sparkjava/spark-debug-tools/0.5/spark-debug-tools-0.5-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-simple/1.7.21/slf4j-simple-1.7.21.jar" sourcepath="M2_REPO/org/slf4j/slf4j-simple/1.7.21/slf4j-simple-1.7.21-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/github/jknack/handlebars-helpers/2.0.0/handlebars-helpers-2.0.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/sparkjava/spark-debug-tools/0.5/spark-debug-tools-0.5.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-simple/1.7.21/slf4j-simple-1.7.21.jar"/>
 </classpath>
