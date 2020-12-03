@@ -192,4 +192,85 @@ public class ComprasController {
 		res.redirect("/compras/"+idCompra+"/presupuestos");
 		return null;
 	}
+	
+	public Void update_compra(Request req, Response res){
+		EntityManager em = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = em.getTransaction();
+		String idCompra = req.params("idCompra");
+		
+		CompraPendiente compra = em
+				.createQuery("from CompraPendiente where id = "+idCompra, CompraPendiente.class)
+				.getSingleResult();
+		
+		String detalle_id_string = req.queryParams("detalle");
+		String proveedor_id_string = req.queryParams("proveedor");
+		String mediopago_id_string = req.queryParams("medio_pago");
+		String entidad_id_string = req.queryParams("entidad");
+		String cant_presupuestos_string = req.queryParams("cant_presup");
+		String criterio_pago_id_string = req.queryParams("criterio");
+		Long criterio_pago_id;
+		if(req.queryParams("criterio").equals("ninguno")) {
+			criterio_pago_id_string = null;
+			criterio_pago_id = new Long(-1);
+			}
+		else {
+			criterio_pago_id = new Long(criterio_pago_id_string);}
+		int cant_presupuestos = new Integer(cant_presupuestos_string);
+		Long detalle_id = new Long(detalle_id_string);
+		Long proveedor_id = new Long(proveedor_id_string);
+		Long medioPago_id = new Long(mediopago_id_string);
+		Long entidad_id = new Long(entidad_id_string);
+		
+		
+		if(detalle_id_string != null) {
+			Detalle detalle = em.find(Detalle.class, detalle_id);
+			if(detalle == null) {
+				res.redirect("/compras/error/errordetalle");
+				return null;
+			}
+			compra.setDetalle(detalle);
+		}
+
+		if(proveedor_id_string != null) {
+			Proveedor proveedor = em.find(Proveedor.class, proveedor_id);
+			if(proveedor == null) {
+				res.redirect("/compras/error/errorproveedor");
+				return null;
+			}
+			compra.setProveedor(proveedor);
+		}
+
+		if(mediopago_id_string != null) {
+			MedioPago medio_pago = em.find(MedioPago.class, medioPago_id);
+			if(medio_pago == null) {
+				res.redirect("/compras/error/errormediopago");
+				return null;
+			}
+			compra.setMedioPago(medio_pago);
+		}
+
+		if(entidad_id_string != null) {
+			Entidad entidad = em.find(Entidad.class, entidad_id);
+			if(entidad == null) {
+				res.redirect("/compras/error/errorentidad");
+				return null;
+			}
+			compra.setEntidad(entidad);
+		}
+		
+		if(cant_presupuestos_string != null) {
+			compra.setCantidadPresupuestosRequeridos(cant_presupuestos);
+		}
+		
+		if(criterio_pago_id_string != null) {
+			compra.setCriterioSeleccion(criterio_pago_id);
+		}
+		
+		transaction.begin();
+		em.persist(compra);
+		transaction.commit();
+
+		res.redirect("/compras/"+idCompra);
+		return null;
+	}
 }

@@ -86,6 +86,7 @@ public class Router {
 		Spark.get("/compras", comprascontr::compras,engine);
 		Spark.post("/compras", comprascontr::crear_compra);
 		Spark.get("/compras/:idCompra", comprascontr::menu_compra,engine);
+		Spark.post("/compras/:idCompra", comprascontr::update_compra);
 		Spark.get("/compras/:idCompra/presupuestos", comprascontr::editar_presup,engine);
 		Spark.post("/compras/:idCompra/presupuestos", comprascontr::agregar_presupuesto);
 		Spark.post("/compras/:idCompra/presupuestos/:idPresup/borrar", comprascontr::borrar_presupuesto);

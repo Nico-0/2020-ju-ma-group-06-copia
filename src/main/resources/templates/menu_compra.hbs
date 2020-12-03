@@ -50,7 +50,7 @@
 Proceda con cuidado, ningun cambio se puede revertir
                  <fieldset class = "formulario">
                 <legend>Editar compra</legend>
-                <form action="/compras" method="post">
+                <form action="/compras/{{id}}" method="post">
                     <label class = "label2">Cantidad presupuestos requeridos</label>
                     <input type="text" id="cant_presup" name="cant_presup" placeholder="Ingrese cantidad de presupuestos..." value="{{cantidadpresuprequeridos}}" />
                     <label class = "label2">Detalle</label>
@@ -64,7 +64,7 @@ Proceda con cuidado, ningun cambio se puede revertir
                     <input type="text" id="entidad" name="entidad" value="{{entidad.id}}" placeholder="Ingrese nuevo id de entidad..." />                    
                     <label class = "label2">Criterio Presupuestario</label>
                     <select class="combo" name="criterio">
-                        <option value="0">...No modificar...</option>
+                        <option value="ninguno">...No modificar...</option>
                         <option value="1">Sin creterio</option>
                         <option value="2">Más barato</option>
                         <option value="3">Más caro</option>
