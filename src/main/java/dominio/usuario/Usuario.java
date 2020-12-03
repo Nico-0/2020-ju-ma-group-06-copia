@@ -90,4 +90,12 @@ public class Usuario {
 		bandejaDeEntrada.limpiar();
 	}
 	
+	public TipoUsuario getTipo() {
+		return this.tipoUsuario;
+	}
+	
+	public String getTipo_string() {
+		return this.tipoUsuario.toString();
+	}
+	
 }

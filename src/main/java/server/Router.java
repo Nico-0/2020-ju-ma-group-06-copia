@@ -166,6 +166,9 @@ public class Router {
 		Spark.get("/presupuestos/error/errordocumento", (request, response) -> {
 			return "no existe documento con ese ID";
 		});
+		Spark.get("/error/existente", (request, response) -> {
+			return "ya existe usuario con ese nombre";
+		});
 		
 		Spark.after((request, response) -> {
             PerThreadEntityManagers.getEntityManager();

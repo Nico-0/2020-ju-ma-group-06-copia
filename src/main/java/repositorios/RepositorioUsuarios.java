@@ -49,4 +49,13 @@ public class RepositorioUsuarios {
 		transaction.commit();
 		return usuario;
 	}
+	
+	public boolean existeUsuario(String nombre) {
+		boolean existe = true;
+		Usuario usuario = getUsuario(nombre);
+		if(usuario == null)
+			existe = false;
+		
+		return existe;
+	}
 }
