@@ -55,7 +55,7 @@
          </descriptorRefs>
          <archive>
              <manifest>
-                 <mainClass>Server.java</mainClass>
+                 <mainClass>src.main.java.server.Server.java</mainClass>
              </manifest>
          </archive>
     </configuration>
