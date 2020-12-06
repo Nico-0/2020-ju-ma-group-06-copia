@@ -1,10 +1,5 @@
 package controllers;
 
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -14,120 +9,52 @@ import dominio.compra.DocumentoComercial;
 import dominio.compra.MedioPago;
 import dominio.compra.Proveedor;
 import dominio.entidad.Entidad;
+import dominio.entidad.TipoEmpresa;
 import dominio.presupuestos.CompraPendiente;
 import dominio.presupuestos.Detalle;
 import dominio.presupuestos.Presupuesto;
-import dominio.usuario.Usuario;
-import repositorios.RepositorioCategorias;
 import repositorios.RepositorioComprasPendientes;
-import repositorios.RepositorioUsuarios;
+import repositorios.RepositorioEntidades;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-public class ComprasController {
+public class MenuCompraPendiente {
+	
+	/*
+	public ModelAndView show(Request req, Response res){
+		return new ModelAndView(null, "editarCompraPendiente.hbs");
+	}
+	
+	public ModelAndView editar(Request req, Response res){
+		/*
+		String nombre = req.queryParams("nombre");
+		String razonSocial = req.queryParams("razon_social");
+		String direccionPostal= req.queryParams("direccion_postal");
+		String cuit = req.queryParams("cuit");
+		TipoEmpresa tipoEmpresa = toTipoEmpresa(req.queryParams("tipo_empresa"));
+		
+		RepositorioEntidades.getInstance().crearEmpresa(razonSocial, nombre, cuit, direccionPostal, tipoEmpresa);
 
-	public ModelAndView compras(Request req, Response res){
-		String nombreUsuario = req.cookie("usuario_logueado");
-		Usuario usuario = RepositorioUsuarios.getInstance().getUsuario(nombreUsuario);
-		RepositorioComprasPendientes.getInstance().setUsuarioLogueado(usuario);
-		return new ModelAndView(RepositorioComprasPendientes.getInstance(), "menuComprasPendientes.hbs");
-	}
-	
-	public ModelAndView menu_compra(Request req, Response res){
-		Long idCompraPendiente = new Long(req.params("idCompra"));
-		CompraPendiente compraPendiente = RepositorioComprasPendientes.getInstance()
-												.getCompraPendiente(idCompraPendiente);
-		return new ModelAndView(compraPendiente, "editarCompraPendiente2.hbs");
-	}
-	
-	public ModelAndView suscribirUsuario(Request req, Response res){
-		Long idCompraPendiente = new Long(req.params("id_compra_pendiente"));
-		Long idUsuario = new Long(req.params("id_usuario"));
-		Usuario usuario = RepositorioUsuarios.getInstance().getUsuario(idUsuario);
-		CompraPendiente compraPendiente = RepositorioComprasPendientes.getInstance()
-												.getCompraPendiente(idCompraPendiente);
-		compraPendiente.agregarUsuarioRevisor(usuario);
 		res.redirect("/compras_pendientes");
 		return null;
-	}
-	
-	public ModelAndView desuscribirUsuario(Request req, Response res){
-		Long idCompraPendiente = new Long(req.params("id_compra_pendiente"));
-		Long idUsuario = new Long(req.params("id_usuario"));
-		Usuario usuario = RepositorioUsuarios.getInstance().getUsuario(idUsuario);
-		CompraPendiente compraPendiente = RepositorioComprasPendientes.getInstance()
-												.getCompraPendiente(idCompraPendiente);
-		compraPendiente.quitarUsuarioRevisor(usuario);
-		res.redirect("/compras_pendientes");
-		return null;
-	}
-	
-	public Void crear_compra(Request req, Response res){
-		EntityManager em = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = em.getTransaction();
-		
-		int cant_presupuestos = new Integer(req.queryParams("cant_presup"));
-		Long detalle_id = new Long(req.queryParams("detalle"));
-		Long proveedor_id = new Long(req.queryParams("proveedor"));
-		Long medioPago_id = new Long(req.queryParams("medio_pago"));
-		Long entidad_id = new Long(req.queryParams("entidad"));
-		Long criterio_pago_id = new Long(req.queryParams("criterio"));
-		
-		Detalle detalle = em.find(Detalle.class, detalle_id);
-		if(detalle == null) {
-			res.redirect("/compras/error/errordetalle");
-			return null;
-		}
-		Proveedor proveedor = em.find(Proveedor.class, proveedor_id);
-		if(proveedor == null) {
-			res.redirect("/compras/error/errorproveedor");
-			return null;
-		}
-		MedioPago medio_pago = em.find(MedioPago.class, medioPago_id);
-		if(medio_pago == null) {
-			res.redirect("/compras/error/errormediopago");
-			return null;
-		}
-		Entidad entidad = em.find(Entidad.class, entidad_id);
-		if(entidad == null) {
-			res.redirect("/compras/error/errorentidad");
-			return null;
-		}
-		
-		CompraPendiente compra = new CompraPendiente();
-		
-		compra.setFecha(LocalDate.now());
-		compra.setCantidadPresupuestosRequeridos(cant_presupuestos);
-		compra.setProveedor(proveedor);
-		compra.setMedioPago(medio_pago);
-		compra.setDetalle(detalle);
-		compra.setCriterioSeleccion(criterio_pago_id);
-		compra.setEntidad(entidad);
-		
-		transaction.begin();
-		em.persist(compra);
-		transaction.commit();
-		
-		res.redirect("/compras_pendientes");
-		return null;	
-	}
-	
-	public ModelAndView validar_compras(Request req, Response res){
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa se validan compras");	
-		RepositorioComprasPendientes.getInstance().validarCompras();	
-		res.redirect("/compras_pendientes");
-		return null;
-	}
-	
-	public ModelAndView borrar_compra(Request req, Response res){	
+	}*/
+
+	public ModelAndView borrarCompra(Request req, Response res){	
 		Long idCompraPendiente = new Long(req.params("idBorrado"));
 		RepositorioComprasPendientes.getInstance().borrarCompraPendiente(idCompraPendiente);
 		res.redirect("/compras_pendientes");
 		return null;
 	}
 	
-	public ModelAndView editar_presup(Request req, Response res){
+	public ModelAndView menuCompra(Request req, Response res){
+		Long idCompraPendiente = new Long(req.params("idCompra"));
+		CompraPendiente compraPendiente = RepositorioComprasPendientes.getInstance()
+												.getCompraPendiente(idCompraPendiente);
+		return new ModelAndView(compraPendiente, "menuCompraPendiente.hbs");
+	}
+
+	public ModelAndView editarPresupuesto(Request req, Response res){
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		String idC = req.params("idCompra");
 		
@@ -138,7 +65,7 @@ public class ComprasController {
 		return new ModelAndView(compra, "presupuestos_compra.hbs");
 	}
 	
-	public Void agregar_presupuesto(Request req, Response res){
+	public Void agregarPresupuesto(Request req, Response res){
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction transaction = em.getTransaction();
 		
@@ -181,7 +108,7 @@ public class ComprasController {
 		return null;
 	}
 	
-	public Void borrar_presupuesto(Request req, Response res){	
+	public Void borrarPresupuesto(Request req, Response res){	
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction transaction = em.getTransaction();
 		Long idCompra = new Long(req.params("idCompra"));
@@ -199,7 +126,7 @@ public class ComprasController {
 		return null;
 	}
 	
-	public ModelAndView update_compra(Request req, Response res){
+	public ModelAndView updateCompra(Request req, Response res){
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction transaction = em.getTransaction();
 		String idCompra = req.params("idCompra");

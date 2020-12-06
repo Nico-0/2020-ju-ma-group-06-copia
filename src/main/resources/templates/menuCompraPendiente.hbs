@@ -1,0 +1,67 @@
+{{#partial "contenido"}}
+
+        <section class = "content">
+            <div>
+            MENU DE LA COMPRA {{id}} </br>
+                
+            ID: {{id}} </br>
+            Fecha de creacion original: {{fecha}} </br>
+            Medio de Pago: {{medioPago}} </br>
+            Cantidad de presupuestos requeridos: {{cantidadpresuprequeridos}} </br>
+            Criterio de seleccion de presupuesto: {{criterioseleccion}} </br>
+            Cantidad de presupuestos actuales??: {{cantidadpresupactuales}} </br>
+			<a class = "link_boton" href = "/compras_pendientes/{{id}}/editar">  Editar datos </a>
+			
+            <fieldset class = "formulario">
+                <legend>ENTIDAD</legend>
+                	Id: {{entidad.id}} </br>
+                	Nombre: {{entidad.nombre}} </br>
+                	<a class = "link_boton" href = {{entidad.urlView}}>  Ver entidad </a>
+					<a class = "link_boton" href = "/compras_pendientes/{{id}}/cambiar_entidad">  Cambiar entidad </a>
+            </fieldset>
+            </div>
+            
+            <div>
+            <fieldset class = "formulario">
+                <legend>PROVEEDOR</legend>
+                	Id: {{proveedor.id}} </br>
+                	Nombre: {{proveedor.nombre}} </br>
+                	<a class = "link_boton" href = {{proveedor.urlView}}>  Ver proveedor </a>
+					<a class = "link_boton" href = "/compras_pendientes/{{id}}/cambiar_proveedor">  Cambiar proveedor </a>
+            </fieldset>
+            </div>
+            
+            <div>
+            <fieldset class = "formulario">
+                <legend>DETALLE</legend>
+                	<table>
+                    <tr>
+                        <th> Item </th>
+                        <th> Cantidad </th>
+                        <th> Valor Unitario </th>
+                        <th> Valor Item </th>
+                    </tr>
+                	</table>
+					<a class = "link_boton" href = "/compras_pendientes/{{id}}/crear_item">  Crear nuevo item </a>
+            </fieldset>
+            </div>
+            
+            <div>
+            <fieldset class = "formulario">
+                <legend>PRESUPUESTOS</legend>
+                	<table>
+                    <tr>
+                        <th> Id </th>
+                        <th> Ver </th>
+                        <th> Quitar </th>
+                    </tr>
+                	</table>
+					<a class = "link_boton" href = "/compras_pendientes/{{id}}/crear_presupuesto">  Crear nuevo presupuesto </a>
+            </fieldset>
+            </div>
+            
+            <a class = "link_boton_2" href = "/compras_pendientes">  Volver a la lista de compras pendientes</a>
+
+{{/partial}}
+
+{{>layout.hbs}}       

@@ -21,7 +21,6 @@ public class EditarEntidadesBaseDeEntidad {
 		    "organizaciones_sociales"
 	));
 
-	
 	public ModelAndView show(Request req, Response res){
 		this.verificarTipoEntidad(req.params("tipo_entidad"), res);
 		Long id = new Long(req.params("id_entidad"));

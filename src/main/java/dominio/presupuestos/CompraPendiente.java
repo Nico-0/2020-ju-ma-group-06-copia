@@ -78,8 +78,8 @@ public class CompraPendiente {
     	  return this.proveedor;
     }
     
-    public MedioPago getMediopago(){//si se pone mas de una mayuscula hibernate no lo detecta
-  	  return this.medioPago;
+    public String getMediopago(){//si se pone mas de una mayuscula hibernate no lo detecta
+  	  return this.medioPago.toString();
     } 
     
     public Entidad getEntidad(){

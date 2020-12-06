@@ -8,9 +8,9 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import controllers.BandejaDeEntradaController;
 import controllers.Compras;
-import controllers.ComprasController;
+import controllers.MenuComprasPendientesController;
 import controllers.CrearCategoriaDefault;
-import controllers.EditarCompraPendiente;
+import controllers.MenuCompraPendiente;
 import controllers.CrearEmpresa;
 import controllers.CrearEntidadBase;
 import controllers.CrearOrganizacionSocial;
@@ -40,10 +40,10 @@ public class Router {
 		UsuarioController usuario = new UsuarioController();
 		
 		// Compras Pendientes
-		ComprasController comprascontr = new ComprasController();
+		MenuComprasPendientesController menuComprasPendientes = new MenuComprasPendientesController();
 		Compras compras = new Compras();
 		Presupuestos presupuestos = new Presupuestos();
-		EditarCompraPendiente editarCompraPendiente = new EditarCompraPendiente();
+		MenuCompraPendiente menuCompraPendiente = new MenuCompraPendiente();
 		
 		// Login
 		LoginController loginController = new LoginController();
@@ -87,26 +87,26 @@ public class Router {
 		Spark.get("/bandeja_de_entrada", bandejaDeEntrada::bandejaDeEntrada,engine);
 		Spark.post("/bandeja_de_entrada/limpiar", bandejaDeEntrada::limpiar_bandeja);
 		
-		//Compras Pendientes
+		// Menu Compras Pendientes
 		
-		Spark.get("/compras_pendientes/:id_compra_pendiente/usuarios/:id_usuario/suscribir",comprascontr::suscribirUsuario,engine);
-		Spark.get("/compras_pendientes/:id_compra_pendiente/usuarios/:id_usuario/desuscribir",comprascontr::desuscribirUsuario,engine);
-		Spark.get("/compras_pendientes/crear", editarCompraPendiente::crear,engine);
-		Spark.get("/compras_pendientes/:id", editarCompraPendiente::show,engine);
-		Spark.post("/compras_pendientes/:id/editar", editarCompraPendiente::editar,engine);
+		Spark.get("/compras_pendientes/:id_compra_pendiente/usuarios/:id_usuario/suscribir",menuComprasPendientes::suscribirUsuario,engine);
+		Spark.get("/compras_pendientes/:id_compra_pendiente/usuarios/:id_usuario/desuscribir",menuComprasPendientes::desuscribirUsuario,engine);
+
+		Spark.post("/compras_pendientes/validar", menuComprasPendientes::validar_compras,engine);
+		Spark.get("/compras_pendientes", menuComprasPendientes::show,engine);
+		Spark.get("/compras_pendientes/crear", menuComprasPendientes::crearCompra);
 		
-		Spark.post("/compras_pendientes/validar", comprascontr::validar_compras,engine);
-		Spark.get("/compras_pendientes", comprascontr::compras,engine);
-		Spark.post("/compras_pendientes/crear", comprascontr::crear_compra);
-		Spark.get("/compras_pendientes/:idCompra", comprascontr::menu_compra,engine);
-		Spark.post("/compras_pendientes/:idCompra", comprascontr::update_compra);
-		Spark.get("/compras_pendientes/:idCompra/presupuestos", comprascontr::editar_presup,engine);
-		Spark.post("/compras_pendientes/:idCompra/presupuestos", comprascontr::agregar_presupuesto);
-		Spark.post("/compras_pendientes/:idCompra/presupuestos/:idPresup/borrar", comprascontr::borrar_presupuesto);
-		Spark.get("/compras_pendientes/:idBorrado/borrar", comprascontr::borrar_compra, engine);
+		// Menu de una Compra Pendiente
+		Spark.get("/compras_pendientes/:idCompra", menuCompraPendiente::menuCompra,engine);
+		Spark.post("/compras_pendientes/:idCompra", menuCompraPendiente::updateCompra);
+		Spark.get("/compras_pendientes/:idCompra/presupuestos", menuCompraPendiente::editarPresupuesto,engine);
+		Spark.post("/compras_pendientes/:idCompra/presupuestos", menuCompraPendiente::agregarPresupuesto);
+		Spark.post("/compras_pendientes/:idCompra/presupuestos/:idPresup/borrar", menuCompraPendiente::borrarPresupuesto);
+		Spark.get("/compras_pendientes/:idBorrado/borrar", menuCompraPendiente::borrarCompra, engine);
 		
 		Spark.get("/presupuesto/editar", presupuestos::editarPresupuesto, engine);
 		
+		// Menu login
 		Spark.get("/usuario/crear", usuario::crear,engine);
 		Spark.post("/usuario/crear", usuario::creacion);
 	
