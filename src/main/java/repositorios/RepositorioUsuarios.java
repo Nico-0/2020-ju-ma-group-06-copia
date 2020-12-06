@@ -11,6 +11,7 @@ import javax.persistence.EntityTransaction;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
+import dominio.entidad.Entidad;
 import dominio.usuario.TipoUsuario;
 import dominio.usuario.Usuario;
 
@@ -57,5 +58,13 @@ public class RepositorioUsuarios {
 			existe = false;
 		
 		return existe;
+	}
+
+	public Usuario getUsuario(Long idUsuario) {
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		return (Usuario) entityManager
+				.createQuery("from Usuario where id = :id")
+				.setParameter("id", idUsuario)
+				.getSingleResult();
 	}
 }

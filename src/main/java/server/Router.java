@@ -89,8 +89,10 @@ public class Router {
 		
 		//Compras Pendientes
 		
+		Spark.get("/compras_pendientes/:id_compra_pendiente/usuarios/:id_usuario/suscribir",comprascontr::suscribirUsuario,engine);
+		Spark.get("/compras_pendientes/:id_compra_pendiente/usuarios/:id_usuario/desuscribir",comprascontr::desuscribirUsuario,engine);
 		Spark.get("/compras_pendientes/crear", editarCompraPendiente::crear,engine);
-		Spark.get("/compras_pendientes/:id/editar", editarCompraPendiente::show,engine);
+		Spark.get("/compras_pendientes/:id", editarCompraPendiente::show,engine);
 		Spark.post("/compras_pendientes/:id/editar", editarCompraPendiente::editar,engine);
 		
 		Spark.post("/compras_pendientes/validar", comprascontr::validar_compras,engine);
@@ -101,7 +103,7 @@ public class Router {
 		Spark.get("/compras_pendientes/:idCompra/presupuestos", comprascontr::editar_presup,engine);
 		Spark.post("/compras_pendientes/:idCompra/presupuestos", comprascontr::agregar_presupuesto);
 		Spark.post("/compras_pendientes/:idCompra/presupuestos/:idPresup/borrar", comprascontr::borrar_presupuesto);
-		Spark.get("/compras_pendientes/:idBorrado/delete", comprascontr::borrar_compra, engine);
+		Spark.get("/compras_pendientes/:idBorrado/borrar", comprascontr::borrar_compra, engine);
 		
 		Spark.get("/presupuesto/editar", presupuestos::editarPresupuesto, engine);
 		

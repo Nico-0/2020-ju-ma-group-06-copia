@@ -2,21 +2,7 @@
 
         <section class = "content">
             <div>
-                <table>
-                    <tr>
-                        <th> Compra </th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    {{#each compras}}
-					<tr>
-						<td>{{id}}</td>
-                        <td><a href="/compras_pendientes/{{id}}/editar">Editar</a></td>
-						<td><a href="/compras_pendientes/{{id}}/darse_de_alta_como_revisor">Editar</a></td>
-                        <td><a href="/compras_pendientes/{{id}}/delete">Borrar</a></td>
-					</tr>
-					{{/each}}
-                </table>
+            	{{{ tablaComprasPendientes }}}
             </div>
             <div>
             	<form action="/compras_pendientes/validar" method="post">

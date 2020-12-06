@@ -11,13 +11,15 @@ import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 import dominio.entidad.Categoria;
 import dominio.presupuestos.CompraPendiente;
+import dominio.usuario.Usuario;
 
 import static java.util.stream.Collectors.toList;
 
 
 public class RepositorioComprasPendientes implements WithGlobalEntityManager{
 	private static RepositorioComprasPendientes INSTANCE = null;
-	List<CompraPendiente> comprasPendientes = new ArrayList<>();
+	private String tabla;
+	Usuario usuarioLogueado;
 	
 	public static RepositorioComprasPendientes getInstance(){
 		if (INSTANCE == null) {
@@ -26,11 +28,16 @@ public class RepositorioComprasPendientes implements WithGlobalEntityManager{
 		return INSTANCE;
 	}
 	
-	/*	---------------------prueba
-	public List<CompraPendiente> todas() {
-		return this.comprasPendientes;
+	public void setUsuarioLogueado(Usuario usuarioLogueado) {
+		this.usuarioLogueado = usuarioLogueado;
 	}
 	
+	public List<CompraPendiente> getComprasPendientes() {
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		return entityManager.createQuery("from CompraPendiente").getResultList();
+	}
+	
+	/*
     public void validarCompras() {
     	List<CompraPendiente> comprasValidas = comprasPendientes.stream().filter(CompraPendiente::verificarQueEsValida).collect(toList());
     	comprasValidas.stream().forEach(CompraPendiente::validarCompra);
@@ -38,10 +45,6 @@ public class RepositorioComprasPendientes implements WithGlobalEntityManager{
        	this.comprasPendientes.removeIf(pendiente -> comprasValidas.contains(pendiente));
     }
     */
-    
-	/*public static void main(String Args[]) {
-		
-	}*/
 	
 	public void agregar(CompraPendiente cp) {
 		entityManager().persist(cp);
@@ -52,7 +55,8 @@ public class RepositorioComprasPendientes implements WithGlobalEntityManager{
 	}
 	
     public void validarCompras() {
-    	this.comprasPendientes = this.todas();
+    	List<CompraPendiente> comprasPendientes = RepositorioComprasPendientes.getInstance().getComprasPendientes(); 
+    	
     	/*
     	List<CompraPendiente> comprasValidas = comprasPendientes.stream().filter(CompraPendiente::verificarQueEsValida).collect(toList());
     	System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa se validan "+comprasValidas.size()+" compras");
@@ -64,8 +68,8 @@ public class RepositorioComprasPendientes implements WithGlobalEntityManager{
        	*/
     	
     	//TODO volver al codigo comentado de arriba
-    	System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa se validan "+this.comprasPendientes.size()+" compras");
-    	this.comprasPendientes.stream().forEach(CompraPendiente::validarCompra);
+    	System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa se validan "+ comprasPendientes.size()+" compras");
+    	comprasPendientes.stream().forEach(CompraPendiente::validarCompra);
     	
     }
 
@@ -78,7 +82,7 @@ public class RepositorioComprasPendientes implements WithGlobalEntityManager{
 		transaction.commit();
 	}
 
-	private CompraPendiente getCompraPendiente(Long id) {
+	public CompraPendiente getCompraPendiente(Long id) {
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		return (CompraPendiente) entityManager
 				.createQuery("from CompraPendiente where id = :id")
@@ -95,5 +99,30 @@ public class RepositorioComprasPendientes implements WithGlobalEntityManager{
 		transaction.commit();
 		return compraPendiente;
 	}
-    
+	
+	public String getTablaComprasPendientes() {
+    	List<CompraPendiente> todasLasComprasPendientes = RepositorioComprasPendientes.getInstance().getComprasPendientes(); 
+    	tabla = "<table>" + 
+    			"    	<tr>" + 
+    			"            <th> Id Compra </th>" + 
+    			"            <th></th>" + 
+    			"            <th></th>" + 
+    			"            <th></th>" + 
+    			"        </tr>";
+    	todasLasComprasPendientes.stream().forEach((compraPendiente) -> {tabla = tabla + 
+			    			"<tr>" + 
+			    			"   <td> " + compraPendiente.getId() + "</td>";
+    						if(compraPendiente.estaSuscrito(usuarioLogueado))
+    							tabla = tabla +
+    							"<td><a href = " + compraPendiente.getUrlView() + "/usuarios/" + usuarioLogueado.getId() + "/desuscribir>Desuscribirse</a></th>";
+    						else
+    							tabla = tabla +
+    							"<td><a href = " + compraPendiente.getUrlView() + "/usuarios/" + usuarioLogueado.getId() + "/suscribir>Suscribirse</a></th>";
+			    			tabla = tabla +
+					    			"   <td><a href = " + compraPendiente.getUrlView() + ">Ver</a></td>" + 
+					    			"   <td><a href = " + compraPendiente.getUrlBorrar() + ">Borrar</a></th>" +
+					    			"</tr>";
+    						});
+    	return tabla + "<table>";
+    }    
 }

@@ -15,6 +15,7 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import dominio.presupuestos.Detalle;
 import dominio.usuario.TipoUsuario;
 import dominio.usuario.Usuario;
+import repositorios.RepositorioComprasPendientes;
 import repositorios.RepositorioUsuarios;
 import spark.ModelAndView;
 import spark.Request;

@@ -97,5 +97,9 @@ public class Usuario {
 	public String getTipo_string() {
 		return this.tipoUsuario.toString();
 	}
+
+	public String getId() {
+		return String.valueOf(id);
+	}
 	
 }

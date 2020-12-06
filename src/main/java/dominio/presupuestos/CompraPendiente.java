@@ -181,11 +181,19 @@ public class CompraPendiente {
     }
     
     public void agregarUsuarioRevisor(Usuario unUsuario) {
-    	usuariosRevisores.add(unUsuario);
+    	EntityManager em = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = em.getTransaction();
+		transaction.begin();
+		usuariosRevisores.add(unUsuario);
+		transaction.commit();
     }
     
     public void quitarUsuarioRevisor(Usuario unUsuario) {
-    	usuariosRevisores.remove(unUsuario);
+    	EntityManager em = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = em.getTransaction();
+		transaction.begin();
+		usuariosRevisores.remove(unUsuario);
+		transaction.commit();	
     }
     
     public void enviarMensajeRevisores(String texto) {
@@ -217,4 +225,16 @@ public class CompraPendiente {
 			enviarMensajeRevisores("La compra "+this.getId()+" fue validada.");
 		}
     }
+
+	public boolean estaSuscrito(Usuario usuario) {
+		return usuariosRevisores.contains(usuario);
+	}
+
+	public String getUrlView() {
+		return "/compras_pendientes/" + this.getId();
+	}
+
+	public String getUrlBorrar() {
+		return "/compras_pendientes/" + this.getId() + "/borrar";
+	}
 }
