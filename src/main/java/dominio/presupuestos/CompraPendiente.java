@@ -99,16 +99,18 @@ public class CompraPendiente {
       } 
     
     public void setCriterioSeleccion(Long id_criterio) {
-    	if(id_criterio == 0)
-    	this.criterioDeSeleccion = CriterioDeSeleccionPresupuesto.ElUsuarioOlvidoElegirCriterio;
     	if(id_criterio == 1)
     	this.criterioDeSeleccion = CriterioDeSeleccionPresupuesto.SinCriterioDeSeleccion;
     	if(id_criterio == 2) 
     	this.criterioDeSeleccion = CriterioDeSeleccionPresupuesto.PresupuestoMasBarato;
+    	/*
+    	if(id_criterio == 0)
+    	this.criterioDeSeleccion = CriterioDeSeleccionPresupuesto.ElUsuarioOlvidoElegirCriterio;
     	if(id_criterio == 3)
     	this.criterioDeSeleccion = CriterioDeSeleccionPresupuesto.PresupuestoMasCaro;
     	if(id_criterio == 4)
     	this.criterioDeSeleccion = CriterioDeSeleccionPresupuesto.LoDejoASuCriterio;
+    	*/
     }
     
     public CompraPendiente setCriterioDeSeleccion(CriterioDeSeleccionPresupuesto unCriterio) { //TODO quedarse con este y borrar el de arriba
@@ -188,17 +190,7 @@ public class CompraPendiente {
     
     public void enviarMensajeRevisores(String texto) {
     	Mensaje unMensaje = new Mensaje(this, texto);
-    	//usuariosRevisores.stream().forEach(unUsuario -> unUsuario.recibirMensaje(unMensaje)); 
-    	//TODO borrar lo de abajo y quedarse con esta linea comentada
-    	
-    	Usuario usuario = RepositorioUsuarios.getInstance().getUsuario("pepe");
-		
-    	//transaction ya activa de antes de entrar al metodo
-    	EntityManager em = PerThreadEntityManagers.getEntityManager();
-    	em.persist(unMensaje);
-		usuario.bandejaDeEntrada.agregarMensaje(unMensaje);
-		
-    	
+    	usuariosRevisores.stream().forEach(unUsuario -> unUsuario.recibirMensaje(unMensaje)); 
     }
     
     public void setEntidad(Entidad entidad) {
@@ -215,11 +207,14 @@ public class CompraPendiente {
     public void validarCompra() {
     	System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa se intenta validar la compra "+this.getId());
 	    if(verificarQueEsValida()) {
+	    	final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+			final EntityTransaction transaction = entityManager.getTransaction();
 			Compra compra = new Compra(proveedor, medioPago, fecha, presupuestos, detalle, usuariosRevisores, etiquetas);
+			transaction.begin();
+			entityManager.persist(compra);
 			entidad.agregarCompra(compra);
+			transaction.commit();
 			enviarMensajeRevisores("La compra "+this.getId()+" fue validada.");
 		}
-
     }
-    
 }

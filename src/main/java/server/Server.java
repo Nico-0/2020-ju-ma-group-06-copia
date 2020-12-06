@@ -9,8 +9,8 @@ import spark.debug.DebugScreen;
 
 public class Server {
 	public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
-		//Spark.port(9000);
-		Spark.port(getHerokuAssignedPort());
+		Spark.port(9000);
+		//Spark.port(getHerokuAssignedPort());
 		DebugScreen.enableDebugScreen();
 		Bootstrap.init();
 		Router.configure();

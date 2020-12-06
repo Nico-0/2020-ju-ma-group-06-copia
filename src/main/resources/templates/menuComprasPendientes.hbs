@@ -1,0 +1,37 @@
+{{#partial "contenido"}}
+
+        <section class = "content">
+            <div>
+                <table>
+                    <tr>
+                        <th> Compra </th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    {{#each compras}}
+					<tr>
+						<td>{{id}}</td>
+                        <td><a href="/compras_pendientes/{{id}}/editar">Editar</a></td>
+						<td><a href="/compras_pendientes/{{id}}/darse_de_alta_como_revisor">Editar</a></td>
+                        <td><a href="/compras_pendientes/{{id}}/delete">Borrar</a></td>
+					</tr>
+					{{/each}}
+                </table>
+            </div>
+            <div>
+            	<form action="/compras_pendientes/validar" method="post">
+            		<input class = "submit_azul" type="submit" value="Validar todas las comprasPendientes" onclick="alert('Se validan las compras, chequee la bandeja de entrada. (Falta convertir exitosas en compras definitivas)')">
+            	</form>
+            </div>
+            <div>
+            	<form action="/usuario/crear" method="get">
+            		<input class = "submit_verde" type="submit" value="Ir a crear componentes de compras">
+            	</form>
+            </div>
+            <a class = "link_boton_2" href = "/compras_pendientes/crear">  Crear Compra Pendiente  </a>
+            <a class = "link_boton_2" href = "/">  Volver  </a>
+        </section>
+
+{{/partial}}
+
+{{>layout.hbs}}       

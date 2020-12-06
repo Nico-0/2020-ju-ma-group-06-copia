@@ -1,4 +1,4 @@
-package dominio.presupuestos;
+package repositorios;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,9 @@ import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+
+import dominio.entidad.Categoria;
+import dominio.presupuestos.CompraPendiente;
 
 import static java.util.stream.Collectors.toList;
 
@@ -65,5 +68,32 @@ public class RepositorioComprasPendientes implements WithGlobalEntityManager{
     	this.comprasPendientes.stream().forEach(CompraPendiente::validarCompra);
     	
     }
+
+	public void borrarCompraPendiente(Long id) {
+		CompraPendiente compraPendiente = this.getCompraPendiente(id);
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		entityManager.remove(compraPendiente);
+		transaction.commit();
+	}
+
+	private CompraPendiente getCompraPendiente(Long id) {
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		return (CompraPendiente) entityManager
+				.createQuery("from CompraPendiente where id = :id")
+				.setParameter("id", id)
+				.getSingleResult();
+	}
+
+	public CompraPendiente crearCompraPendiente() {
+		CompraPendiente compraPendiente = new CompraPendiente();
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		entityManager.persist(compraPendiente);
+		transaction.commit();
+		return compraPendiente;
+	}
     
 }

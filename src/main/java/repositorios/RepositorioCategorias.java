@@ -19,7 +19,6 @@ import dominio.entidad.EntidadJuridica;
 import dominio.entidad.OrganizacionSocial;
 import dominio.entidad.TipoEmpresa;
 import dominio.presupuestos.CompraPendiente;
-import dominio.presupuestos.RepositorioComprasPendientes;
 import dominio.usuario.Usuario;
 
 public class RepositorioCategorias {

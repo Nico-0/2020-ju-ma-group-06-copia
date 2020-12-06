@@ -30,8 +30,8 @@ import dominio.presupuestos.CompraPendiente;
 import dominio.presupuestos.CriterioDeSeleccionPresupuesto;
 import dominio.presupuestos.Detalle;
 import dominio.presupuestos.Presupuesto;
-import dominio.presupuestos.RepositorioComprasPendientes;
 import dominio.usuario.Usuario;
+import repositorios.RepositorioComprasPendientes;
 
 public class ContextTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
 	private CompraPendiente compraValida;

@@ -17,7 +17,8 @@ import dominio.entidad.Entidad;
 import dominio.presupuestos.CompraPendiente;
 import dominio.presupuestos.Detalle;
 import dominio.presupuestos.Presupuesto;
-import dominio.presupuestos.RepositorioComprasPendientes;
+import repositorios.RepositorioCategorias;
+import repositorios.RepositorioComprasPendientes;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -31,7 +32,7 @@ public class ComprasController {
 				.createQuery("from CompraPendiente", CompraPendiente.class)
 				.getResultList();
 		model.put("compras", compras);
-		return new ModelAndView(model, "compras_usuario.hbs");
+		return new ModelAndView(model, "menuComprasPendientes.hbs");
 	}
 	
 	public ModelAndView menu_compra(Request req, Response res){
@@ -42,7 +43,7 @@ public class ComprasController {
 				.createQuery("from CompraPendiente where id = "+idC, CompraPendiente.class)
 				.getSingleResult();
 
-		return new ModelAndView(compra, "menu_compra.hbs");
+		return new ModelAndView(compra, "editarCompraPendiente2.hbs");
 	}
 	
 	public Void crear_compra(Request req, Response res){
@@ -91,11 +92,11 @@ public class ComprasController {
 		em.persist(compra);
 		transaction.commit();
 		
-		res.redirect("/compras");
+		res.redirect("/compras_pendientes");
 		return null;	
 	}
 	
-	public Void validar_compras(Request req, Response res){
+	public ModelAndView validar_compras(Request req, Response res){
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction transaction = em.getTransaction();
 		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa se validan compras");
@@ -104,20 +105,14 @@ public class ComprasController {
 		RepositorioComprasPendientes.getInstance().validarCompras();
 		transaction.commit();
 		
-		res.redirect("/compras");
+		res.redirect("/compras_pendientes");
 		return null;
 	}
 	
-	public Void borrar_compra(Request req, Response res){	
-		EntityManager em = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = em.getTransaction();
-		String idB = req.params("idBorrado");
-		
-		transaction.begin();
-		em.createQuery("delete from CompraPendiente where id = "+idB).executeUpdate();
-		transaction.commit();
-		
-		res.redirect("/compras");
+	public ModelAndView borrar_compra(Request req, Response res){	
+		Long idCompraPendiente = new Long(req.params("idBorrado"));
+		RepositorioComprasPendientes.getInstance().borrarCompraPendiente(idCompraPendiente);
+		res.redirect("/compras_pendientes");
 		return null;
 	}
 	
@@ -193,7 +188,7 @@ public class ComprasController {
 		return null;
 	}
 	
-	public Void update_compra(Request req, Response res){
+	public ModelAndView update_compra(Request req, Response res){
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction transaction = em.getTransaction();
 		String idCompra = req.params("idCompra");
@@ -270,7 +265,7 @@ public class ComprasController {
 		em.persist(compra);
 		transaction.commit();
 
-		res.redirect("/compras/"+idCompra);
+		res.redirect("/compras_pendientes/"+idCompra);
 		return null;
 	}
 }

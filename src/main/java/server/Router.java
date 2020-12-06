@@ -10,6 +10,7 @@ import controllers.BandejaDeEntradaController;
 import controllers.Compras;
 import controllers.ComprasController;
 import controllers.CrearCategoriaDefault;
+import controllers.EditarCompraPendiente;
 import controllers.CrearEmpresa;
 import controllers.CrearEntidadBase;
 import controllers.CrearOrganizacionSocial;
@@ -37,10 +38,12 @@ public class Router {
 		Spark.staticFiles.location("/public");
 		
 		UsuarioController usuario = new UsuarioController();
-		MenuEntidadesController entidad = new MenuEntidadesController();
+		
+		// Compras Pendientes
 		ComprasController comprascontr = new ComprasController();
 		Compras compras = new Compras();
 		Presupuestos presupuestos = new Presupuestos();
+		EditarCompraPendiente editarCompraPendiente = new EditarCompraPendiente();
 		
 		// Login
 		LoginController loginController = new LoginController();
@@ -49,6 +52,7 @@ public class Router {
 		BandejaDeEntradaController bandejaDeEntrada = new BandejaDeEntradaController();
 		
 		// Entidades
+		MenuEntidadesController entidad = new MenuEntidadesController();
 		CrearEntidadBase crearEntidadBase = new CrearEntidadBase();
 		CrearOrganizacionSocial crearOrganizacionSocial = new CrearOrganizacionSocial();
 		CrearEmpresa crearEmpresa = new CrearEmpresa();
@@ -67,10 +71,11 @@ public class Router {
 			}
 			//PerThreadEntityManagers.getEntityManager();
 		});
-		/*
-		Spark.after((request, response)-> {
-			PerThreadEntityManagers.closeEntityManager();
-		});*/
+		
+		Spark.after((request, response) -> {
+            PerThreadEntityManagers.getEntityManager();
+            PerThreadEntityManagers.closeEntityManager();
+		});
 		
 		Spark.get("/", Home::home, engine);
 		
@@ -82,21 +87,21 @@ public class Router {
 		Spark.get("/bandeja_de_entrada", bandejaDeEntrada::bandejaDeEntrada,engine);
 		Spark.post("/bandeja_de_entrada/limpiar", bandejaDeEntrada::limpiar_bandeja);
 		
-		//Compras
-		Spark.get("/compras", comprascontr::compras,engine);
-		Spark.post("/compras", comprascontr::crear_compra);
-		Spark.get("/compras/:idCompra", comprascontr::menu_compra,engine);
-		Spark.post("/compras/:idCompra", comprascontr::update_compra);
-		Spark.get("/compras/:idCompra/presupuestos", comprascontr::editar_presup,engine);
-		Spark.post("/compras/:idCompra/presupuestos", comprascontr::agregar_presupuesto);
-		Spark.post("/compras/:idCompra/presupuestos/:idPresup/borrar", comprascontr::borrar_presupuesto);
-		Spark.post("/compras/validar", comprascontr::validar_compras);
-		Spark.post("/compras/delete/:idBorrado", comprascontr::borrar_compra);
+		//Compras Pendientes
 		
-		//componentes de una compra
-		Spark.get("/compra/editar", compras::editarCompra, engine);
-		Spark.get("/compra/editar/presupuestos", compras::presupuestos, engine);
-		Spark.get("/compra/editar/etiquetas", compras::etiquetas, engine);
+		Spark.get("/compras_pendientes/crear", editarCompraPendiente::crear,engine);
+		Spark.get("/compras_pendientes/:id/editar", editarCompraPendiente::show,engine);
+		Spark.post("/compras_pendientes/:id/editar", editarCompraPendiente::editar,engine);
+		
+		Spark.post("/compras_pendientes/validar", comprascontr::validar_compras,engine);
+		Spark.get("/compras_pendientes", comprascontr::compras,engine);
+		Spark.post("/compras_pendientes/crear", comprascontr::crear_compra);
+		Spark.get("/compras_pendientes/:idCompra", comprascontr::menu_compra,engine);
+		Spark.post("/compras_pendientes/:idCompra", comprascontr::update_compra);
+		Spark.get("/compras_pendientes/:idCompra/presupuestos", comprascontr::editar_presup,engine);
+		Spark.post("/compras_pendientes/:idCompra/presupuestos", comprascontr::agregar_presupuesto);
+		Spark.post("/compras_pendientes/:idCompra/presupuestos/:idPresup/borrar", comprascontr::borrar_presupuesto);
+		Spark.get("/compras_pendientes/:idBorrado/delete", comprascontr::borrar_compra, engine);
 		
 		Spark.get("/presupuesto/editar", presupuestos::editarPresupuesto, engine);
 		
@@ -168,13 +173,6 @@ public class Router {
 		});
 		Spark.get("/error/existente", (request, response) -> {
 			return "ya existe usuario con ese nombre";
-		});
-		
-		Spark.after((request, response) -> {
-            PerThreadEntityManagers.getEntityManager();
-            PerThreadEntityManagers.closeEntityManager();
-		});
-		
-		
+		});		
 	}
 }

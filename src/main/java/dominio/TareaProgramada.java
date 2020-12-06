@@ -2,7 +2,7 @@ package dominio;
 
 import java.util.TimerTask;
 
-import dominio.presupuestos.RepositorioComprasPendientes;
+import repositorios.RepositorioComprasPendientes;
 
 import java.lang.System;
 import java.util.Timer;
