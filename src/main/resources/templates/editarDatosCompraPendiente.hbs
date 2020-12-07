@@ -2,14 +2,11 @@
 
 <section class = "content">
 	</div>            
-	    Proceda con cuidado, ningun cambio se puede revertir??
-	        <fieldset class = "formulario">
-	        <legend>Editar compra</legend>
-	        <form action="/compras/{{id}}" method="post">
+		<fieldset class = "formulario">
+	        <legend>Editar datos de la compra pendiente</legend>
+	        <form action="/compras_pendientes/{{id}}/editar" method="post">
 	            <label class = "label2">Cantidad presupuestos requeridos</label>
-	            <input type="text" id="cant_presup" name="cant_presup" placeholder="Ingrese cantidad de presupuestos..." value="{{cantidadpresuprequeridos}}" />
-	            <label class = "label2">Proveedor</label>
-	            <input type="text" id="proveedor" name="proveedor" value="{{proveedor.id}}" placeholder="Ingrese nuevo proveedor..." />
+	            <input type="text" id="cantidad_presupuestos" name="cantidad_presupuestos" placeholder="Ingrese cantidad de presupuestos..." value="{{cantidadpresuprequeridos}}" />
 	            <br />
 	            <label class = "label2">Medio de Pago:</label>        
 	            <select class="combo" name="medio_de_pago" id="medio_de_pago">
@@ -19,9 +16,9 @@
 	                <option value = "3">Efectivo</option>
 	                <option value = "4">Cajero Automatico</option>
 	                <option value = "5">Dinero Cuenta</option>
-	            </select>                    
-	           	<label class = "label2">Entidad</label>
-	            <input type="text" id="entidad" name="entidad" value="{{entidad.id}}" placeholder="Ingrese nuevo id de entidad..." />                    
+	            </select>
+	            <br />
+	            <br />                    
 	            <label class = "label2">Criterio Presupuestario:</label>                     
 	            <select class="combo" name="criterio" id="criterio">
 	                <option value="1">Sin criterio</option>

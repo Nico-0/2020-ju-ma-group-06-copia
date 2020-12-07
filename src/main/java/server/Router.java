@@ -17,6 +17,7 @@ import controllers.CrearOrganizacionSocial;
 import controllers.CrearProveedor;
 import controllers.EditarCategoriaDefault;
 import controllers.EditarCategoriasDeEntidad;
+import controllers.EditarDatosCompraPendiente;
 import controllers.EditarEntidadesBaseDeEntidad;
 import controllers.Presupuestos;
 import controllers.SeleccionarEntidadDeCompraPendiente;
@@ -51,7 +52,7 @@ public class Router {
 		
 		SeleccionarEntidadDeCompraPendiente seleccionarEntidadDeCompraPendiente = new SeleccionarEntidadDeCompraPendiente();
 		SeleccionarProveedorDeCompraPendiente seleccionarProveedorDeCompraPendiente = new SeleccionarProveedorDeCompraPendiente();
-		
+		EditarDatosCompraPendiente editarDatosCompraPendiente = new EditarDatosCompraPendiente();
 		
 		// Login
 		LoginController loginController = new LoginController();
@@ -114,9 +115,8 @@ public class Router {
 		Spark.get("/compras_pendientes/:id_compra_pendiente/seleccionar_proveedor", seleccionarProveedorDeCompraPendiente::show,engine);
 		Spark.get("/compras_pendientes/:id_compra_pendiente/seleccionar_proveedor/:id_proveedor", seleccionarProveedorDeCompraPendiente::seleccionar,engine);
 		
-		//Spark.get("/compras_pendientes/:idCompra/editar", editarDatosCompraPendiente::show, engine);
-		//Spark.post("/compras_pendientes/:idCompra/editar", editarDatosCompraPendiente::editar, engine);
-		
+		Spark.get("/compras_pendientes/:id_compra_pendiente/editar", editarDatosCompraPendiente::show, engine);
+		Spark.post("/compras_pendientes/:id_compra_pendiente/editar", editarDatosCompraPendiente::editar, engine);
 		
 		Spark.get("/compras_pendientes/:idCompra", menuCompraPendiente::menuCompra,engine);
 		
