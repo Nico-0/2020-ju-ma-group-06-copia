@@ -13,21 +13,13 @@
 			<a class = "link_boton" href = "/compras_pendientes/{{id}}/editar">  Editar datos </a>
 			
             <fieldset class = "formulario">
-                <legend>ENTIDAD</legend>
-                	Id: {{entidad.id}} </br>
-                	Nombre: {{entidad.nombre}} </br>
-                	<a class = "link_boton" href = {{entidad.urlView}}>  Ver entidad </a>
-					<a class = "link_boton" href = "/compras_pendientes/{{id}}/cambiar_entidad">  Cambiar entidad </a>
+            	{{{datosEntidad}}}
             </fieldset>
             </div>
             
             <div>
             <fieldset class = "formulario">
-                <legend>PROVEEDOR</legend>
-                	Id: {{proveedor.id}} </br>
-                	Nombre: {{proveedor.nombre}} </br>
-                	<a class = "link_boton" href = {{proveedor.urlView}}>  Ver proveedor </a>
-					<a class = "link_boton" href = "/compras_pendientes/{{id}}/cambiar_proveedor">  Cambiar proveedor </a>
+            	{{{datosProveedor}}}
             </fieldset>
             </div>
             

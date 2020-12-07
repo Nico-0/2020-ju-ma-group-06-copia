@@ -14,11 +14,15 @@ import controllers.MenuCompraPendiente;
 import controllers.CrearEmpresa;
 import controllers.CrearEntidadBase;
 import controllers.CrearOrganizacionSocial;
+import controllers.CrearProveedor;
 import controllers.EditarCategoriaDefault;
 import controllers.EditarCategoriasDeEntidad;
 import controllers.EditarEntidadesBaseDeEntidad;
 import controllers.Presupuestos;
+import controllers.SeleccionarEntidadDeCompraPendiente;
+import controllers.SeleccionarProveedorDeCompraPendiente;
 import controllers.MenuEntidadesController;
+import controllers.MenuProveedores;
 import controllers.LoginController;
 import controllers.MenuCategorias;
 import spark.Spark;
@@ -45,6 +49,10 @@ public class Router {
 		Presupuestos presupuestos = new Presupuestos();
 		MenuCompraPendiente menuCompraPendiente = new MenuCompraPendiente();
 		
+		SeleccionarEntidadDeCompraPendiente seleccionarEntidadDeCompraPendiente = new SeleccionarEntidadDeCompraPendiente();
+		SeleccionarProveedorDeCompraPendiente seleccionarProveedorDeCompraPendiente = new SeleccionarProveedorDeCompraPendiente();
+		
+		
 		// Login
 		LoginController loginController = new LoginController();
 		
@@ -63,6 +71,10 @@ public class Router {
 		MenuCategorias menuCategorias = new MenuCategorias();
 		CrearCategoriaDefault crearCategoriaDefault = new CrearCategoriaDefault();
 		EditarCategoriaDefault editarCategoriaDefault = new EditarCategoriaDefault();
+		
+		// Proveedores
+		MenuProveedores menuProveedores = new MenuProveedores();
+		CrearProveedor crearProveedor = new CrearProveedor();
 		
 		Spark.before((request, response)-> {
 			if(!request.pathInfo().equals("/login") &&
@@ -97,8 +109,17 @@ public class Router {
 		Spark.get("/compras_pendientes/crear", menuComprasPendientes::crearCompra);
 		
 		// Menu de una Compra Pendiente
+		Spark.get("/compras_pendientes/:id_compra_pendiente/seleccionar_entidad", seleccionarEntidadDeCompraPendiente::show,engine);
+		Spark.get("/compras_pendientes/:id_compra_pendiente/seleccionar_entidad/:id_entidad", seleccionarEntidadDeCompraPendiente::seleccionar,engine);
+		Spark.get("/compras_pendientes/:id_compra_pendiente/seleccionar_proveedor", seleccionarProveedorDeCompraPendiente::show,engine);
+		Spark.get("/compras_pendientes/:id_compra_pendiente/seleccionar_proveedor/:id_proveedor", seleccionarProveedorDeCompraPendiente::seleccionar,engine);
+		
+		//Spark.get("/compras_pendientes/:idCompra/editar", editarDatosCompraPendiente::show, engine);
+		//Spark.post("/compras_pendientes/:idCompra/editar", editarDatosCompraPendiente::editar, engine);
+		
+		
 		Spark.get("/compras_pendientes/:idCompra", menuCompraPendiente::menuCompra,engine);
-		Spark.post("/compras_pendientes/:idCompra", menuCompraPendiente::updateCompra);
+		
 		Spark.get("/compras_pendientes/:idCompra/presupuestos", menuCompraPendiente::editarPresupuesto,engine);
 		Spark.post("/compras_pendientes/:idCompra/presupuestos", menuCompraPendiente::agregarPresupuesto);
 		Spark.post("/compras_pendientes/:idCompra/presupuestos/:idPresup/borrar", menuCompraPendiente::borrarPresupuesto);
@@ -109,7 +130,15 @@ public class Router {
 		// Menu login
 		Spark.get("/usuario/crear", usuario::crear,engine);
 		Spark.post("/usuario/crear", usuario::creacion);
-	
+		
+		// Menu de proveedores
+		Spark.get("/proveedores/registrar_proveedor", crearProveedor::show, engine);
+		Spark.post("/proveedores/registrar_proveedor", crearProveedor::crear, engine);
+		
+		Spark.get("/proveedores", menuProveedores::show, engine);
+		Spark.get("proveedores/:id", menuProveedores::mostrarProveedor, engine);
+		Spark.get("/proveedores/:id/borrar", menuProveedores::borrarProveedor, engine);
+		
 		// Menu entidades
 		Spark.get("/entidades/crear_empresa", crearEmpresa::show,engine);
 		Spark.get("/entidades/crear_organizacion_social", crearOrganizacionSocial::show,engine);

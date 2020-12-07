@@ -1,0 +1,35 @@
+{{#partial "contenido"}}
+
+<section class = "content">
+    <fieldset class = "formulario">
+        <legend>Registrar Proveedor</legend>
+        <form method="POST" action=/proveedores/registrar_proveedor class="content">
+            <label class = "label2">Razon social</label>
+            <input type="text" id="razon_social" name="razon_social" placeholder="Ingrese razón social..." />
+            </br>
+            <label class = "label2">DNI/CUIL/CUIL</label>
+            <input type="text" id="dni_cuil_cuit" name="dni_cuil_cuit" placeholder="Ingrese DNI/CUIL/CUIT..." />
+            </br>
+            Direccion Postal:
+            </br>
+            <label class = "label2">Pais</label>
+            <input type="text" id="pais" name="pais" placeholder="Ingrese pais..." />
+           	</br>
+           	<label class = "label2">Provincia</label>
+            <input type="text" id="provincia" name="provincia" placeholder="Ingrese provincia..." />
+           	</br>
+           	<label class = "label2">Ciudad</label>
+            <input type="text" id="ciudad" name="ciudad" placeholder="Ingrese ciudad..." />
+           	</br>
+           	<label class = "label2">Direccion</label>
+            <input type="text" id="direccion" name="direccion" placeholder="Ingrese direccion..." />
+           	<br />
+            <input class = "submit_azul" type="submit" value="Registrar" >
+            <a class = "submit_gris" href = "/proveedores">  Volver  </a>
+        </form>
+    </fieldset>
+</section>
+
+{{/partial}}
+
+{{>layout.hbs}}

@@ -20,6 +20,17 @@ public class DireccionPostal {
 	private String ciudad;
 	private String direccion;
 	
+	public DireccionPostal() {
+		
+	}
+	
+	public DireccionPostal(String pais, String provincia, String ciudad, String direccion) {
+		this.pais = pais;
+		this.provincia = provincia;
+		this.ciudad = ciudad;
+		this.direccion = direccion;
+	}
+	
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
@@ -46,8 +57,23 @@ public class DireccionPostal {
 	
     public long getId(){
   	  return this.id;
-    } 
-	
+    }
+    
+    public String getProvincia() {
+    	return provincia;
+    }
+    
+    public String getPais() {
+    	return pais;
+    }
+    
+    public String getCiudad() {
+    	return ciudad;
+    }
+    
+    public String getDireccion() {
+    	return direccion;
+    }
 	
 	public void setterCiudad(String ciudad) {
 		this.ciudad = ciudad;

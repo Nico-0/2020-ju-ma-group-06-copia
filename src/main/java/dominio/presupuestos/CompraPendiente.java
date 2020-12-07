@@ -12,6 +12,8 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import dominio.compra.*;
 import dominio.entidad.Entidad;
 import dominio.usuario.*;
+import repositorios.RepositorioEntidades;
+import repositorios.RepositorioProveedores;
 import repositorios.RepositorioUsuarios;
 
 @Entity
@@ -46,6 +48,8 @@ public class CompraPendiente {
     
     @ElementCollection
     private List<String> etiquetas = new ArrayList<String>();
+    
+    String tabla;
     
     public CompraPendiente() {
 
@@ -83,7 +87,7 @@ public class CompraPendiente {
     } 
     
     public Entidad getEntidad(){
-    	  return this.entidad;
+		return this.entidad;
     }   
     
     public long getCantidadpresupactuales(){ //si se pone mas de una mayuscula hibernate no lo detecta
@@ -131,7 +135,11 @@ public class CompraPendiente {
     }
     
     public CompraPendiente setProveedor(Proveedor proveedor) {
-    	this.proveedor = proveedor;
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		this.proveedor = proveedor;
+		transaction.commit();
     	return this;
     }
 
@@ -202,7 +210,11 @@ public class CompraPendiente {
     }
     
     public void setEntidad(Entidad entidad) {
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
     	this.entidad = entidad;
+		transaction.commit();
     }
     
     public boolean verificarQueEsValida() {
@@ -236,5 +248,95 @@ public class CompraPendiente {
 
 	public String getUrlBorrar() {
 		return "/compras_pendientes/" + this.getId() + "/borrar";
+	}
+	
+	public String getDatosProveedor() {
+		if(proveedor != null)
+			return "<legend>PROVEEDOR</legend>" + 
+					"Id: " + proveedor.getId() + "</br>" + 
+					"Razon social: " + proveedor.getRazonSocial() + "</br>" + 
+					"DNI/CUIL/CUIT: " + proveedor.getDniCuilCuit() + "</br>" + 
+					"Pais: " + proveedor.getDireccionPostal().getPais() + "</br>" + 
+					"Provincia: " + proveedor.getDireccionPostal().getProvincia() + "</br>" + 
+					"Ciudad: " + proveedor.getDireccionPostal().getCiudad() + "</br>" + 
+					"Direccion: " + proveedor.getDireccionPostal().getDireccion() + "</br>" + 
+					"<a class = \"link_boton\" href = \"/compras_pendientes/" + this.getId() + "/seleccionar_proveedor\">  Cambiar proveedor </a>";
+		else
+			return "<legend>PROVEEDOR</legend>" + 
+					"Falta seleccionar un proveedor" + 
+					"<a class = \"link_boton\" href = \"/compras_pendientes/" + this.getId() + "/seleccionar_proveedor\">  Seleccionar proveedor </a>";
+
+	}
+	
+	public String getDatosEntidad() {
+		if(entidad != null)
+			return "<legend>ENTIDAD</legend>" + 
+					"Id: " + entidad.getId() + "</br>" + 
+					"Nombre: " + entidad.getNombre() + "</br>" + 
+					"<a class = \"link_boton\" href = " + entidad.getUrlView() + ">  Ver entidad </a>" + 
+					"<a class = \"link_boton\" href = \"/compras_pendientes/" + this.getId() + "/seleccionar_entidad\">  Cambiar entidad </a>";
+		else
+			return "<legend>ENTIDAD</legend>" + 
+					"Falta seleccionar una entidad" + 
+					"<a class = \"link_boton\" href = \"/compras_pendientes/" + this.getId() + "/seleccionar_entidad\">  Seleccionar entidad </a>";
+	}
+	
+	public String getTablaSeleccionarProveedor() {
+		tabla = "<table>" + 
+    			"<tr>" + 
+    			"<th> Id </th>" + 
+    			"<th> Razon Social </th>" + 
+    			"<th> DNI/CUIL/CUIT </th>" + 
+    			"<th> Pais </th>" + 
+    			"<th> Provincia </th>" + 
+    			"<th> Ciudad </th>" + 
+    			"<th> Direccion </th>" + 
+    			"<th></th>" + 
+    			"</tr>";
+		List<Proveedor> proveedores = RepositorioProveedores.getInstance().getProveedores();
+
+    	proveedores.stream().forEach((proveedor) -> {tabla = tabla + 
+			    			"<tr>" + 
+			    			"   <td> " + proveedor.getId() + "</td>" + 
+			    			"   <td> " + proveedor.getRazonSocial() + "</td>" + 
+			    			"   <td> " + proveedor.getDniCuilCuit() + "</td>" +
+			    			"   <td> " + proveedor.getDireccionPostal().getPais() + "</td>" +
+			    			"   <td> " + proveedor.getDireccionPostal().getProvincia() + "</td>" +
+			    			"   <td> " + proveedor.getDireccionPostal().getCiudad() + "</td>" +
+			    			"   <td> " + proveedor.getDireccionPostal().getDireccion() + "</td>" +
+			    			"   <td> " + proveedor.getRazonSocial() + "</td>";
+    	if(this.proveedor == proveedor)
+    		tabla = tabla + "   <td> Proveedor seleccionado </th>" +
+    				"</tr>";
+    	else
+    		tabla = tabla + "   <td><a href = \"/compras_pendientes/" + this.getId() + "/seleccionar_proveedor/" + proveedor.getId() + "\"> Seleccionar </a></th>" +
+    				"</tr>";
+		});
+    	return tabla;
+	}
+
+	public String getTablaSeleccionarEntidad() {
+		tabla = "<table>" + 
+    			"<tr>" + 
+    			"<th> Id </th>" + 
+    			"<th> Nombre </th>" + 
+    			"<th></th>" + 
+    			"<th></th>" + 
+    			"</tr>";
+		List<Entidad> entidades = RepositorioEntidades.getInstance().getEntidades();
+
+    	entidades.stream().forEach((entidad) -> {tabla = tabla + 
+			    			"<tr>" + 
+			    			"   <td> " + entidad.getId() + "</td>" + 
+			    			"   <td> " + entidad.getNombre() + "</td>" + 
+			    			"   <td><a href = " + entidad.getUrlView() + "> Ver Entidad </a></td>";
+    	if(this.entidad == entidad)
+    		tabla = tabla + "   <td> Entidad seleccionada </th>" +
+    				"</tr>";
+    	else
+    		tabla = tabla + "   <td><a href = \"/compras_pendientes/" + this.getId() + "/seleccionar_entidad/" + entidad.getId() + "\"> Seleccionar </a></th>" +
+    				"</tr>";
+		});
+    	return tabla;
 	}
 }

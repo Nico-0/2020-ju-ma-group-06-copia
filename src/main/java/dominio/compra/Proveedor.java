@@ -25,7 +25,7 @@ public class Proveedor {
 		
 	}
 	
-    public long getId(){
+    public long getNumeroId(){
     	  return this.id;
       } 
 	
@@ -44,5 +44,25 @@ public class Proveedor {
 
 	public void setDni_cuil_cuit(String dni_cuil_cuit) {
 		this.dni_cuil_cuit = dni_cuil_cuit;
+	}
+
+	public String getId() {
+		return String.valueOf(id);
+	}
+	
+	public String getRazonSocial() {
+		return razon_social;
+	}
+	
+	public String getDniCuilCuit() {
+		return dni_cuil_cuit;
+	}
+	
+	public DireccionPostal getDireccionPostal () {
+		return direccion_postal;
+	}
+	
+	public String getUrlDelete() {
+		return "proveedores/" + getId() + "/borrar"; 
 	}
 }

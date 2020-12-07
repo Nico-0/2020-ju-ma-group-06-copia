@@ -1,0 +1,38 @@
+{{#partial "contenido"}}
+
+<section class = "content">
+    <a class = "link_boton" href = "proveedores/registrar_proveedor">  Registrar Proveedor  </a>
+    <div>
+    	PROVEEDORES:
+        <table>
+    	<tr>
+            <th> Id </th>
+            <th> Razon social </th>
+            <th> DNI/CUIL/CUIT </th>
+            <th> Pais </th>
+            <th> Provincia </th>
+            <th> Ciudad </th>
+            <th> Direccion </th>
+            <th> </th>
+        </tr>
+    	{{#each proveedores}}
+    		<tr>
+    		<td>{{ id }}</td>
+       		<td>{{ razonSocial }}</td>
+       		<td>{{ dniCuilCuit }}</td>
+       		<td>{{ direccionPostal.pais }} </th>
+       		<td>{{ direccionPostal.provincia }} </th>
+       		<td>{{ direccionPostal.ciudad }} </th>
+       		<td>{{ direccionPostal.direccion }} </th>
+            <td><a href = "{{ urlDelete }}">Borrar</a></td>
+       		</tr>
+    	{{/each}}
+    	</table>
+    </div>
+</section>
+<br/>
+    <a class = "link_boton" href = "/">  Volver  </a>
+
+{{/partial}}
+
+{{>layout.hbs}}
