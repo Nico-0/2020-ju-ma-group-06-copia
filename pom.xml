@@ -160,5 +160,11 @@
     			<version>1.7.21</version>
 	       </dependency>
 	
+			<dependency>
+				<groupId>org.apache.cayenne</groupId>
+				<artifactId>cayenne-java8</artifactId>
+				<version>4.0.2</version>
+			</dependency>
+	
 	</dependencies>
 </project>

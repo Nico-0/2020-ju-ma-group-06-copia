@@ -1,6 +1,7 @@
 package server;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
@@ -8,7 +9,7 @@ import spark.Spark;
 import spark.debug.DebugScreen;
 
 public class Server {
-	public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
+	public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException {
 		Spark.port(9000);
 		//Spark.port(getHerokuAssignedPort());
 		DebugScreen.enableDebugScreen();

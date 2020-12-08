@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
@@ -31,7 +32,7 @@ public class LoginController {
 		return new ModelAndView(usuarios.get(0), "login.hbs");
 	}
 	
-	public ModelAndView login(Request req, Response res) throws NoSuchAlgorithmException, InvalidKeySpecException, FileNotFoundException{
+	public ModelAndView login(Request req, Response res) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException{
 		// Buscar usuario en la base de datos y verificar
 		String nombre = req.queryParams("nombre");
 		String contrasenia = req.queryParams("contrasenia");

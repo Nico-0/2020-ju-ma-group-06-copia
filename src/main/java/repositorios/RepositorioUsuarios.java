@@ -1,6 +1,7 @@
 package repositorios;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.List;
@@ -40,7 +41,7 @@ public class RepositorioUsuarios {
 		return null;
 	}
 
-	public Usuario crearUsuario(String nombre, String contrasenia, TipoUsuario tipoUsuario) throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
+	public Usuario crearUsuario(String nombre, String contrasenia, TipoUsuario tipoUsuario) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException {
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		final EntityTransaction transaction = entityManager.getTransaction();
 		Usuario usuario = new Usuario(nombre,contrasenia,tipoUsuario);

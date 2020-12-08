@@ -37,7 +37,7 @@ public class Compra {
 	@OneToOne
 	private DocumentoComercial documentoComercial;
 	
-	private LocalDate fecha;
+	private LocalDate fecha = LocalDate.now();
 	
 	@ManyToMany
 	private List<Usuario> usuariosRevisores = new ArrayList<>();

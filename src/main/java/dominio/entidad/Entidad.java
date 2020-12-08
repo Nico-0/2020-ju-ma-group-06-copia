@@ -44,7 +44,7 @@ public abstract class Entidad {
 	@ManyToMany
 	public List<Categoria> categorias = new ArrayList<Categoria>();
 	
-	private LocalDate fecha;
+	private LocalDate fecha = LocalDate.now();
 	
 	@Transient
 	private GeneradorReporte reporte;

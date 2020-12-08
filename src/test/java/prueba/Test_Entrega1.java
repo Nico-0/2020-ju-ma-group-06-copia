@@ -1,6 +1,7 @@
 package prueba;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class Test_Entrega1 {
 	
 	
 	@Before
-	public void initialize() throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
+	public void initialize() throws NoSuchAlgorithmException, InvalidKeySpecException, IOException {
 		entidad = new OrganizacionSocial(razonSocial, nombreFicticio, cuit, direccionPostal, entidades);
 		
 		proveedor = new Proveedor("juancito", "45127845", direccion_postal);

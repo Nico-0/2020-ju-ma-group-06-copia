@@ -35,7 +35,7 @@ public class CompraPendiente {
 	private CriterioDeSeleccionPresupuesto criterioDeSeleccion = CriterioDeSeleccionPresupuesto.SinCriterioDeSeleccion;
 	
     private int cantidadPresupuestosRequeridos = 0;
-    private LocalDate fecha;
+    private LocalDate fecha = LocalDate.now();
     
     @ManyToOne(optional = true, cascade = {CascadeType.ALL})
     private MedioPago medioPago;

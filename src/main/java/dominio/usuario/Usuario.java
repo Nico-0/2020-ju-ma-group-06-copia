@@ -1,6 +1,7 @@
 package dominio.usuario;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
@@ -51,7 +52,7 @@ public class Usuario {
 		
 	}
 
-	public Usuario(String usuario, String contrasenia, TipoUsuario tipoUsuario) throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
+	public Usuario(String usuario, String contrasenia, TipoUsuario tipoUsuario) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException {
 		ValidadorDeContrasenias.getInstance().validarContrasenia(contrasenia, usuario);
 		inicializarSalt();
 		this.nombre = usuario;
