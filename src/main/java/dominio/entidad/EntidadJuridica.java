@@ -72,12 +72,12 @@ public abstract class EntidadJuridica extends Entidad {
 
 	public void agregarEntidadBase(EntidadBase entidadBase) {
 		categorias.stream().forEach(categoria -> categoria.validarAgregarEntidadBase(this, entidadBase));
-		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		final EntityTransaction transaction = entityManager.getTransaction();
-		transaction.begin();
+		//final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		//final EntityTransaction transaction = entityManager.getTransaction();
+		//transaction.begin();
 		entidadesBase.add(entidadBase);
 		entidadBase.setTieneEntidadJuridica(true);
-		transaction.commit();
+		//transaction.commit();
 	}
 
 	public List<EntidadBase> getEntidadesBase() {
@@ -89,12 +89,12 @@ public abstract class EntidadJuridica extends Entidad {
 	}
 
 	public void quitarEntidadBase(EntidadBase entidadBase) {
-		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		final EntityTransaction transaction = entityManager.getTransaction();
-		transaction.begin();
+		//final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		//final EntityTransaction transaction = entityManager.getTransaction();
+		//transaction.begin();
 		entidadesBase.remove(entidadBase);
 		entidadBase.setTieneEntidadJuridica(false);
-		transaction.commit();
+		//transaction.commit();
 	}
 	
 	public String getUrlEditarEntidadesBase() {

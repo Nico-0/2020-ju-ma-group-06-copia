@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
 import dominio.entidad.Categoria;
 import dominio.entidad.Entidad;
 import repositorios.RepositorioCategorias;
@@ -34,7 +39,13 @@ public class EditarCategoriasDeEntidad {
 		Categoria categoria = RepositorioCategorias
 					.getInstance()
 					.getCategoria(new Long(req.params("id_categoria")));
+		
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		final EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
 		entidad.agregarCategoria(categoria);
+		transaction.commit();
+		
 		res.redirect(entidad.getUrlEditarCategorias());
 		return null;
 	}
@@ -46,7 +57,13 @@ public class EditarCategoriasDeEntidad {
 		Categoria categoria = RepositorioCategorias
 								.getInstance()
 								.getCategoria(new Long(req.params("id_categoria")));
+		
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		final EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
 		entidad.quitarCategoria(categoria);
+		transaction.commit();
+		
 		res.redirect(entidad.getUrlEditarCategorias());
 		return null;
 	}

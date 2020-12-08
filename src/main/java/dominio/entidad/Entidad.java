@@ -81,19 +81,19 @@ public abstract class Entidad {
 	}
 
 	public void agregarCategoria(Categoria categoria) {
-		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		final EntityTransaction transaction = entityManager.getTransaction();
-		transaction.begin();
+		//final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		//final EntityTransaction transaction = entityManager.getTransaction();
+		//transaction.begin();
 		categorias.add(categoria);
-		transaction.commit();
+		//transaction.commit();
 	}
 	
 	public void quitarCategoria(Categoria categoria) {
-		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		final EntityTransaction transaction = entityManager.getTransaction();
-		transaction.begin();
+		//final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		//final EntityTransaction transaction = entityManager.getTransaction();
+		//transaction.begin();
 		categorias.remove(categoria);
-		transaction.commit();
+		//transaction.commit();
 	}
 	
 	public String getUrlDelete() {

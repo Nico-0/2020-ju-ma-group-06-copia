@@ -31,7 +31,11 @@ public class MenuComprasPendientesController {
 
 	public ModelAndView show(Request req, Response res){
 		String nombreUsuario = req.cookie("usuario_logueado");
-		Usuario usuario = RepositorioUsuarios.getInstance().getUsuario(nombreUsuario);
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		Usuario usuario = (Usuario) entityManager
+				.createQuery("from Usuario where nombre = :nombre")
+				.setParameter("nombre", nombreUsuario)
+				.getSingleResult();
 		RepositorioComprasPendientes.getInstance().setUsuarioLogueado(usuario);
 		return new ModelAndView(RepositorioComprasPendientes.getInstance(), "menuComprasPendientes.hbs");
 	}
