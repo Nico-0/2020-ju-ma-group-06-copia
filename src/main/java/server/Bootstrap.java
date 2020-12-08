@@ -50,6 +50,6 @@ public class Bootstrap extends AbstractPersistenceTest implements WithGlobalEnti
 		//transaction.commit();
 		//usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 1"));
 		//usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 2"));
-		TareaProgramada tareaProgramada = new TareaProgramada(600000); // Cada 10 minutos
+		//TareaProgramada tareaProgramada = new TareaProgramada(600000); // Cada 10 minutos
 	}
 }
