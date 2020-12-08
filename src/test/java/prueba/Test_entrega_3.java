@@ -40,6 +40,7 @@ public class Test_entrega_3 {
 	private List<EntidadBase> listaEntidadesBase = new ArrayList<>();
 	private EntidadJuridica unaEntidadJuridica;
 	private Item tresCamas;
+	private DocumentoComercial documento = new DocumentoComercial();
 	
 	
 	
@@ -58,11 +59,11 @@ public class Test_entrega_3 {
 		listaPresupuestos.add(presupuesto);
 		listaPresupuestos.add(PRESUPUESTO_BARATO);
 		listaPresupuestos.add(PRESUPUESTO_CARO);
-		compraAmoblamientoUno = new Compra(proveedor ,unMedioDePago, fechaEstaMes, listaPresupuestos, detalle, usuariosRevisores, new ArrayList<String>());
+		compraAmoblamientoUno = new Compra(proveedor ,unMedioDePago, fechaEstaMes, listaPresupuestos, detalle, usuariosRevisores, new ArrayList<String>(), documento);
 		compraAmoblamientoUno.agregarEtiqueta(etiquetaAmoblamiento);
-		compraAmoblamientoDos = new Compra(proveedor, otroMedioDePago, fechaEnero, listaPresupuestos, detalle, usuariosRevisores, new ArrayList<String>());
+		compraAmoblamientoDos = new Compra(proveedor, otroMedioDePago, fechaEnero, listaPresupuestos, detalle, usuariosRevisores, new ArrayList<String>(), documento);
 		compraAmoblamientoDos.agregarEtiqueta(etiquetaAmoblamiento);
-		compraIndumentariaUno = new Compra(proveedor ,unMedioDePago, otraFechaEsteMes, listaPresupuestos, detalle, usuariosRevisores, new ArrayList<String>());
+		compraIndumentariaUno = new Compra(proveedor ,unMedioDePago, otraFechaEsteMes, listaPresupuestos, detalle, usuariosRevisores, new ArrayList<String>(), documento);
 		compraIndumentariaUno.agregarEtiqueta(etiquetaIndumentaria);
 		listaDeCompras.add(compraAmoblamientoUno);
 		listaDeCompras.add(compraAmoblamientoDos);

@@ -48,10 +48,6 @@ public class Compra {
 	public double valor_total() {
 		return detalle.getTotal();
 	}
-
-	public String getId() {
-		return id.toString();
-	}
 	
 	public List<Presupuesto> getPresupuestos() {
 		return presupuestos;
@@ -89,13 +85,18 @@ public class Compra {
 		return nombre;
 	}
 	
+	public Compra() {
+		
+	}
+	
 	public Compra(Proveedor proveedor, 
 				  MedioPago medioPago, 
 				  LocalDate fecha,
 				  List<Presupuesto> presupuestos,
 				  Detalle detalle,
 				  List<Usuario> usuariosRevisores,
-				  List<String> etiquetas) {
+				  List<String> etiquetas,
+				  DocumentoComercial documentoComercial) {
 		Validate.notNull(proveedor, "proveedor faltante");
 		Validate.notNull(medioPago, "medio de pago faltante");
 		Validate.notNull(fecha, "fecha faltante");
@@ -133,4 +134,11 @@ public class Compra {
 		return etiquetas.contains(etiqueta);
 	}
 	
+	public String getId() {
+		return String.valueOf(id);
+	}
+	
+	public String getUrlView() {
+		return "/compras/" + getId();
+	}
 }

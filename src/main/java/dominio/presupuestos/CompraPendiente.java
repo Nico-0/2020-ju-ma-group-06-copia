@@ -4,6 +4,7 @@ package dominio.presupuestos;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import javax.persistence.*;
 
@@ -221,12 +222,22 @@ public class CompraPendiente {
 	    if(verificarQueEsValida()) {
 	    	final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 			//final EntityTransaction transaction = entityManager.getTransaction();
-			Compra compra = new Compra(proveedor, medioPago, fecha, presupuestos, detalle, usuariosRevisores, etiquetas);
+	    	DocumentoComercial documentoComercial = this.presupuestoProveedorSeleccionado().getDocumentoComercial();
+			Compra compra = new Compra(proveedor, medioPago, fecha, presupuestos, detalle, usuariosRevisores, etiquetas, documentoComercial);
 			//transaction.begin();
 			entityManager.persist(compra);
 			entidad.agregarCompra(compra);
-			//transaction.commit();
 			enviarMensajeRevisores("La compra "+this.getId()+" fue validada.");
+			this.proveedor = null;
+			this.medioPago = null;
+			this.fecha = null;
+			this.presupuestos = null;
+			this.detalle = null;
+			this.usuariosRevisores = null;
+			this.etiquetas = null;
+			this.entidad = null;
+			entityManager.remove(this);
+			//transaction.commit();
 		}
     }
 
@@ -285,7 +296,7 @@ public class CompraPendiente {
     			"<th> Direccion </th>" + 
     			"<th></th>" + 
     			"</tr>";
-		List<Proveedor> proveedores = RepositorioProveedores.getInstance().getProveedores();
+		List<Proveedor> proveedores = presupuestos.stream().map(presupuesto -> presupuesto.getProveedor()).collect(Collectors.toList());
 
     	proveedores.stream().forEach((proveedor) -> {tabla = tabla + 
 			    			"<tr>" + 

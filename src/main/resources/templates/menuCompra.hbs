@@ -1,0 +1,40 @@
+{{#partial "contenido"}}
+
+<section class = "content">
+    <div>
+    MENU DE LA COMPRA {{id}} </br>
+        
+    ID: {{id}} </br>
+    Fecha de creacion original: {{fecha}} </br>
+    
+    Tipo de Medio de Pago: {{tipoMedioPago}} </br>
+    Identificador de Medio de Pago: {{identificadorMedioPago}} </br>
+    
+    Documento comercial:
+
+    <div>
+    <fieldset class = "formulario">
+    	{{{datosProveedor}}}
+    </fieldset>
+    </div>
+    
+    <div>
+    <fieldset class = "formulario">
+        <legend>DETALLE</legend>
+        	{{{ tablaDetalle }}}
+    </fieldset>
+    </div>
+    
+    <div>
+    <fieldset class = "formulario">
+        <legend>ETIQUETAS</legend>
+        	{{{ tablaEtiquetas }}}
+    </fieldset>
+    </div>
+      
+    <a class = "link_boton_2" href = "/compras">  Volver a la lista de compras </a>
+</section>
+
+{{/partial}}
+
+{{>layout.hbs}}       

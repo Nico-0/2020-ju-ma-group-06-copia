@@ -11,6 +11,7 @@ import controllers.Compras;
 import controllers.MenuComprasPendientesController;
 import controllers.CrearCategoriaDefault;
 import controllers.MenuCompraPendiente;
+import controllers.MenuCompras;
 import controllers.CrearEmpresa;
 import controllers.CrearEntidadBase;
 import controllers.CrearOrganizacionSocial;
@@ -89,6 +90,9 @@ public class Router {
 		EditarDocumentoComercialDePresupuesto editarMedioPagoDePresupuesto = new EditarDocumentoComercialDePresupuesto();
 		SeleccionarProveedorDePresupuesto seleccionarProveedorDePresupuesto = new SeleccionarProveedorDePresupuesto();
 		
+		// Compras
+		MenuCompras menuCompras = new MenuCompras();
+		
 		Spark.before((request, response)-> {
 			if(!request.pathInfo().equals("/login") &&
 					StringUtils.isEmpty(request.cookie("usuario_logueado"))) {
@@ -161,6 +165,11 @@ public class Router {
 		
 		Spark.get("/compras_pendientes/:id_compra_pendiente/presupuestos/:id_presupuesto/seleccionar_proveedor", seleccionarProveedorDePresupuesto::show,engine);
 		Spark.get("/compras_pendientes/:id_compra_pendiente/presupuestos/:id_presupuesto/seleccionar_proveedor/:id_proveedor", seleccionarProveedorDePresupuesto::seleccionar,engine);
+		
+		// Menu compras
+		Spark.get("/compras", menuCompras::show, engine);
+		Spark.get("/compras/:id_compra", menuCompras::mostrarCompra, engine);
+		
 		
 		// Menu login
 		Spark.get("/usuario/crear", usuario::crear,engine);

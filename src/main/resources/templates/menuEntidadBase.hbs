@@ -11,16 +11,12 @@
         <table>
     	<tr>
             <th> Compra </th>
-            <th> Tipo </th>
-            <th></th>
             <th></th>
         </tr>
     	{{#each compras}}
     		<tr>
-    		<td>{{ nombre }}</td>
-       		<td>{{ tipo }}</td>
+    		<td>{{ id }}</td>
        		<td><a href = "{{urlView}}">Ver</a></th>
-            <td><a href = "{{urlDelete}}">Borrar???</a></td>
        		</tr>
     	{{/each}}
     	</table>

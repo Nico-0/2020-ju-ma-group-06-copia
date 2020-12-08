@@ -59,7 +59,7 @@ public class Item {
     }
 
     public boolean descripcionEsIgual(String otraDescripcion) {
-        return descripcion == otraDescripcion; 
+        return descripcion.equals(otraDescripcion); 
     }
 
 	public boolean valorUnitarioEsIgual(double otroValorUnitario) {

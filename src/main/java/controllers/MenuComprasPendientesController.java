@@ -152,7 +152,7 @@ public class MenuComprasPendientesController {
 		transaction.begin();
 		comprasPendientes.stream().forEach(compraPendiente -> compraPendiente.validarCompra());
 		transaction.commit();
-		RepositorioComprasPendientes.getInstance().validarCompras();
+		//RepositorioComprasPendientes.getInstance().validarCompras();
 		res.redirect("/compras_pendientes");
 		return null;
 	}

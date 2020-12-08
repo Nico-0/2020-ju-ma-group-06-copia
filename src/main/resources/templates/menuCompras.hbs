@@ -1,0 +1,23 @@
+{{#partial "contenido"}}
+
+<section class = "content">
+    <div>
+    	<table>
+		<tr> 
+	  		<th> Id Compra </th>
+	    	<th></th>
+	    </tr>
+	   	{{#each compras}}
+			<tr>
+			<td>{{ id }}</td>
+	   		<td><a href = "{{urlView}}">Ver</a></th>
+	   		</tr>
+		{{/each}}
+   	</table>
+    </div>
+    <a class = "link_boton_2" href = "/">  Volver  </a>
+</section>
+
+{{/partial}}
+
+{{>layout.hbs}}
