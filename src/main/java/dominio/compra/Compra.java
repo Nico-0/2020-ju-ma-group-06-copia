@@ -6,12 +6,15 @@ import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.Validate;
 
+import dominio.entidad.Entidad;
 import dominio.presupuestos.Detalle;
 import dominio.presupuestos.Presupuesto;
 import dominio.usuario.Usuario;
+import repositorios.RepositorioEntidades;
 
 import javax.persistence.*;
 
@@ -44,6 +47,9 @@ public class Compra {
 	
 	@ElementCollection
 	private List<String> etiquetas;
+	
+    @Transient
+    String tabla;
 
 	public double valor_total() {
 		return detalle.getTotal();
@@ -61,8 +67,8 @@ public class Compra {
 		return proveedor;
 	}
 	
-	public String getMedioPago() {
-		return medioPago.toString();
+	public MedioPago getMedioPago() {
+		return medioPago;
 	}
 	
 	public String getDocumentoComercial() {
@@ -111,6 +117,7 @@ public class Compra {
 		this.usuariosRevisores = usuariosRevisores;
 		this.presupuestos = presupuestos;
 		this.etiquetas = etiquetas;
+		this.documentoComercial = documentoComercial;
 		// this.entidad = entidad;
 	}
 
@@ -140,5 +147,39 @@ public class Compra {
 	
 	public String getUrlView() {
 		return "/compras/" + getId();
+	}
+	
+    public String getDatosDocumentoComercial() {
+        return documentoComercial.getDocumentoComercial();
+    }
+
+	public String getDatosProveedor() {
+			return "<legend>PROVEEDOR</legend>" + 
+					"Id: " + proveedor.getId() + "</br>" + 
+					"Razon social: " + proveedor.getRazonSocial() + "</br>" + 
+					"DNI/CUIL/CUIT: " + proveedor.getDniCuilCuit() + "</br>" + 
+					"Pais: " + proveedor.getDireccionPostal().getPais() + "</br>" + 
+					"Provincia: " + proveedor.getDireccionPostal().getProvincia() + "</br>" + 
+					"Ciudad: " + proveedor.getDireccionPostal().getCiudad() + "</br>" + 
+					"Direccion: " + proveedor.getDireccionPostal().getDireccion() + "</br>";
+	}
+	
+	public String getTablaDetalle() {
+		tabla = "<table>" + 
+    			"<tr>" + 
+    			"<th> Descripcion </th>" + 
+    			"<th> Cantidad </th>" + 
+    			"<th> Valor Unitario </th>" + 
+    			"<th> Valor Item </th>" + 
+    			"</tr>";
+    	detalle.getItems().stream().forEach((item) -> {tabla = tabla + 
+			"<tr>" + 
+			"   <td> " + item.getDescripcion() + "</td>" + 
+			"   <td> " + item.getCantidad() + "</td>" + 
+			"   <td> " + item.getValorUnitario() + "</td>" +
+			"   <td> " + item.getValorItem() + "</td>" +  
+			"</tr>";
+		});
+    	return tabla + "</table>";
 	}
 }

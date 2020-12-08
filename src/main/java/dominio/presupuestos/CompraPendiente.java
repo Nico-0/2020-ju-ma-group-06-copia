@@ -222,9 +222,12 @@ public class CompraPendiente {
 	    if(verificarQueEsValida()) {
 	    	final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 			//final EntityTransaction transaction = entityManager.getTransaction();
-	    	DocumentoComercial documentoComercial = this.presupuestoProveedorSeleccionado().getDocumentoComercial();
+	    	DocumentoComercial documentoComercial = new DocumentoComercial();
+	    	documentoComercial.setNumeroDocumento(this.presupuestoProveedorSeleccionado().getDocumentoComercial().getNumeroDocumento());
+	    	documentoComercial.setTipoDocumentoComercial(this.presupuestoProveedorSeleccionado().getDocumentoComercial().getTipoDocumentoComercial());
 			Compra compra = new Compra(proveedor, medioPago, fecha, presupuestos, detalle, usuariosRevisores, etiquetas, documentoComercial);
 			//transaction.begin();
+			entityManager.persist(documentoComercial);
 			entityManager.persist(compra);
 			entidad.agregarCompra(compra);
 			enviarMensajeRevisores("La compra "+this.getId()+" fue validada.");

@@ -46,4 +46,8 @@ public class DocumentoComercial {
     public TipoDocumentoComercial getTipoDocumentoComercial(){
 		return tipoDocumentoComercial;
 	}
+
+	public int getNumeroDocumento() {
+		return numeroDocumento;
+	}
 }

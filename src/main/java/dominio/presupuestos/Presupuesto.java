@@ -27,7 +27,7 @@ public class Presupuesto {
     private Detalle detalle = new Detalle();
     
 	@OneToOne(optional = true)
-	private DocumentoComercial documentoComercial;
+	private DocumentoComercial documentoComercial = new DocumentoComercial();
 	
 	@Transient
 	String tabla;
@@ -71,7 +71,7 @@ public class Presupuesto {
         return this.detalle;
     }
     
-    public String getDatosDocumentoComercial() { //si se pone mas de una mayuscula hibernate no lo detecta
+    public String getDatosDocumentoComercial() {
         return documentoComercial.getDocumentoComercial();
     }
     
