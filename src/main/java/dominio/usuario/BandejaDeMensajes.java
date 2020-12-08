@@ -39,6 +39,7 @@ public class BandejaDeMensajes {
 		return mensajes;
 	}
 
+	/*
 	public void limpiar() {
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction transaction = em.getTransaction();
@@ -48,5 +49,5 @@ public class BandejaDeMensajes {
 		});
 		mensajes.clear();
 		transaction.commit();
-	}
+	}*/
 }

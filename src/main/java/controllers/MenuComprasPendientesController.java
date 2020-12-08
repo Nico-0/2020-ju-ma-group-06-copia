@@ -10,9 +10,11 @@ import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
+import dominio.compra.Compra;
 import dominio.compra.DocumentoComercial;
 import dominio.compra.MedioPago;
 import dominio.compra.Proveedor;
+import dominio.compra.TipoPago;
 import dominio.entidad.Entidad;
 import dominio.presupuestos.CompraPendiente;
 import dominio.presupuestos.Detalle;
@@ -58,10 +60,17 @@ public class MenuComprasPendientesController {
 		return null;
 	}
 	
-	public Void crearCompra(Request req, Response res){
-		CompraPendiente compraPendiente = RepositorioComprasPendientes.getInstance().crearCompraPendiente();
-		String id = String.valueOf(compraPendiente.getId());
-		res.redirect("/compras_pendientes/" + id);
+	public Void crearCompra(Request req, Response res){		
+		MedioPago medioPago = new MedioPago(TipoPago.EFECTIVO,"");
+		CompraPendiente compraPendiente = new CompraPendiente();
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		entityManager.persist(medioPago);
+		entityManager.persist(compraPendiente);
+		compraPendiente.setMedioPago(medioPago);
+		transaction.commit();
+		res.redirect("/compras_pendientes/" + compraPendiente.getId());
 		return null;
 		
 		/*
@@ -114,9 +123,14 @@ public class MenuComprasPendientesController {
 		return null;	*/
 	}
 	
-	public ModelAndView validar_compras(Request req, Response res){
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa se validan compras");	
-		RepositorioComprasPendientes.getInstance().validarCompras();	
+	public ModelAndView validar_compras(Request req, Response res){	
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		final EntityTransaction transaction = entityManager.getTransaction();
+		List<CompraPendiente> comprasPendientes = entityManager.createQuery("from CompraPendiente").getResultList();    	
+		transaction.begin();
+		comprasPendientes.stream().forEach(compraPendiente -> compraPendiente.validarCompra());
+		transaction.commit();
+		RepositorioComprasPendientes.getInstance().validarCompras();
 		res.redirect("/compras_pendientes");
 		return null;
 	}

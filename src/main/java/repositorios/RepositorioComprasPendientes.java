@@ -61,7 +61,7 @@ public class RepositorioComprasPendientes implements WithGlobalEntityManager{
     	
     	/*
     	List<CompraPendiente> comprasValidas = comprasPendientes.stream().filter(CompraPendiente::verificarQueEsValida).collect(toList());
-    	System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa se validan "+comprasValidas.size()+" compras");
+    	
     	comprasValidas.stream().forEach(CompraPendiente::validarCompra);
        	
        	this.comprasPendientes.removeIf(pendiente -> comprasValidas.contains(pendiente));
@@ -70,8 +70,7 @@ public class RepositorioComprasPendientes implements WithGlobalEntityManager{
        	*/
     	
     	//TODO volver al codigo comentado de arriba
-    	System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa se validan "+ comprasPendientes.size()+" compras");
-    	comprasPendientes.stream().forEach(CompraPendiente::validarCompra);
+       	comprasPendientes.stream().forEach(CompraPendiente::validarCompra);
     	
     }
 

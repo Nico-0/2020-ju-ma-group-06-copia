@@ -32,6 +32,7 @@ public class CompraPendiente {
 	@ManyToOne(optional = true, cascade = {CascadeType.ALL})
     private Proveedor proveedor;
     
+	@Enumerated
 	private CriterioDeSeleccionPresupuesto criterioDeSeleccion = CriterioDeSeleccionPresupuesto.SinCriterioDeSeleccion;
 	
     private int cantidadPresupuestosRequeridos = 0;
@@ -195,8 +196,10 @@ public class CompraPendiente {
     }
     
     public void enviarMensajeRevisores(String texto) {
-    	Mensaje unMensaje = new Mensaje(this, texto);
-    	usuariosRevisores.stream().forEach(unUsuario -> unUsuario.recibirMensaje(unMensaje)); 
+    	usuariosRevisores.stream().forEach(unUsuario -> {
+    		Mensaje unMensaje = new Mensaje(this, texto);
+    		unUsuario.recibirMensaje(unMensaje);
+    	}); 
     }
     
     public void setEntidad(Entidad entidad) {
@@ -215,15 +218,14 @@ public class CompraPendiente {
     }
     
     public void validarCompra() {
-    	System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa se intenta validar la compra "+this.getId());
 	    if(verificarQueEsValida()) {
 	    	final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-			final EntityTransaction transaction = entityManager.getTransaction();
+			//final EntityTransaction transaction = entityManager.getTransaction();
 			Compra compra = new Compra(proveedor, medioPago, fecha, presupuestos, detalle, usuariosRevisores, etiquetas);
-			transaction.begin();
+			//transaction.begin();
 			entityManager.persist(compra);
 			entidad.agregarCompra(compra);
-			transaction.commit();
+			//transaction.commit();
 			enviarMensajeRevisores("La compra "+this.getId()+" fue validada.");
 		}
     }

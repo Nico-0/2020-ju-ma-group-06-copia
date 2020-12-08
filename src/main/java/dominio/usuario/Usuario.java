@@ -80,16 +80,17 @@ public class Usuario {
 	
 	public void recibirMensaje(Mensaje unMensaje) {
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
-		transaction.begin();
+		//EntityTransaction transaction = entityManager.getTransaction();
+		//transaction.begin();
 		entityManager.persist(unMensaje);
 		bandejaDeEntrada.agregarMensaje(unMensaje);
-		transaction.commit();
+		//transaction.commit();
 	}
 
+	/*
 	public void limpiarBandeja() {
 		bandejaDeEntrada.limpiar();
-	}
+	}*/
 	
 	public TipoUsuario getTipo() {
 		return this.tipoUsuario;

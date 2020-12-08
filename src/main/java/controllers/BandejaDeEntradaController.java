@@ -36,9 +36,18 @@ public class BandejaDeEntradaController implements WithGlobalEntityManager{
 		return new ModelAndView(usuario, "bandeja_entrada.hbs");
 	}
 	
-	public Void limpiar_bandeja(Request req, Response res){	
+	public Void limpiar_bandeja(Request req, Response res){
 		Usuario usuario = RepositorioUsuarios.getInstance().getUsuario(req.cookie("usuario_logueado"));
-		usuario.limpiarBandeja();
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		
+		transaction.begin();
+		usuario.getBandejaDeMensajes().getMensajes().forEach(mensaje -> {
+			entityManager.remove(mensaje);
+		});
+		usuario.getBandejaDeMensajes().getMensajes().clear();
+		transaction.commit();
+
 		res.redirect("/bandeja_de_entrada");
 		return null;
 	}
