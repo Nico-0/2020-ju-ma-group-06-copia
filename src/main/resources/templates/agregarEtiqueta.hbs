@@ -1,0 +1,19 @@
+{{#partial "contenido"}}
+
+<section class = "content">
+	</div>            
+		<fieldset class = "formulario">
+	        <legend>Agregar etiqueta</legend>
+	        <form action="/compras/{{id}}/etiquetas/agregar" method="post">
+	            <label class = "label2"> Nombre de etiqueta: </label>
+	            <input type="text" id="etiqueta" name="etiqueta" placeholder="Ingrese nombre de etiqueta..." />
+	            <br />
+	            <input class = "submit_azul" type="submit" value=" Agregar etiqueta" >
+	        </form>
+	    </fieldset>      
+    <div>
+</section>
+
+{{/partial}}
+
+{{>layout.hbs}}

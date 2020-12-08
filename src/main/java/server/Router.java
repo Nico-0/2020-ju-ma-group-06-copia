@@ -20,6 +20,7 @@ import controllers.EditarCategoriaDefault;
 import controllers.EditarCategoriasDeEntidad;
 import controllers.EditarDatosCompraPendiente;
 import controllers.EditarEntidadesBaseDeEntidad;
+import controllers.EditarEtiquetas;
 import controllers.EditarItemDeCompraPendiente;
 import controllers.EditarItemDePresupuesto;
 import controllers.EditarDocumentoComercialDePresupuesto;
@@ -92,6 +93,7 @@ public class Router {
 		
 		// Compras
 		MenuCompras menuCompras = new MenuCompras();
+		EditarEtiquetas editarEtiquetas = new EditarEtiquetas();
 		
 		Spark.before((request, response)-> {
 			if(!request.pathInfo().equals("/login") &&
@@ -170,6 +172,9 @@ public class Router {
 		Spark.get("/compras", menuCompras::show, engine);
 		Spark.get("/compras/:id_compra", menuCompras::mostrarCompra, engine);
 		
+		Spark.get("/compras/:id_compra/etiquetas/agregar", editarEtiquetas::show, engine);
+		Spark.post("/compras/:id_compra/etiquetas/agregar", editarEtiquetas::agregarEtiqueta, engine);
+		Spark.get("/compras/:id_compra/etiquetas/:etiqueta/quitar", editarEtiquetas::quitarEtiqueta, engine);		
 		
 		// Menu login
 		Spark.get("/usuario/crear", usuario::crear,engine);

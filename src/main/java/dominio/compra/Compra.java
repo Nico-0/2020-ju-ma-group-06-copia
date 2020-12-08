@@ -182,4 +182,20 @@ public class Compra {
 		});
     	return tabla + "</table>";
 	}
+	
+	public String getTablaEtiquetas() {
+		tabla = "<table>" + 
+    			"<tr>" + 
+    			"<th> Nombre </th>" + 
+    			"<th></th>" + 
+    			"<th></th>" + 
+    			"</tr>";
+    	etiquetas.stream().forEach((etiqueta) -> {tabla = tabla + 
+			"<tr>" + 
+			"   <td> " + etiqueta + "</td>" + 
+			"   <td><a href = \"/compras/" + this.getId() + "/etiquetas/" + etiqueta + "/quitar\"> Quitar Etiqueta </a></th>" +
+			"</tr>";
+		});
+    	return tabla + "</table>";
+	}
 }
