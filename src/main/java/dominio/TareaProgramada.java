@@ -2,9 +2,16 @@ package dominio;
 
 import java.util.TimerTask;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
+import dominio.presupuestos.CompraPendiente;
 import repositorios.RepositorioComprasPendientes;
 
 import java.lang.System;
+import java.util.List;
 import java.util.Timer;
 
 public class TareaProgramada extends TimerTask{
@@ -20,8 +27,12 @@ public class TareaProgramada extends TimerTask{
     }
 
     @Override
-    public void run() {
-        System.out.println("Se van a validar las compras");
-        RepositorioComprasPendientes.getInstance().validarCompras();
+    public void run() {    
+        final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		final EntityTransaction transaction = entityManager.getTransaction();
+		List<CompraPendiente> comprasPendientes = entityManager.createQuery("from CompraPendiente").getResultList();    	
+		transaction.begin();
+		comprasPendientes.stream().forEach(compraPendiente -> compraPendiente.validarCompra());
+		transaction.commit();
     }
 }

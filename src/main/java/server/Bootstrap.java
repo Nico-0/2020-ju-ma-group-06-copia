@@ -15,6 +15,7 @@ import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+import dominio.TareaProgramada;
 import dominio.compra.Proveedor;
 import dominio.presupuestos.CompraPendiente;
 import dominio.usuario.Mensaje;
@@ -49,5 +50,6 @@ public class Bootstrap extends AbstractPersistenceTest implements WithGlobalEnti
 		//transaction.commit();
 		//usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 1"));
 		//usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 2"));
+		TareaProgramada tareaProgramada = new TareaProgramada(600000); // Cada 10 minutos
 	}
 }
