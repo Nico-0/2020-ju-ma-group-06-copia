@@ -15,8 +15,8 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-			
-			<plugin>
+<!--			
+<plugin>
 <artifactId> maven-assembly-plugin </artifactId>
 <executions>
 <execution>
@@ -36,7 +36,7 @@
 </manifest>
 </archive>
 </configuration>
-</plugin>
+</plugin> -->
 		
 <plugin>
     <artifactId>maven-assembly-plugin</artifactId>
@@ -55,7 +55,7 @@
          </descriptorRefs>
          <archive>
              <manifest>
-                 <mainClass>src.main.java.server.Server.java</mainClass>
+                 <mainClass>server.Server</mainClass>
              </manifest>
          </archive>
     </configuration>
@@ -67,7 +67,7 @@
     <configuration>
         <jdkVersion>1.8</jdkVersion>
         <!-- Use your own application name -->
-        <appName>jumagroup06</appName>
+        <appName>heroku-tp-grupo-6</appName>
         <processTypes>
             <!-- Tell Heroku how to launch your application -->
             <!-- You might have to remove the ./ in front   -->
@@ -159,6 +159,12 @@
     			<artifactId>slf4j-simple</artifactId>
     			<version>1.7.21</version>
 	       </dependency>
+	
+			<dependency>
+				<groupId>org.javassist</groupId>
+				<artifactId>javassist</artifactId>
+				<version>3.22.0-GA</version>
+			</dependency>
 	
 			<dependency>
 				<groupId>org.apache.cayenne</groupId>
