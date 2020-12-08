@@ -19,7 +19,7 @@ public class MedioPago {
 	private String identificador;
 
 	public MedioPago(TipoPago tipoPago, String identificador) {
-		Validate.notNull(tipoPago, "tipo pago faltante");
+		//Validate.notNull(tipoPago, "tipo pago faltante");
 		Validate.notNull(identificador, "identificador faltante");
 		this.tipoPago = tipoPago;
 		this.identificador = identificador;
@@ -32,17 +32,19 @@ public class MedioPago {
     	  return this.id;
       } 
 	
-    public void setTipoPago(Long id_tipo_pago) {
-    	this.tipoPago = null;
-    	if(id_tipo_pago == 0)
-    	this.tipoPago = TipoPago.TARJETA_CREDITO;
-    	if(id_tipo_pago == 1) 
-    	this.tipoPago = TipoPago.TARJETA_DEBITO;
-    	if(id_tipo_pago == 2)
-    	this.tipoPago = TipoPago.EFECTIVO;
-    	if(id_tipo_pago == 3)
-    	this.tipoPago = TipoPago.CAJERO_AUTOMATICO;
-    	if(id_tipo_pago == 4)
-    	this.tipoPago = TipoPago.DINERO_CUENTA;
+    public void setTipoPago(TipoPago tipoPago) {
+    	this.tipoPago = tipoPago;
     }
+
+	public void setIdentificador(String identificadorMedioPago) {
+		this.identificador = identificadorMedioPago;
+	}
+
+	public String getTipoMedioPago() {
+		return tipoPago.toString();
+	}
+
+	public String getIdentificadorMedioPago() {
+		return identificador;
+	}
 }

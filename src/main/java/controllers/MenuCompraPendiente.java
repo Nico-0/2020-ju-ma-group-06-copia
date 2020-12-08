@@ -126,6 +126,7 @@ public class MenuCompraPendiente {
 		return null;
 	}
 	
+	/*
 	public ModelAndView updateCompra(Request req, Response res){
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction transaction = em.getTransaction();
@@ -205,5 +206,5 @@ public class MenuCompraPendiente {
 
 		res.redirect("/compras_pendientes/"+idCompra);
 		return null;
-	}
+	}*/
 }

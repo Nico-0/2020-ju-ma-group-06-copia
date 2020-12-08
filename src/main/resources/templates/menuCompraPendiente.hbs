@@ -6,7 +6,8 @@
                 
             ID: {{id}} </br>
             Fecha de creacion original: {{fecha}} </br>
-            Medio de Pago: {{medioPago}} </br>
+            Tipo de Medio de Pago: {{tipoMedioPago}} </br>
+            Identificador de Medio de Pago: {{identificadorMedioPago}} </br>
             Cantidad de presupuestos requeridos: {{cantidadpresuprequeridos}} </br>
             Criterio de seleccion de presupuesto: {{criterioseleccion}} </br>
             Cantidad de presupuestos actuales??: {{cantidadpresupactuales}} </br>
@@ -26,15 +27,8 @@
             <div>
             <fieldset class = "formulario">
                 <legend>DETALLE</legend>
-                	<table>
-                    <tr>
-                        <th> Item </th>
-                        <th> Cantidad </th>
-                        <th> Valor Unitario </th>
-                        <th> Valor Item </th>
-                    </tr>
-                	</table>
-					<a class = "link_boton" href = "/compras_pendientes/{{id}}/crear_item">  Crear nuevo item </a>
+                	{{{ tablaDetalle }}}
+					<a class = "link_boton" href = "/compras_pendientes/{{id}}/items/crear">  Crear nuevo item </a>
             </fieldset>
             </div>
             
@@ -48,7 +42,7 @@
                         <th> Quitar </th>
                     </tr>
                 	</table>
-					<a class = "link_boton" href = "/compras_pendientes/{{id}}/crear_presupuesto">  Crear nuevo presupuesto </a>
+					<a class = "link_boton" href = "/compras_pendientes/{{id}}/presupuestos/crear">  Crear nuevo presupuesto </a>
             </fieldset>
             </div>
             

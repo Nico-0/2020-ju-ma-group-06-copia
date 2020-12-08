@@ -59,6 +59,10 @@ public class Detalle {
 	
     public long getId(){
     	  return this.id;
-      } 
+      }
+
+	public void quitarItem(Item item) {
+		items.remove(item);		
+	} 
 	
 }

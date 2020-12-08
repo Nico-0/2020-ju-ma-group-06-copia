@@ -25,5 +25,5 @@ public enum TipoPago{
 			public String toString() {
 				return "Dinero Cuenta";
 			}
-	  }
+	  };
 }

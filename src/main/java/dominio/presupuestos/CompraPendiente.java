@@ -82,9 +82,13 @@ public class CompraPendiente {
     	  return this.proveedor;
     }
     
-    public String getMediopago(){//si se pone mas de una mayuscula hibernate no lo detecta
-  	  return this.medioPago.toString();
+    public String getTipoMedioPago(){
+  	  return this.medioPago.getTipoMedioPago();
     } 
+    
+    public String getIdentificadorMedioPago(){
+    	  return this.medioPago.getIdentificadorMedioPago();
+      } 
     
     public Entidad getEntidad(){
 		return this.entidad;
@@ -101,23 +105,8 @@ public class CompraPendiente {
     public String getCriterioseleccion(){ //si se pone mas de una mayuscula hibernate no lo detecta
     	  return this.criterioDeSeleccion.toString();
       } 
-    
-    public void setCriterioSeleccion(Long id_criterio) {
-    	if(id_criterio == 1)
-    	this.criterioDeSeleccion = CriterioDeSeleccionPresupuesto.SinCriterioDeSeleccion;
-    	if(id_criterio == 2) 
-    	this.criterioDeSeleccion = CriterioDeSeleccionPresupuesto.PresupuestoMasBarato;
-    	/*
-    	if(id_criterio == 0)
-    	this.criterioDeSeleccion = CriterioDeSeleccionPresupuesto.ElUsuarioOlvidoElegirCriterio;
-    	if(id_criterio == 3)
-    	this.criterioDeSeleccion = CriterioDeSeleccionPresupuesto.PresupuestoMasCaro;
-    	if(id_criterio == 4)
-    	this.criterioDeSeleccion = CriterioDeSeleccionPresupuesto.LoDejoASuCriterio;
-    	*/
-    }
-    
-    public CompraPendiente setCriterioDeSeleccion(CriterioDeSeleccionPresupuesto unCriterio) { //TODO quedarse con este y borrar el de arriba
+        
+    public CompraPendiente setCriterioDeSeleccion(CriterioDeSeleccionPresupuesto unCriterio) {
     	this.criterioDeSeleccion = unCriterio;
     	return this;
     }
@@ -312,7 +301,7 @@ public class CompraPendiente {
     		tabla = tabla + "   <td><a href = \"/compras_pendientes/" + this.getId() + "/seleccionar_proveedor/" + proveedor.getId() + "\"> Seleccionar </a></th>" +
     				"</tr>";
 		});
-    	return tabla;
+    	return tabla + "</table>";
 	}
 
 	public String getTablaSeleccionarEntidad() {
@@ -337,6 +326,38 @@ public class CompraPendiente {
     		tabla = tabla + "   <td><a href = \"/compras_pendientes/" + this.getId() + "/seleccionar_entidad/" + entidad.getId() + "\"> Seleccionar </a></th>" +
     				"</tr>";
 		});
-    	return tabla;
+    	return tabla + "</table>";
+	}
+	
+	public String getTablaDetalle() {
+		tabla = "<table>" + 
+    			"<tr>" + 
+    			"<th> Descripcion </th>" + 
+    			"<th> Cantidad </th>" + 
+    			"<th> Valor Unitario </th>" + 
+    			"<th> Valor Item </th>" + 
+    			"<th></th>" + 
+    			"<th></th>" + 
+    			"</tr>";
+    	detalle.getItems().stream().forEach((item) -> {tabla = tabla + 
+			"<tr>" + 
+			"   <td> " + item.getDescripcion() + "</td>" + 
+			"   <td> " + item.getCantidad() + "</td>" + 
+			"   <td> " + item.getValorUnitario() + "</td>" +
+			"   <td> " + item.getValorItem() + "</td>" +  
+			"   <td><a href = \"/compras_pendientes/" + this.getId() + "/items/" + item.getId() + "/editar\"> Editar Item </a></th>" +
+			"   <td><a href = \"/compras_pendientes/" + this.getId() + "/items/" + item.getId() + "/quitar\"> Quitar Item </a></th>" +
+			"</tr>";
+		});
+    	return tabla + "</table>";
+	}
+
+	public void editarMedioPago(String identificadorMedioPago, TipoPago tipoPago) {
+		this.medioPago.setTipoPago(tipoPago);
+		this.medioPago.setIdentificador(identificadorMedioPago);
+	}
+
+	public void quitarItem(Item item) {
+		detalle.quitarItem(item);
 	}
 }

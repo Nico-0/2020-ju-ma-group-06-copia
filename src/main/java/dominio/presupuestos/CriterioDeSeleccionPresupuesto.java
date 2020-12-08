@@ -3,6 +3,7 @@ package dominio.presupuestos;
 import java.util.*;
 
 public enum CriterioDeSeleccionPresupuesto {
+	
 	ElUsuarioOlvidoElegirCriterio {//TODO borrar
         @Override
         public boolean verificar(List<Presupuesto> presupuestos, Presupuesto presupuestoSeleccionado) {
@@ -14,6 +15,10 @@ public enum CriterioDeSeleccionPresupuesto {
         public boolean verificar(List<Presupuesto> presupuestos, Presupuesto presupuestoSeleccionado) {
     		return true;
     	}
+        @Override
+        public String toString() {
+        	return "Sin criterio de seleccion";
+        }
     }, 
 	PresupuestoMasBarato {
         @Override
@@ -21,19 +26,11 @@ public enum CriterioDeSeleccionPresupuesto {
         	return presupuestos.stream().min(Comparator.comparing(Presupuesto::getTotal))
         			.get().equals(presupuestoSeleccionado);
         }
-    }/*,
-	PresupuestoMasCaro {//TODO borrar
         @Override
-        public boolean verificar(List<Presupuesto> presupuestos, Presupuesto presupuestoSeleccionado) {
-    		return true;
-    	}
-    },
-	LoDejoASuCriterio {//TODO borrar
-        @Override
-        public boolean verificar(List<Presupuesto> presupuestos, Presupuesto presupuestoSeleccionado) {
-    		return true;
-    	}
-    }*/;
+        public String toString() {
+        	return "Presupuesto mas barato";
+        }
+    };
 
 	public abstract boolean verificar(List<Presupuesto> presupuestos, Presupuesto presupuestoSeleccionado);
 }

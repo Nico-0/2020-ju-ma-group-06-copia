@@ -27,13 +27,17 @@ public class Item {
 		return String.valueOf(valorUnitario);
 	}
 	
+	public String getValorItem() {
+		return String.valueOf(this.getValorTotal());
+	}
+	
 	
 	public Item() { //rompe hibernate sin esto al crear item en la app
 	}
 	
-    public long getId(){
-  	  return this.id;
-    } 
+    public String getId(){
+  	  return String.valueOf(id);
+    }
 	
 	public Item(String descripcion, float valorUnitario, int cantidad) {
 		Validate.notNull(descripcion, "descripcion faltante");
@@ -64,6 +68,18 @@ public class Item {
 	
     public boolean cantidadEsIgual(int otraCantidad) {
         return cantidad == otraCantidad;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;		
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public void setValorUnitario(double valorUnitario) {
+		this.valorUnitario = valorUnitario;
 	}
 
 }

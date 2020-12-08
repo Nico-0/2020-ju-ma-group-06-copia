@@ -9,6 +9,8 @@ import javax.persistence.EntityTransaction;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
+import dominio.compra.MedioPago;
+import dominio.compra.TipoPago;
 import dominio.entidad.Categoria;
 import dominio.presupuestos.CompraPendiente;
 import dominio.usuario.Usuario;
@@ -91,11 +93,14 @@ public class RepositorioComprasPendientes implements WithGlobalEntityManager{
 	}
 
 	public CompraPendiente crearCompraPendiente() {
+		MedioPago medioPago = new MedioPago(TipoPago.EFECTIVO,"");
 		CompraPendiente compraPendiente = new CompraPendiente();
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
+		entityManager.persist(medioPago);
 		entityManager.persist(compraPendiente);
+		compraPendiente.setMedioPago(medioPago);
 		transaction.commit();
 		return compraPendiente;
 	}

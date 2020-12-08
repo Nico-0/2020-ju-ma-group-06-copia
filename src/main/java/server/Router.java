@@ -19,6 +19,7 @@ import controllers.EditarCategoriaDefault;
 import controllers.EditarCategoriasDeEntidad;
 import controllers.EditarDatosCompraPendiente;
 import controllers.EditarEntidadesBaseDeEntidad;
+import controllers.EditarItemDeCompraPendiente;
 import controllers.Presupuestos;
 import controllers.SeleccionarEntidadDeCompraPendiente;
 import controllers.SeleccionarProveedorDeCompraPendiente;
@@ -53,6 +54,7 @@ public class Router {
 		SeleccionarEntidadDeCompraPendiente seleccionarEntidadDeCompraPendiente = new SeleccionarEntidadDeCompraPendiente();
 		SeleccionarProveedorDeCompraPendiente seleccionarProveedorDeCompraPendiente = new SeleccionarProveedorDeCompraPendiente();
 		EditarDatosCompraPendiente editarDatosCompraPendiente = new EditarDatosCompraPendiente();
+		EditarItemDeCompraPendiente editarItemDeCompraPendiente = new EditarItemDeCompraPendiente();
 		
 		// Login
 		LoginController loginController = new LoginController();
@@ -126,6 +128,14 @@ public class Router {
 		Spark.get("/compras_pendientes/:idBorrado/borrar", menuCompraPendiente::borrarCompra, engine);
 		
 		Spark.get("/presupuesto/editar", presupuestos::editarPresupuesto, engine);
+		
+		// Item de compra pendiente
+		Spark.get("/compras_pendientes/:id_compra_pendiente/items/crear", editarItemDeCompraPendiente::crearItem, engine);
+		Spark.get("/compras_pendientes/:id_compra_pendiente/items/:id_item/editar", editarItemDeCompraPendiente::show, engine);
+		Spark.post("/compras_pendientes/:id_compra_pendiente/items/:id_item/editar", editarItemDeCompraPendiente::editarItem, engine);
+		Spark.get("/compras_pendientes/:id_compra_pendiente/items/:id_item/quitar", editarItemDeCompraPendiente::quitarItem, engine);
+		
+		
 		
 		// Menu login
 		Spark.get("/usuario/crear", usuario::crear,engine);

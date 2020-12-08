@@ -1,0 +1,25 @@
+{{#partial "contenido"}}
+
+<section class = "content">
+	</div>            
+		<fieldset class = "formulario">
+	        <legend>Editar item</legend>
+	        <form action="/compras_pendientes/{{compra.id}}/items/{{item.id}}/editar" method="post">
+	            <label class = "label2">Descripcion</label>
+	            <input type="text" id="descripcion" name="descripcion" placeholder="Ingrese descripcion..." value="{{item.descripcion}}" />
+	            <br />
+	            <label class = "label2">Cantidad</label>
+	            <input type="text" id="cantidad" name="cantidad" placeholder="Ingrese cantidad..." value="{{item.cantidad}}" />
+	            <br />
+	            <label class = "label2">Valor Unitario</label>
+	            <input type="text" id="valor_unitario" name="valor_unitario" placeholder="Ingrese valor unitario..." value="{{item.valorUnitario}}" />
+	            <br />
+	            <input class = "submit_azul" type="submit" value="Guardar Item" >
+	        </form>
+	    </fieldset>      
+    <div>
+</section>
+
+{{/partial}}
+
+{{>layout.hbs}}
