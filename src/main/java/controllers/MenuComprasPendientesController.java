@@ -45,10 +45,19 @@ public class MenuComprasPendientesController {
 	public ModelAndView suscribirUsuario(Request req, Response res){
 		Long idCompraPendiente = new Long(req.params("id_compra_pendiente"));
 		Long idUsuario = new Long(req.params("id_usuario"));
-		Usuario usuario = RepositorioUsuarios.getInstance().getUsuario(idUsuario);
-		CompraPendiente compraPendiente = RepositorioComprasPendientes.getInstance()
-												.getCompraPendiente(idCompraPendiente);
-		compraPendiente.agregarUsuarioRevisor(usuario);
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		Usuario usuario = (Usuario) entityManager
+				.createQuery("from Usuario where id = :id")
+				.setParameter("id", idUsuario)
+				.getSingleResult();
+		CompraPendiente compraPendiente = (CompraPendiente) entityManager
+				.createQuery("from CompraPendiente where id = :id")
+				.setParameter("id", idCompraPendiente)
+				.getSingleResult();
+		transaction.begin();
+		compraPendiente.agregarUsuarioRevisor(usuario);	
+		transaction.commit();
 		res.redirect("/compras_pendientes");
 		return null;
 	}
@@ -56,10 +65,19 @@ public class MenuComprasPendientesController {
 	public ModelAndView desuscribirUsuario(Request req, Response res){
 		Long idCompraPendiente = new Long(req.params("id_compra_pendiente"));
 		Long idUsuario = new Long(req.params("id_usuario"));
-		Usuario usuario = RepositorioUsuarios.getInstance().getUsuario(idUsuario);
-		CompraPendiente compraPendiente = RepositorioComprasPendientes.getInstance()
-												.getCompraPendiente(idCompraPendiente);
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		Usuario usuario = (Usuario) entityManager
+				.createQuery("from Usuario where id = :id")
+				.setParameter("id", idUsuario)
+				.getSingleResult();
+		CompraPendiente compraPendiente = (CompraPendiente) entityManager
+				.createQuery("from CompraPendiente where id = :id")
+				.setParameter("id", idCompraPendiente)
+				.getSingleResult();
+		transaction.begin();
 		compraPendiente.quitarUsuarioRevisor(usuario);
+		transaction.commit();
 		res.redirect("/compras_pendientes");
 		return null;
 	}

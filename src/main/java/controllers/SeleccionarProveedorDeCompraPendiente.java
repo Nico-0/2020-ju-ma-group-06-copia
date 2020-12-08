@@ -23,9 +23,19 @@ public class SeleccionarProveedorDeCompraPendiente {
 	public ModelAndView seleccionar(Request req, Response res){
 		Long idProveedor = new Long(req.params("id_proveedor"));
 		Long idCompraPendiente = new Long(req.params("id_compra_pendiente"));
-		Proveedor proveedor = RepositorioProveedores.getInstance().getProveedor(idProveedor);
-		CompraPendiente compraPendiente = RepositorioComprasPendientes.getInstance().getCompraPendiente(idCompraPendiente);
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		final EntityTransaction transaction = entityManager.getTransaction();
+		Proveedor proveedor = (Proveedor) entityManager
+				.createQuery("from Proveedor where id = :id")
+				.setParameter("id", idProveedor)
+				.getSingleResult();	
+		CompraPendiente compraPendiente = (CompraPendiente) entityManager
+				.createQuery("from CompraPendiente where id = :id")
+				.setParameter("id", idCompraPendiente)
+				.getSingleResult();
+		transaction.begin();
 		compraPendiente.setProveedor(proveedor);
+		transaction.commit();
 		res.redirect(compraPendiente.getUrlView() + "/seleccionar_proveedor");
 		return null;
 	}

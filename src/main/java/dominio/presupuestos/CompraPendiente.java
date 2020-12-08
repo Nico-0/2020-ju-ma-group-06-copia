@@ -126,11 +126,11 @@ public class CompraPendiente {
     }
     
     public CompraPendiente setProveedor(Proveedor proveedor) {
-		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
-		transaction.begin();
+		//final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		//EntityTransaction transaction = entityManager.getTransaction();
+		//transaction.begin();
 		this.proveedor = proveedor;
-		transaction.commit();
+		//transaction.commit();
     	return this;
     }
 
@@ -180,19 +180,19 @@ public class CompraPendiente {
     }
     
     public void agregarUsuarioRevisor(Usuario unUsuario) {
-    	EntityManager em = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = em.getTransaction();
-		transaction.begin();
+    	//EntityManager em = PerThreadEntityManagers.getEntityManager();
+		//EntityTransaction transaction = em.getTransaction();
+		//transaction.begin();
 		usuariosRevisores.add(unUsuario);
-		transaction.commit();
+		//transaction.commit();
     }
     
     public void quitarUsuarioRevisor(Usuario unUsuario) {
-    	EntityManager em = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = em.getTransaction();
-		transaction.begin();
+    	//EntityManager em = PerThreadEntityManagers.getEntityManager();
+		//EntityTransaction transaction = em.getTransaction();
+		//transaction.begin();
 		usuariosRevisores.remove(unUsuario);
-		transaction.commit();	
+		//transaction.commit();	
     }
     
     public void enviarMensajeRevisores(String texto) {
@@ -203,11 +203,11 @@ public class CompraPendiente {
     }
     
     public void setEntidad(Entidad entidad) {
-		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
-		transaction.begin();
+		//final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		//EntityTransaction transaction = entityManager.getTransaction();
+		//transaction.begin();
     	this.entidad = entidad;
-		transaction.commit();
+		//transaction.commit();
     }
     
     public boolean verificarQueEsValida() {
