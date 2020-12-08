@@ -54,6 +54,7 @@ public class MenuCompraPendiente {
 		return new ModelAndView(compraPendiente, "menuCompraPendiente.hbs");
 	}
 
+	/*
 	public ModelAndView editarPresupuesto(Request req, Response res){
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		String idC = req.params("idCompra");
@@ -126,7 +127,7 @@ public class MenuCompraPendiente {
 		return null;
 	}
 	
-	/*
+
 	public ModelAndView updateCompra(Request req, Response res){
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction transaction = em.getTransaction();

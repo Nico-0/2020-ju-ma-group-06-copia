@@ -30,20 +30,20 @@ public class Bootstrap extends AbstractPersistenceTest implements WithGlobalEnti
 	public static void init() throws FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException{
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
-		
+		/*
 		CompraPendiente compra = entityManager.createQuery("from CompraPendiente", CompraPendiente.class).getResultList().get(0);
 		if(compra == null) {
 			compra = new CompraPendiente();
 			compra.setFecha(LocalDate.now());
 			compra.getDetalle().setMoneda("ninguna");
-		}
+		}*/
 		Usuario usuario = RepositorioUsuarios.getInstance().getUsuario("pepe");
 		if(usuario == null)
 			usuario = RepositorioUsuarios.getInstance().crearUsuario("pepe", "1234", TipoUsuario.ESTANDAR);
-		transaction.begin();
-		entityManager.persist(compra);
-		transaction.commit();
-		usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 1"));
-		usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 2"));
+		//transaction.begin();
+		//entityManager.persist(compra);
+		//transaction.commit();
+		//usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 1"));
+		//usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 2"));
 	}
 }

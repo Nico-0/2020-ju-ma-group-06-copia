@@ -49,6 +49,7 @@ public class CompraPendiente {
     @ElementCollection
     private List<String> etiquetas = new ArrayList<String>();
     
+    @Transient
     String tabla;
     
     public CompraPendiente() {
@@ -351,6 +352,23 @@ public class CompraPendiente {
 		});
     	return tabla + "</table>";
 	}
+	
+	public String getTablaPresupuestos() {
+		tabla = "<table>" + 
+				"<tr>" + 
+				"<th> Id </th>" + 
+				"<th></th>" + 
+				"<th></th>" + 
+				"</tr>";
+		presupuestos.stream().forEach((presupuesto) -> {tabla = tabla + 
+				"<tr>" + 
+				"   <td> " + presupuesto.getId() + "</td>" + 
+				"   <td><a href = \"/compras_pendientes/" + this.getId() + "/presupuestos/" + presupuesto.getId() + "\"> Ver Presupuesto </a></th>" +
+				"   <td><a href = \"/compras_pendientes/" + this.getId() + "/presupuestos/" + presupuesto.getId() + "/borrar\"> Borrar Presupuesto </a></th>" +
+				"</tr>";
+			});
+		return tabla + "</table>";
+	}
 
 	public void editarMedioPago(String identificadorMedioPago, TipoPago tipoPago) {
 		this.medioPago.setTipoPago(tipoPago);
@@ -359,5 +377,9 @@ public class CompraPendiente {
 
 	public void quitarItem(Item item) {
 		detalle.quitarItem(item);
+	}
+
+	public void quitarPresupuesto(Presupuesto presupuesto) {
+		presupuestos.remove(presupuesto);		
 	}
 }

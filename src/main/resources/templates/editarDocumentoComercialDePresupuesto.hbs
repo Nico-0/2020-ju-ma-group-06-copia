@@ -1,0 +1,26 @@
+{{#partial "contenido"}}
+
+<section class = "content">
+	</div>            
+		<fieldset class = "formulario">
+	        <legend>Editar documento comercial del presupuesto</legend>
+	        <form action="/compras_pendientes/{{compra.id}}/presupuestos/{{presupuesto.id}}/documento_comercial" method="post">
+	            <label class = "label2"> Tipo de Documento Comercial: </label>        
+	            <select class="combo" name="tipo_documento_comercial" id="tipo_documento_comercial">
+	                <option value = "sinDocumento"> Sin documento comercial </option>
+	                <option value = "factura"> Factura </option>
+	                <option value = "ticket"> Ticket </option>
+	            </select>
+             	<label class = "label2"> Numero de Documento Comercial: </label>
+            	<input type="text" id="numero_documento_comercial" name="numero_documento_comercial" placeholder="Ingrese numero de documento comercial..." />
+	            <br />
+	            <br />
+	            <input class = "submit_azul" type="submit" value="Actualizar documento comercial" >
+	        </form>
+	    </fieldset>      
+    <div>
+</section>
+
+{{/partial}}
+
+{{>layout.hbs}}

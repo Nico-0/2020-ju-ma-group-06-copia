@@ -20,9 +20,13 @@ import controllers.EditarCategoriasDeEntidad;
 import controllers.EditarDatosCompraPendiente;
 import controllers.EditarEntidadesBaseDeEntidad;
 import controllers.EditarItemDeCompraPendiente;
+import controllers.EditarItemDePresupuesto;
+import controllers.EditarDocumentoComercialDePresupuesto;
+import controllers.EditarPresupuestoDeCompraPendiente;
 import controllers.Presupuestos;
 import controllers.SeleccionarEntidadDeCompraPendiente;
 import controllers.SeleccionarProveedorDeCompraPendiente;
+import controllers.SeleccionarProveedorDePresupuesto;
 import controllers.MenuEntidadesController;
 import controllers.MenuProveedores;
 import controllers.LoginController;
@@ -55,6 +59,7 @@ public class Router {
 		SeleccionarProveedorDeCompraPendiente seleccionarProveedorDeCompraPendiente = new SeleccionarProveedorDeCompraPendiente();
 		EditarDatosCompraPendiente editarDatosCompraPendiente = new EditarDatosCompraPendiente();
 		EditarItemDeCompraPendiente editarItemDeCompraPendiente = new EditarItemDeCompraPendiente();
+		EditarPresupuestoDeCompraPendiente editarPresupuestoDeCompraPendiente = new EditarPresupuestoDeCompraPendiente();
 		
 		// Login
 		LoginController loginController = new LoginController();
@@ -78,6 +83,11 @@ public class Router {
 		// Proveedores
 		MenuProveedores menuProveedores = new MenuProveedores();
 		CrearProveedor crearProveedor = new CrearProveedor();
+		
+		// Presupuestos
+		EditarItemDePresupuesto editarItemDePresupuesto = new EditarItemDePresupuesto();
+		EditarDocumentoComercialDePresupuesto editarMedioPagoDePresupuesto = new EditarDocumentoComercialDePresupuesto();
+		SeleccionarProveedorDePresupuesto seleccionarProveedorDePresupuesto = new SeleccionarProveedorDePresupuesto();
 		
 		Spark.before((request, response)-> {
 			if(!request.pathInfo().equals("/login") &&
@@ -122,9 +132,9 @@ public class Router {
 		
 		Spark.get("/compras_pendientes/:idCompra", menuCompraPendiente::menuCompra,engine);
 		
-		Spark.get("/compras_pendientes/:idCompra/presupuestos", menuCompraPendiente::editarPresupuesto,engine);
-		Spark.post("/compras_pendientes/:idCompra/presupuestos", menuCompraPendiente::agregarPresupuesto);
-		Spark.post("/compras_pendientes/:idCompra/presupuestos/:idPresup/borrar", menuCompraPendiente::borrarPresupuesto);
+		//Spark.get("/compras_pendientes/:idCompra/presupuestos", menuCompraPendiente::editarPresupuesto,engine);
+		//Spark.post("/compras_pendientes/:idCompra/presupuestos", menuCompraPendiente::agregarPresupuesto);
+		//Spark.post("/compras_pendientes/:idCompra/presupuestos/:idPresup/borrar", menuCompraPendiente::borrarPresupuesto);
 		Spark.get("/compras_pendientes/:idBorrado/borrar", menuCompraPendiente::borrarCompra, engine);
 		
 		Spark.get("/presupuesto/editar", presupuestos::editarPresupuesto, engine);
@@ -135,7 +145,22 @@ public class Router {
 		Spark.post("/compras_pendientes/:id_compra_pendiente/items/:id_item/editar", editarItemDeCompraPendiente::editarItem, engine);
 		Spark.get("/compras_pendientes/:id_compra_pendiente/items/:id_item/quitar", editarItemDeCompraPendiente::quitarItem, engine);
 		
+		// Presupuesto de compra pendiente
+		Spark.get("/compras_pendientes/:id_compra_pendiente/presupuestos/crear", editarPresupuestoDeCompraPendiente::crearPresupuesto, engine);
+		Spark.get("/compras_pendientes/:id_compra_pendiente/presupuestos/:id_presupuesto", editarPresupuestoDeCompraPendiente::show, engine);
+		Spark.get("/compras_pendientes/:id_compra_pendiente/presupuestos/:id_presupuesto/borrar", editarPresupuestoDeCompraPendiente::borrarPresupuesto, engine);
 		
+		
+		Spark.get("/compras_pendientes/:id_compra_pendiente/presupuestos/:id_presupuesto/items/crear", editarItemDePresupuesto::crearItem, engine);
+		Spark.get("/compras_pendientes/:id_compra_pendiente/presupuestos/:id_presupuesto/items/:id_item/editar", editarItemDePresupuesto::show, engine);
+		Spark.post("/compras_pendientes/:id_compra_pendiente/presupuestos/:id_presupuesto/items/:id_item/editar", editarItemDePresupuesto::editarItem, engine);
+		Spark.get("/compras_pendientes/:id_compra_pendiente/presupuestos/:id_presupuesto/items/:id_item/quitar", editarItemDePresupuesto::quitarItem, engine);		
+		
+		Spark.get("/compras_pendientes/:id_compra_pendiente/presupuestos/:id_presupuesto/documento_comercial", editarMedioPagoDePresupuesto::show, engine);
+		Spark.post("/compras_pendientes/:id_compra_pendiente/presupuestos/:id_presupuesto/documento_comercial", editarMedioPagoDePresupuesto::editar, engine);
+		
+		Spark.get("/compras_pendientes/:id_compra_pendiente/presupuestos/:id_presupuesto/seleccionar_proveedor", seleccionarProveedorDePresupuesto::show,engine);
+		Spark.get("/compras_pendientes/:id_compra_pendiente/presupuestos/:id_presupuesto/seleccionar_proveedor/:id_proveedor", seleccionarProveedorDePresupuesto::seleccionar,engine);
 		
 		// Menu login
 		Spark.get("/usuario/crear", usuario::crear,engine);

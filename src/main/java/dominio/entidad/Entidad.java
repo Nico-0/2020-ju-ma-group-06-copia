@@ -49,6 +49,7 @@ public abstract class Entidad {
 	@Transient
 	private GeneradorReporte reporte;
 	
+	@Transient
 	String tabla;
 	
 	public String getNombre() {

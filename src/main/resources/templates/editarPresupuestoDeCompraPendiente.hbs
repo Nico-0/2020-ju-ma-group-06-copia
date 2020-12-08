@@ -1,0 +1,32 @@
+{{#partial "contenido"}}
+
+        <section class = "content">
+            <div>
+            MENU DEL PRESUPUESTO {{presupuesto.id}} </br>
+                
+            ID: {{presupuesto.id}} </br>
+            {{{presupuesto.datosDocumentoComercial}}}
+
+			<a class = "link_boton" href = "/compras_pendientes/{{compra.id}}/presupuestos/{{presupuesto.id}}/documento_comercial">  Editar Documento Comercial </a>
+			
+            </div>
+            
+            <div>
+            <fieldset class = "formulario">
+            	{{{presupuesto.datosProveedor}}}
+            </fieldset>
+            </div>
+            
+            <div>
+            <fieldset class = "formulario">
+                <legend>DETALLE</legend>
+                	{{{ presupuesto.tablaDetalle }}}
+					<a class = "link_boton" href = "/compras_pendientes/{{compra.id}}/presupuestos/{{presupuesto.id}}/items/crear">  Crear nuevo item </a>
+            </fieldset>
+            </div>
+            
+            <a class = "link_boton_2" href = {{compra.urlView}}>  Volver a la compra pendiente</a>
+
+{{/partial}}
+
+{{>layout.hbs}}       

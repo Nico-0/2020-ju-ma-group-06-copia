@@ -1,8 +1,11 @@
 package dominio.compra;
 
+
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class DocumentoComercial {
@@ -11,25 +14,36 @@ public class DocumentoComercial {
 	@GeneratedValue
 	private Long id;
 	
-	private int numero_documento;
+	private int numeroDocumento;
 	private TipoDocumentoComercial tipoDocumentoComercial;
 	
-	public void setNumDocumento(int num_documento){
-		this.numero_documento = num_documento;
+	@Transient
+	String texto;
+	
+	public DocumentoComercial() {
+		
+	}
+
+	public void setNumeroDocumento(int numeroDocumento){
+		this.numeroDocumento = numeroDocumento;
 	}
 	
-	public void setTipoDocumento(Long tipo_doc){
-		this.tipoDocumentoComercial = null;
-		
-    	if(tipo_doc == 0)
-    	this.tipoDocumentoComercial = TipoDocumentoComercial.SIN_DOCUMENTO;
-    	if(tipo_doc == 1) 
-    	this.tipoDocumentoComercial = TipoDocumentoComercial.FACTURA;
-    	if(tipo_doc == 2)
-    	this.tipoDocumentoComercial = TipoDocumentoComercial.TICKET;
+	public void setTipoDocumentoComercial(TipoDocumentoComercial tipoDocumentoComercial){
+		this.tipoDocumentoComercial = tipoDocumentoComercial;
 	}
 	
     public long getId(){
     	  return this.id;
-      }
+    }
+    
+    public String getDocumentoComercial(){
+    	texto = " Tipo de documento comercial: " + tipoDocumentoComercial.toString() + "</br>";
+    	if(!tipoDocumentoComercial.equals(TipoDocumentoComercial.SIN_DOCUMENTO))
+    		texto = texto + "Numero de documento: " + String.valueOf(numeroDocumento) + "</br>";
+		return texto;
+	}
+    
+    public TipoDocumentoComercial getTipoDocumentoComercial(){
+		return tipoDocumentoComercial;
+	}
 }

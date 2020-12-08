@@ -5,6 +5,7 @@ import dominio.compra.DocumentoComercial;
 import dominio.compra.Item;
 import dominio.compra.MedioPago;
 import dominio.compra.Proveedor;
+import dominio.compra.TipoDocumentoComercial;
 import dominio.compra.TipoPago;
 import dominio.presupuestos.CompraPendiente;
 import dominio.presupuestos.Detalle;
@@ -169,8 +170,8 @@ public class UsuarioController implements WithGlobalEntityManager{
 						
 	        DocumentoComercial docComercial = new DocumentoComercial();
 	        
-	        docComercial.setNumDocumento(new Integer(req.queryParams("numero_documento")));
-	        docComercial.setTipoDocumento(new Long(req.queryParams("tipo_doc")));
+	        docComercial.setNumeroDocumento(new Integer(req.queryParams("numero_documento")));
+	        docComercial.setTipoDocumentoComercial(toTipoDocumento(req.queryParams("tipo_doc")));
 
 			transaction.begin();
 			em.persist(docComercial);
@@ -181,6 +182,17 @@ public class UsuarioController implements WithGlobalEntityManager{
 		
 		res.redirect("/usuario/crear");
 		return null;		
+	}
+
+	private TipoDocumentoComercial toTipoDocumento(String string) {
+		Long tipo_doc = new Long(string);
+    	if(tipo_doc == 0)
+    		return TipoDocumentoComercial.SIN_DOCUMENTO;
+    	if(tipo_doc == 1) 
+    		return TipoDocumentoComercial.FACTURA;
+    	if(tipo_doc == 2)
+    		return TipoDocumentoComercial.TICKET;
+		return null;
 	}
 	
 
