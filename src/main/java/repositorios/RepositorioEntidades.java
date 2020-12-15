@@ -29,6 +29,7 @@ public class RepositorioEntidades {
 		return instance;
 	}
 	
+	/*
 	public void crearEntidadBase(String nombre, String descripcion) {
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		final EntityTransaction transaction = entityManager.getTransaction();
@@ -56,13 +57,15 @@ public class RepositorioEntidades {
 		transaction.begin();
 		entityManager.persist(empresa);
 		transaction.commit();
-	}
+	}*/
 	
 	public List<Entidad> getEntidades() {
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		return entityManager.createQuery("from Entidad").getResultList();
 	}
-
+	
+	
+	/*
 	public void borrarEntidad(Long id) {
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		final EntityTransaction transaction = entityManager.getTransaction();
@@ -70,7 +73,7 @@ public class RepositorioEntidades {
 		transaction.begin();
 		entityManager.remove(entidad);
 		transaction.commit();
-	}
+	}*/
 
 	public Entidad getEntidad(Long id) {
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();

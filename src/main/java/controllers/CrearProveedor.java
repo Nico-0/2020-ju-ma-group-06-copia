@@ -1,8 +1,12 @@
 package controllers;
 
-import dominio.entidad.TipoEmpresa;
-import repositorios.RepositorioEntidades;
-import repositorios.RepositorioProveedores;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
+import dominio.compra.DireccionPostal;
+import dominio.compra.Proveedor;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -19,8 +23,16 @@ public class CrearProveedor {
 		String provincia = req.queryParams("provincia");
 		String ciudad = req.queryParams("ciudad");
 		String direccion = req.queryParams("direccion");
+				
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		DireccionPostal direccionPostal = new DireccionPostal(pais, provincia, ciudad, direccion);
+		Proveedor proveedor = new Proveedor(razonSocial, dniCuilCuit, direccionPostal);
+		final EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		entityManager.persist(direccionPostal);
+		entityManager.persist(proveedor);
+		transaction.commit();
 		
-		RepositorioProveedores.getInstance().crearProveedor(razonSocial, dniCuilCuit, pais, provincia, ciudad, direccion);
 		res.redirect("/proveedores");
 		return null;
 	}

@@ -36,6 +36,7 @@ public class RepositorioCategorias {
 		return entityManager.createQuery("from Categoria").getResultList();
 	}
 
+	/*
 	public void borrarCategoria(Long id) {
 		Categoria categoria = this.getCategoria(id);
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
@@ -43,8 +44,9 @@ public class RepositorioCategorias {
 		transaction.begin();
 		entityManager.remove(categoria);
 		transaction.commit();
-	}
+	}*/
 
+	/*
 	public void crearCategoriaDefault(String nombre, boolean bloquearNuevasCompras,
 			boolean bloquearAgregarEntidadesBase, boolean bloquearFormarParteEntidadJuridica, Long egresosMaximos) {
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
@@ -54,8 +56,9 @@ public class RepositorioCategorias {
 		transaction.begin();
 		entityManager.persist(categoriaDefault);
 		transaction.commit();
-	}
+	}*/
 	
+	/*
 	public void editarCategoriaDefault(Long id, String nombre, boolean bloquearNuevasCompras,
 			boolean bloquearAgregarEntidadesBase, boolean bloquearFormarParteEntidadJuridica, Long egresosMaximos) {
 		Categoria categoriaDefault = getCategoria(id);
@@ -68,7 +71,7 @@ public class RepositorioCategorias {
 		categoriaDefault.setEgresosMaximos(egresosMaximos);
 		categoriaDefault.setNombre(nombre);
 		transaction.commit();
-	}
+	}*/
 	
 	public Categoria getCategoria(Long id) {
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();

@@ -1,6 +1,5 @@
 package dominio.usuario;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -13,12 +12,10 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 

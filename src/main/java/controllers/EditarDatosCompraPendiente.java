@@ -1,20 +1,14 @@
 package controllers;
 
-import java.util.Comparator;
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.compra.TipoPago;
-import dominio.entidad.Entidad;
 import dominio.presupuestos.CompraPendiente;
 import dominio.presupuestos.CriterioDeSeleccionPresupuesto;
-import dominio.presupuestos.Presupuesto;
 import repositorios.RepositorioComprasPendientes;
-import repositorios.RepositorioEntidades;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;

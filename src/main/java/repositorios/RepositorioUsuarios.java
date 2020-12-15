@@ -41,6 +41,7 @@ public class RepositorioUsuarios {
 		return null;
 	}
 
+	/*
 	public Usuario crearUsuario(String nombre, String contrasenia, TipoUsuario tipoUsuario) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException {
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		final EntityTransaction transaction = entityManager.getTransaction();
@@ -50,14 +51,13 @@ public class RepositorioUsuarios {
 		entityManager.persist(usuario);	
 		transaction.commit();
 		return usuario;
-	}
+	}*/
 	
 	public boolean existeUsuario(String nombre) {
 		boolean existe = true;
 		Usuario usuario = getUsuario(nombre);
 		if(usuario == null)
 			existe = false;
-		
 		return existe;
 	}
 

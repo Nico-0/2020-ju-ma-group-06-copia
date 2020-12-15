@@ -1,7 +1,16 @@
 package controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
+import dominio.entidad.Empresa;
+import dominio.entidad.EntidadBase;
 import dominio.entidad.TipoEmpresa;
-import repositorios.RepositorioEntidades;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -17,8 +26,15 @@ public class CrearEmpresa {
 		String direccionPostal= req.queryParams("direccion_postal");
 		String cuit = req.queryParams("cuit");
 		TipoEmpresa tipoEmpresa = toTipoEmpresa(req.queryParams("tipo_empresa"));
+				
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		final EntityTransaction transaction = entityManager.getTransaction();
+		List<EntidadBase> entidadesBase = new ArrayList<EntidadBase>();
+		Empresa empresa = new Empresa(razonSocial, nombre, cuit, direccionPostal, tipoEmpresa, entidadesBase);
+		transaction.begin();
+		entityManager.persist(empresa);
+		transaction.commit();
 		
-		RepositorioEntidades.getInstance().crearEmpresa(razonSocial, nombre, cuit, direccionPostal, tipoEmpresa);
 		res.redirect("/entidades");
 		return null;
 	}

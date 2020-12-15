@@ -1,21 +1,15 @@
 package controllers;
 
-import java.io.FileNotFoundException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.entidad.Entidad;
-import dominio.usuario.Usuario;
 import repositorios.RepositorioEntidades;
-import repositorios.RepositorioUsuarios;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-import spark.Spark;
 
 public class MenuEntidadesController {
 
@@ -40,7 +34,14 @@ public class MenuEntidadesController {
 	
 	public ModelAndView borrarEntidad(Request req, Response res) {
 		Long id = new Long(req.params("id"));
-		RepositorioEntidades.getInstance().borrarEntidad(id);
+		
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		final EntityTransaction transaction = entityManager.getTransaction();
+		Entidad entidad = RepositorioEntidades.getInstance().getEntidad(id);
+		transaction.begin();
+		entityManager.remove(entidad);
+		transaction.commit();
+		
 		res.redirect("/entidades");
 		return null;
 	}

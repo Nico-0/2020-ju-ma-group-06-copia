@@ -1,12 +1,11 @@
 package controllers;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
-import dominio.usuario.Usuario;
-import repositorios.RepositorioEntidades;
-import repositorios.RepositorioUsuarios;
+import dominio.entidad.EntidadBase;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -18,10 +17,16 @@ public class CrearEntidadBase {
 	}
 	
 	public ModelAndView crear(Request req, Response res){
-		// Agregar entidad base a la base de datos
 		String nombre = req.queryParams("nombre");
 		String descripcion = req.queryParams("descripcion");
-		RepositorioEntidades.getInstance().crearEntidadBase(nombre,descripcion);
+		
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		final EntityTransaction transaction = entityManager.getTransaction();
+		EntidadBase entidadBase = new EntidadBase(nombre, descripcion);
+		transaction.begin();
+		entityManager.persist(entidadBase);
+		transaction.commit();
+		
 		res.redirect("/entidades");
 		return null;
 	}

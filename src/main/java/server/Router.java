@@ -100,7 +100,6 @@ public class Router {
 					StringUtils.isEmpty(request.cookie("usuario_logueado"))) {
 				response.redirect("/login");
 			}
-			//PerThreadEntityManagers.getEntityManager();
 		});
 		
 		Spark.after((request, response) -> {

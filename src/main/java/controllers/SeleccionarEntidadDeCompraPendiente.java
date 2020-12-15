@@ -5,12 +5,9 @@ import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
-import dominio.compra.Proveedor;
 import dominio.entidad.Entidad;
 import dominio.presupuestos.CompraPendiente;
 import repositorios.RepositorioComprasPendientes;
-import repositorios.RepositorioEntidades;
-import repositorios.RepositorioProveedores;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;

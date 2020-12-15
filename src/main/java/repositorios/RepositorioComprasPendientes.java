@@ -71,9 +71,9 @@ public class RepositorioComprasPendientes implements WithGlobalEntityManager{
     	
     	//TODO volver al codigo comentado de arriba
        	comprasPendientes.stream().forEach(CompraPendiente::validarCompra);
-    	
     }
-
+    
+    /*
 	public void borrarCompraPendiente(Long id) {
 		CompraPendiente compraPendiente = this.getCompraPendiente(id);
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
@@ -81,7 +81,7 @@ public class RepositorioComprasPendientes implements WithGlobalEntityManager{
 		transaction.begin();
 		entityManager.remove(compraPendiente);
 		transaction.commit();
-	}
+	}*/
 
 	public CompraPendiente getCompraPendiente(Long id) {
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
@@ -91,6 +91,7 @@ public class RepositorioComprasPendientes implements WithGlobalEntityManager{
 				.getSingleResult();
 	}
 
+	/*
 	public CompraPendiente crearCompraPendiente() {
 		MedioPago medioPago = new MedioPago(TipoPago.EFECTIVO,"");
 		CompraPendiente compraPendiente = new CompraPendiente();
@@ -102,7 +103,7 @@ public class RepositorioComprasPendientes implements WithGlobalEntityManager{
 		compraPendiente.setMedioPago(medioPago);
 		transaction.commit();
 		return compraPendiente;
-	}
+	}*/
 	
 	public String getTablaComprasPendientes() {
     	List<CompraPendiente> todasLasComprasPendientes = RepositorioComprasPendientes.getInstance().getComprasPendientes(); 

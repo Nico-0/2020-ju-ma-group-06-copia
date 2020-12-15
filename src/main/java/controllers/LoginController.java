@@ -1,22 +1,17 @@
 package controllers;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
-import dominio.presupuestos.Detalle;
 import dominio.usuario.TipoUsuario;
 import dominio.usuario.Usuario;
-import repositorios.RepositorioComprasPendientes;
 import repositorios.RepositorioUsuarios;
 import spark.ModelAndView;
 import spark.Request;
@@ -40,24 +35,27 @@ public class LoginController {
 		String tipoUsuario = req.queryParams("tipousuario");
 		
 		if(boton.equals("iniciar_sesion")) {
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		Usuario usuario = RepositorioUsuarios.getInstance().getUsuario(nombre);
-		if(usuario != null && usuario.laContraseniaEs(contrasenia) && getTipo(tipoUsuario).equals(usuario.getTipo())) {
-			res.cookie("usuario_logueado", nombre);
-			res.redirect("/");
-			return null;
+			Usuario usuario = RepositorioUsuarios.getInstance().getUsuario(nombre);
+			if(usuario != null && usuario.laContraseniaEs(contrasenia) && getTipo(tipoUsuario).equals(usuario.getTipo())) {
+				res.cookie("usuario_logueado", nombre);
+				res.redirect("/");
+				return null;
+			}
 		}
-		/*EntityTransaction transaction = entityManager.getTransaction();
-		transaction.begin();
-
-		transaction.commit();
-		*/
-		}
+		
 		else { //boton.equals("registrarse")
 			boolean existente = RepositorioUsuarios.getInstance().existeUsuario(nombre);
 			if(!existente) {
-				Usuario usuario = RepositorioUsuarios.getInstance().crearUsuario(nombre, contrasenia, getTipo(tipoUsuario));
+
+				final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+				final EntityTransaction transaction = entityManager.getTransaction();
+				Usuario usuario = new Usuario(nombre,contrasenia,getTipo(tipoUsuario));
+				transaction.begin();
+				entityManager.persist(usuario.bandejaDeEntrada);
+				entityManager.persist(usuario);	
+				transaction.commit();
 			}
+				
 			else {
 				res.redirect("/error/existente");
 				//todo no funciona que te lleve a esa pagina pero al menos no se crea el usuario

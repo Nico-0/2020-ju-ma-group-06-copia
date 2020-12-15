@@ -3,7 +3,6 @@ package controllers;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-import spark.Spark;
 
 public class Compras {
 

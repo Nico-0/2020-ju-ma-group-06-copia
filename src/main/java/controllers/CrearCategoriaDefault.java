@@ -1,7 +1,11 @@
 package controllers;
 
-import repositorios.RepositorioCategorias;
-import repositorios.RepositorioEntidades;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
+import dominio.entidad.CategoriaDefault;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -21,8 +25,15 @@ public class CrearCategoriaDefault {
 			egresosMaximos = (long) 0;
 		else
 			egresosMaximos = Long.parseLong(req.queryParams("egresosMaximos"));
-		RepositorioCategorias.getInstance().crearCategoriaDefault(nombre, bloquearNuevasCompras,
-				bloquearAgregarEntidadesBase, bloquearFormarParteEntidadJuridica, egresosMaximos);
+		
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		final EntityTransaction transaction = entityManager.getTransaction();
+		CategoriaDefault categoriaDefault = new CategoriaDefault(nombre, bloquearNuevasCompras, 
+				bloquearAgregarEntidadesBase, bloquearFormarParteEntidadJuridica, egresosMaximos);	
+		transaction.begin();
+		entityManager.persist(categoriaDefault);
+		transaction.commit();
+		
 		res.redirect("/categorias");
 		return null;
 	}

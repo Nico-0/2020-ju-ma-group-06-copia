@@ -26,6 +26,7 @@ public class RepositorioProveedores {
 		return entityManager.createQuery("from Proveedor").getResultList();
 	}
 
+	/*
 	public void borrarProveedor(Long id) {
 		Proveedor proveedor = this.getProveedor(id);
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
@@ -33,7 +34,7 @@ public class RepositorioProveedores {
 		transaction.begin();
 		entityManager.remove(proveedor);
 		transaction.commit();
-	}
+	}*/
 	
 	public Proveedor getProveedor(Long id) {
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
@@ -43,6 +44,7 @@ public class RepositorioProveedores {
 				.getSingleResult();
 	}
 
+	/*
 	public void crearProveedor(String razonSocial, String dniCuilCuit, String pais, String provincia, String ciudad,
 			String direccion) {
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
@@ -53,5 +55,5 @@ public class RepositorioProveedores {
 		entityManager.persist(direccionPostal);
 		entityManager.persist(proveedor);
 		transaction.commit();
-	}
+	}*/
 }

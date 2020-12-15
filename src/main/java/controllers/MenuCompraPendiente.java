@@ -5,16 +5,8 @@ import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
-import dominio.compra.DocumentoComercial;
-import dominio.compra.MedioPago;
-import dominio.compra.Proveedor;
-import dominio.entidad.Entidad;
-import dominio.entidad.TipoEmpresa;
 import dominio.presupuestos.CompraPendiente;
-import dominio.presupuestos.Detalle;
-import dominio.presupuestos.Presupuesto;
 import repositorios.RepositorioComprasPendientes;
-import repositorios.RepositorioEntidades;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -41,8 +33,15 @@ public class MenuCompraPendiente {
 	}*/
 
 	public ModelAndView borrarCompra(Request req, Response res){	
-		Long idCompraPendiente = new Long(req.params("idBorrado"));
-		RepositorioComprasPendientes.getInstance().borrarCompraPendiente(idCompraPendiente);
+		Long idCompraPendiente = new Long(req.params("idBorrado"));		
+
+		CompraPendiente compraPendiente = RepositorioComprasPendientes.getInstance().getCompraPendiente(idCompraPendiente);
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		entityManager.remove(compraPendiente);
+		transaction.commit();
+		
 		res.redirect("/compras_pendientes");
 		return null;
 	}
