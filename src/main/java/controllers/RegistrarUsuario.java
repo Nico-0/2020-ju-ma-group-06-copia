@@ -33,9 +33,7 @@ public class RegistrarUsuario {
 
 		String nombre = req.queryParams("nombre");
 		String contrasenia = req.queryParams("contrasenia");
-		String boton = req.queryParams("boton");
 		String tipoUsuario = req.queryParams("tipousuario");
-		HashMap<String,Object> model = new HashMap<String,Object>();
 		
 		try {	
 			RepositorioUsuarios.getInstance().verificarNoExisteUsuario(nombre);

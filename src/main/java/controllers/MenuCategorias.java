@@ -1,11 +1,14 @@
 package controllers;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.entidad.Categoria;
+import dominio.entidad.Entidad;
 import repositorios.RepositorioCategorias;
 import spark.ModelAndView;
 import spark.Request;
@@ -24,15 +27,18 @@ public class MenuCategorias {
 
 	public ModelAndView borrarCategoria(Request req, Response res){
 		Long id = new Long(req.params("id"));
-		
-		Categoria categoria = RepositorioCategorias.getInstance().getCategoria(id);
-		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
-		transaction.begin();
-		entityManager.remove(categoria);
-		transaction.commit();	
-		
-		res.redirect("/categorias");
+		List<Entidad> entidades = RepositorioCategorias.getInstance().getEntidades(id);
+		if(entidades.isEmpty()) {
+			Categoria categoria = RepositorioCategorias.getInstance().getCategoria(id);
+			final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+			EntityTransaction transaction = entityManager.getTransaction();
+			transaction.begin();
+			entityManager.remove(categoria);
+			transaction.commit();
+			res.redirect("/categorias");
+			return null;
+		}
+		res.redirect("/categorias#popupNoSePuedeBorrarCategoria");
 		return null;
 	}
 }

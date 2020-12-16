@@ -64,7 +64,6 @@ public class RepositorioEntidades {
 		return entityManager.createQuery("from Entidad").getResultList();
 	}
 	
-	
 	/*
 	public void borrarEntidad(Long id) {
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();

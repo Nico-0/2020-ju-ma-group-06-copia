@@ -161,4 +161,10 @@ public abstract class Entidad {
     public String getUrlEditarCategorias() {
     	return this.getUrlView() + "editar_categorias";
     }
+
+	public boolean tieneCompras() {
+		return !compras.isEmpty();
+	}
+
+	public abstract boolean perteneceAEntidadJuridica();
 }

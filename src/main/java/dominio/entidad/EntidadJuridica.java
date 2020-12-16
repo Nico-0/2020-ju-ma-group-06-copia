@@ -155,4 +155,8 @@ public abstract class EntidadJuridica extends Entidad {
     	else
     		return tabla + "<table>" + "</br>La entidad no puede agregar entidades base";	
     }
+    
+    public boolean perteneceAEntidadJuridica() {
+    	return false;
+    }
 }

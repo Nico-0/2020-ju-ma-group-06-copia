@@ -44,4 +44,8 @@ public class EntidadBase extends Entidad {
 	public String getDescripcion() {
 		return descripcion;
 	}
+	
+	public boolean perteneceAEntidadJuridica() {
+    	return tieneEntidadJuridica;
+    }
 }

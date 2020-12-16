@@ -4,7 +4,7 @@
     <form method="POST" action=/login class="content">
     	<form class = "content">
     	<a class = "link_boton" href = "entidades/crear_empresa">  Crear Empresa  </a>
-    	<a class = "link_boton" href = "entidades/crear_organizacion_social">  Crear Organizacion Social  </a>
+    	<a class = "link_boton" href = "entidades/crear_organizacion_social">  Crear Organizaci&oacuten Social  </a>
        	<a class = "link_boton" href = "entidades/crear_entidad_base">  Crear Entidad Base  </a>
     </form>
     <div>
@@ -25,6 +25,28 @@
     	{{/each}}
     	</table>
     </div>
+    
+    <div id="popupTieneCompras" class="overlay">
+		<div class="popup">
+			<h2>ERROR. No se puede borrar la entidad</h2>
+			<a class="close" href="#">&times;</a>
+			<div class="content">
+				No se puede borrar entidades que tengan compras.
+			</div>
+		</div>
+	</div>   
+	
+	<div id="popupPerteneceAEntidadJuridica" class="overlay">
+		<div class="popup">
+			<h2>ERROR. No se puede borrar la entidad</h2>
+			<a class="close" href="#">&times;</a>
+			<div class="content">
+				No se puede borrar entidades base que pertenecen a una entidad jur&iacutedica (Empresa u Organizaci&oacuten social).
+			</div>
+		</div>
+	</div>
+	
+	
 </section>
 <br/>
     <a class = "link_boton" href = "/">  Volver  </a>

@@ -10,58 +10,7 @@
 			    <input type="text" id="nombre" name="nombre" placeholder="Ingrese nombre..." />
 			    </br>
 			    <label class = label1>Contraseña</label>
-			    <input type="password" id="contrasenia" name="contrasenia" placeholder="Ingrese contraseña..." />
-			   
-			    <div id="popupContraseniaCorta" class="overlay">
-					<div class="popup">
-						<h2>ERROR. La contraseña es corta</h2>
-						<a class="close" href="#">&times;</a>
-						<div class="content">
-							La contraseña debe tener al menos 8 caracteres.
-						</div>
-					</div>
-				</div>
-				
-				<div id="popupContraseniaMala" class="overlay">
-					<div class="popup">
-						<h2>ERROR. La contraseña es mala</h2>
-						<a class="close" href="#">&times;</a>
-						<div class="content">
-							La contraseña se encuentra entre las peores 10000 contraseñas!!
-						</div>
-					</div>
-				</div>
-				
-				<div id="popupContraseniaRepiteCaracteres" class="overlay">
-					<div class="popup">
-						<h2>ERROR. La contraseña repite caracteres</h2>
-						<a class="close" href="#">&times;</a>
-						<div class="content">
-							La contraseña no puede contener más de dos caracteres iguales seguidos.
-						</div>
-					</div>
-				</div>
-				
-				<div id="popupYaExiste" class="overlay">
-					<div class="popup">
-						<h2>ERROR. El nombre de usuario ya existe</h2>
-						<a class="close" href="#">&times;</a>
-						<div class="content">
-							Ya existe un usuario con este nombre. Pruebe con otro nombre.
-						</div>
-					</div>
-				</div>
-				
-				<div id="popupContieneNombreUsuario" class="overlay">
-					<div class="popup">
-						<h2>ERROR. La contraseña contiene el</br>nombre de usuario</h2>
-						<a class="close" href="#">&times;</a>
-						<div class="content">
-							La contraseña no puede contener el nombre de usuario. Cambie la contraseña.
-						</div>
-					</div>
-				</div>
-				
+			    <input type="password" id="contrasenia" name="contrasenia" placeholder="Ingrese contraseña..." />		
 			    </br>
 			    <label class = label1>Tipo de Usuario</label>
 			    <select class="combo" name="tipousuario" required>
@@ -75,5 +24,56 @@
    				<a class = "link_boton" href = "login">  Volver a iniciar sesion  </a>
 			</form>
 	    </div>
+	    
+	    <div id="popupContraseniaCorta" class="overlay">
+			<div class="popup">
+				<h2>ERROR. La contraseña es corta</h2>
+				<a class="close" href="#">&times;</a>
+				<div class="content">
+					La contraseña debe tener al menos 8 caracteres.
+				</div>
+			</div>
+		</div>
+		
+		<div id="popupContraseniaMala" class="overlay">
+			<div class="popup">
+				<h2>ERROR. La contraseña es mala</h2>
+				<a class="close" href="#">&times;</a>
+				<div class="content">
+					La contraseña se encuentra entre las peores 10000 contraseñas!!
+				</div>
+			</div>
+		</div>
+		
+		<div id="popupContraseniaRepiteCaracteres" class="overlay">
+			<div class="popup">
+				<h2>ERROR. La contraseña repite caracteres</h2>
+				<a class="close" href="#">&times;</a>
+				<div class="content">
+					La contraseña no puede contener más de dos caracteres iguales seguidos.
+				</div>
+			</div>
+		</div>
+		
+		<div id="popupYaExiste" class="overlay">
+			<div class="popup">
+				<h2>ERROR. El nombre de usuario ya existe</h2>
+				<a class="close" href="#">&times;</a>
+				<div class="content">
+					Ya existe un usuario con este nombre. Pruebe con otro nombre.
+				</div>
+			</div>
+		</div>
+		
+		<div id="popupContieneNombreUsuario" class="overlay">
+			<div class="popup">
+				<h2>ERROR. La contraseña contiene el</br>nombre de usuario</h2>
+				<a class="close" href="#">&times;</a>
+				<div class="content">
+					La contraseña no puede contener el nombre de usuario. Cambie la contraseña.
+				</div>
+			</div>
+		</div>
+	    
 	</body>
 </html>

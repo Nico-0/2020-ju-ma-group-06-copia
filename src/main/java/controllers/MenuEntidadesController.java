@@ -1,11 +1,15 @@
 package controllers;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
+import dominio.entidad.Categoria;
 import dominio.entidad.Entidad;
+import repositorios.RepositorioCategorias;
 import repositorios.RepositorioEntidades;
 import spark.ModelAndView;
 import spark.Request;
@@ -34,14 +38,23 @@ public class MenuEntidadesController {
 	
 	public ModelAndView borrarEntidad(Request req, Response res) {
 		Long id = new Long(req.params("id"));
-		
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		final EntityTransaction transaction = entityManager.getTransaction();
 		Entidad entidad = RepositorioEntidades.getInstance().getEntidad(id);
+		
+		if(entidad.tieneCompras()) {
+			res.redirect("/entidades#popupTieneCompras");
+			return null;
+		}
+		
+		if(entidad.perteneceAEntidadJuridica()) {
+			res.redirect("/entidades#popupPerteneceAEntidadJuridica");
+			return null;
+		}
+		
+		final EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		entityManager.remove(entidad);
 		transaction.commit();
-		
 		res.redirect("/entidades");
 		return null;
 	}

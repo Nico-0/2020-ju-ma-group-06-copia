@@ -8,6 +8,5 @@ public class ContieneNombreDeUsuario implements Validacion {
 		if (unaContrasenia.indexOf(usuario) > -1) {
 			throw new ContieneNombreUsuarioException("La contraseña no puede contener el nombre de usuario");
 		}
-	}
-	
+	}	
 }

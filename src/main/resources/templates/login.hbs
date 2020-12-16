@@ -9,18 +9,35 @@
 			    <input type="text" id="nombre" name="nombre" placeholder="Ingrese nombre..." />
 			    <label class = label1>Contraseña</label>
 			    <input type="password" id="contrasenia" name="contrasenia" placeholder="Ingrese contraseña..." />
-			    <label class = label1>Tipo de Usuario</label>
-			    <select class="combo" name="tipousuario" required>
-			        <option class="combo" value="">Elija una opción...</option>
-			        <option value="estandar">Estándar</option>
-			        <option value="admin">Administrador</option>
-			    </select>
 			    <br />
+			    
+			    
+			    
 			    <button class="submit_azul" type="submit" name="boton" value="iniciar_sesion">Iniciar Sesion</button>
    				<br />
    				<a class = "link_boton" href = "registrar_usuario">  Registrar nuevo usuario  </a>
 			</form>
 			Ultimo usuario creado   "{{nombre}}"   de tipo {{tipo_string}}
 	    </div>
+	    
+	    <div id="popupNoExisteUsuario" class="overlay">
+			<div class="popup">
+				<h2>ERROR. No existe nombre de usuario</h2>
+				<a class="close" href="#">&times;</a>
+				<div class="content">
+					No existe el nombre de usuario que ha ingresado.
+				</div>
+			</div>
+		</div>
+		
+		<div id="popupContraseniaIncorrecta" class="overlay">
+			<div class="popup">
+				<h2>ERROR. La contraseña es incorrecta</h2>
+				<a class="close" href="#">&times;</a>
+				<div class="content">
+					La contraseña que ha ingresado es incorrecta!!
+				</div>
+			</div>
+		</div>
 	</body>
 </html>

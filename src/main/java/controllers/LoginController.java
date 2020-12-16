@@ -31,16 +31,22 @@ public class LoginController {
 		// Buscar usuario en la base de datos y verificar
 		String nombre = req.queryParams("nombre");
 		String contrasenia = req.queryParams("contrasenia");
-		String boton = req.queryParams("boton");
-		String tipoUsuario = req.queryParams("tipousuario");
+		//String tipoUsuario = req.queryParams("tipousuario");
 		
 		Usuario usuario = RepositorioUsuarios.getInstance().getUsuario(nombre);
-		if(usuario != null && usuario.laContraseniaEs(contrasenia) && getTipo(tipoUsuario).equals(usuario.getTipo())) {
-			res.cookie("usuario_logueado", nombre);
-			res.redirect("/");
+		
+		if(usuario == null) {
+			res.redirect("/login#popupNoExisteUsuario");
 			return null;
 		}
-		res.redirect("/login");
+		
+		if(!usuario.laContraseniaEs(contrasenia)) {
+			res.redirect("/login#popupContraseniaIncorrecta");
+			return null;
+		}
+		
+		res.cookie("usuario_logueado", nombre);
+		res.redirect("/");
 		return null;
 	}
 	
