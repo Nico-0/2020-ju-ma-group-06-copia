@@ -34,32 +34,11 @@ public class LoginController {
 		String boton = req.queryParams("boton");
 		String tipoUsuario = req.queryParams("tipousuario");
 		
-		if(boton.equals("iniciar_sesion")) {
-			Usuario usuario = RepositorioUsuarios.getInstance().getUsuario(nombre);
-			if(usuario != null && usuario.laContraseniaEs(contrasenia) && getTipo(tipoUsuario).equals(usuario.getTipo())) {
-				res.cookie("usuario_logueado", nombre);
-				res.redirect("/");
-				return null;
-			}
-		}
-		
-		else { //boton.equals("registrarse")
-			boolean existente = RepositorioUsuarios.getInstance().existeUsuario(nombre);
-			if(!existente) {
-
-				final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-				final EntityTransaction transaction = entityManager.getTransaction();
-				Usuario usuario = new Usuario(nombre,contrasenia,getTipo(tipoUsuario));
-				transaction.begin();
-				entityManager.persist(usuario.bandejaDeEntrada);
-				entityManager.persist(usuario);	
-				transaction.commit();
-			}
-				
-			else {
-				res.redirect("/error/existente");
-				//todo no funciona que te lleve a esa pagina pero al menos no se crea el usuario
-			}
+		Usuario usuario = RepositorioUsuarios.getInstance().getUsuario(nombre);
+		if(usuario != null && usuario.laContraseniaEs(contrasenia) && getTipo(tipoUsuario).equals(usuario.getTipo())) {
+			res.cookie("usuario_logueado", nombre);
+			res.redirect("/");
+			return null;
 		}
 		res.redirect("/login");
 		return null;

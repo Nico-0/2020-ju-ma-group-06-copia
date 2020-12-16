@@ -52,14 +52,6 @@ public class RepositorioUsuarios {
 		transaction.commit();
 		return usuario;
 	}*/
-	
-	public boolean existeUsuario(String nombre) {
-		boolean existe = true;
-		Usuario usuario = getUsuario(nombre);
-		if(usuario == null)
-			existe = false;
-		return existe;
-	}
 
 	public Usuario getUsuario(Long idUsuario) {
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
@@ -67,5 +59,11 @@ public class RepositorioUsuarios {
 				.createQuery("from Usuario where id = :id")
 				.setParameter("id", idUsuario)
 				.getSingleResult();
+	}
+
+	public void verificarNoExisteUsuario(String nombre) {
+		Usuario usuario = getUsuario(nombre);
+		if(usuario != null)
+			throw new UsuarioYaExisteException("El usuario ya existe");
 	}
 }

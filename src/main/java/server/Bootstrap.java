@@ -16,7 +16,10 @@ import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import dominio.usuario.TipoUsuario;
 import dominio.usuario.Usuario;
 import dominio.usuario.ValidadorDeContrasenias;
+import dominio.validacion.ContieneNombreDeUsuario;
 import dominio.validacion.EsMala;
+import dominio.validacion.EsMuyCorta;
+import dominio.validacion.RepiteCaracteres;
 import repositorios.RepositorioUsuarios;
 
 public class Bootstrap extends AbstractPersistenceTest implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps{
@@ -44,6 +47,9 @@ public class Bootstrap extends AbstractPersistenceTest implements WithGlobalEnti
 			transaction.commit();
 		}
 		ValidadorDeContrasenias.getInstance().agregarValidacion(new EsMala());
+		ValidadorDeContrasenias.getInstance().agregarValidacion(new EsMuyCorta());
+		ValidadorDeContrasenias.getInstance().agregarValidacion(new RepiteCaracteres());
+		ValidadorDeContrasenias.getInstance().agregarValidacion(new ContieneNombreDeUsuario());
 		//transaction.begin();
 		//entityManager.persist(compra);
 		//transaction.commit();

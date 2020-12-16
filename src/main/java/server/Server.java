@@ -10,8 +10,7 @@ import spark.debug.DebugScreen;
 
 public class Server {
 	public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException {
-		Spark.port(9000);
-		//Spark.port(getHerokuAssignedPort());
+		Spark.port(getHerokuAssignedPort());
 		DebugScreen.enableDebugScreen();
 		Bootstrap.init();
 		Router.configure();
@@ -23,6 +22,6 @@ public class Server {
 	        return Integer.parseInt(processBuilder.environment().get("PORT"));
 	    }
 	    
-	    return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
+	    return 9000; //return default port if heroku-port isn't set (i.e. on localhost)
 	}
 }

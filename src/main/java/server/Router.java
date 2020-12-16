@@ -26,6 +26,7 @@ import controllers.EditarItemDePresupuesto;
 import controllers.EditarDocumentoComercialDePresupuesto;
 import controllers.EditarPresupuestoDeCompraPendiente;
 import controllers.Presupuestos;
+import controllers.RegistrarUsuario;
 import controllers.SeleccionarEntidadDeCompraPendiente;
 import controllers.SeleccionarProveedorDeCompraPendiente;
 import controllers.SeleccionarProveedorDePresupuesto;
@@ -65,6 +66,7 @@ public class Router {
 		
 		// Login
 		LoginController loginController = new LoginController();
+		RegistrarUsuario registrarUsuario = new RegistrarUsuario();
 		
 		// Bandeja de Entrada
 		BandejaDeEntradaController bandejaDeEntrada = new BandejaDeEntradaController();
@@ -96,7 +98,7 @@ public class Router {
 		EditarEtiquetas editarEtiquetas = new EditarEtiquetas();
 		
 		Spark.before((request, response)-> {
-			if(!request.pathInfo().equals("/login") &&
+			if(!(request.pathInfo().equals("/login") || request.pathInfo().equals("/registrar_usuario"))  &&
 					StringUtils.isEmpty(request.cookie("usuario_logueado"))) {
 				response.redirect("/login");
 			}
@@ -220,6 +222,9 @@ public class Router {
 		Spark.get("/entidades/:tipo_entidad/:id_entidad/editar_entidades_base", editarEntidadesBaseDeEntidad::show, engine);
 		Spark.get("/entidades/:tipo_entidad/:id_entidad/agregar_entidad_base/:id_entidad_base", editarEntidadesBaseDeEntidad::agregarEntidadBase, engine);
 		Spark.get("/entidades/:tipo_entidad/:id_entidad/quitar_entidad_base/:id_entidad_base", editarEntidadesBaseDeEntidad::quitarEntidadBase, engine);
+		
+		Spark.get("/registrar_usuario", registrarUsuario::show, engine);
+		Spark.post("registrar_usuario", registrarUsuario::registrar, engine);
 		
 		
 		Spark.get("/usuario/crear/erroritem", (request, response) -> {
