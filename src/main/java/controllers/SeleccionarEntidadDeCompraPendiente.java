@@ -41,4 +41,20 @@ public class SeleccionarEntidadDeCompraPendiente {
 		res.redirect(compraPendiente.getUrlView() + "/seleccionar_entidad");
 		return null;
 	}
+	
+	public ModelAndView quitar(Request req, Response res){
+		Long idCompraPendiente = new Long(req.params("id_compra_pendiente"));
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		CompraPendiente compraPendiente = (CompraPendiente) entityManager
+				.createQuery("from CompraPendiente where id = :id")
+				.setParameter("id", idCompraPendiente)
+				.getSingleResult();
+		transaction.begin();
+		compraPendiente.setEntidad(null);
+		transaction.commit();
+		res.redirect(compraPendiente.getUrlView());
+		return null;
+	}
+	
 }

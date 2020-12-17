@@ -130,8 +130,10 @@ public class Router {
 		
 		// Menu de una Compra Pendiente
 		Spark.get("/compras_pendientes/:id_compra_pendiente/seleccionar_entidad", seleccionarEntidadDeCompraPendiente::show,engine);
+		Spark.get("/compras_pendientes/:id_compra_pendiente/quitar_entidad", seleccionarEntidadDeCompraPendiente::quitar,engine);
 		Spark.get("/compras_pendientes/:id_compra_pendiente/seleccionar_entidad/:id_entidad", seleccionarEntidadDeCompraPendiente::seleccionar,engine);
 		Spark.get("/compras_pendientes/:id_compra_pendiente/seleccionar_proveedor", seleccionarProveedorDeCompraPendiente::show,engine);
+		Spark.get("/compras_pendientes/:id_compra_pendiente/quitar_proveedor", seleccionarProveedorDeCompraPendiente::quitar,engine);
 		Spark.get("/compras_pendientes/:id_compra_pendiente/seleccionar_proveedor/:id_proveedor", seleccionarProveedorDeCompraPendiente::seleccionar,engine);
 		
 		Spark.get("/compras_pendientes/:id_compra_pendiente/editar", editarDatosCompraPendiente::show, engine);

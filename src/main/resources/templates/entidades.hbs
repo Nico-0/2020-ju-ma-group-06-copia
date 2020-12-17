@@ -25,6 +25,16 @@
     	{{/each}}
     	</table>
     </div>
+       
+    <div id="popupTieneComprasPendientes" class="overlay">
+		<div class="popup">
+			<h2>ERROR. No se puede borrar la entidad</h2>
+			<a class="close" href="#">&times;</a>
+			<div class="content">
+				No se puede borrar entidades que tengan compras pendientes.
+			</div>
+		</div>
+	</div>
     
     <div id="popupTieneCompras" class="overlay">
 		<div class="popup">
@@ -46,6 +56,15 @@
 		</div>
 	</div>
 	
+	<div id="popupTieneEntidadesBase" class="overlay">
+		<div class="popup">
+			<h2>ERROR. No se puede borrar la entidad</h2>
+			<a class="close" href="#">&times;</a>
+			<div class="content">
+				No se puede borrar entidades jur&iacutedicas (Empresas u Organizaciones sociales) que tienen entidades base.
+			</div>
+		</div>
+	</div>
 	
 </section>
 <br/>

@@ -1,30 +1,24 @@
 package dominio.entidad;
 
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
-import org.hsqldb.Table;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.compra.Compra;
+import dominio.presupuestos.CompraPendiente;
 import repositorios.RepositorioCategorias;
 
 @Entity
@@ -167,4 +161,16 @@ public abstract class Entidad {
 	}
 
 	public abstract boolean perteneceAEntidadJuridica();
+
+	public boolean tieneComprasPendientes() {	
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		List<CompraPendiente> comprasPendientes = entityManager.createQuery("select compraPendiente "
+				+ "from CompraPendiente as compraPendiente "
+				+ "left outer join compraPendiente.entidad as entidadBuscada "
+				+ "where entidadBuscada.id="
+				+ String.valueOf(this.id)).getResultList();
+		return !comprasPendientes.isEmpty();
+	}
+
+	public abstract boolean tieneEntidadesBase();
 }

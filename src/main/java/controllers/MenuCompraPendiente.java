@@ -34,10 +34,20 @@ public class MenuCompraPendiente {
 
 	public ModelAndView borrarCompra(Request req, Response res){	
 		Long idCompraPendiente = new Long(req.params("idBorrado"));		
-
 		CompraPendiente compraPendiente = RepositorioComprasPendientes.getInstance().getCompraPendiente(idCompraPendiente);
+		
+		if(compraPendiente.tienePresupuestos()) {
+			res.redirect("/compras_pendientes#popupTienePresupuestos");
+			return null;
+		}
+		
+		if(compraPendiente.tieneUsuariosRevisores()) {
+			res.redirect("/compras_pendientes#popupTieneUsuariosRevisores");
+			return null;
+		}
+		
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
+		final EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		entityManager.remove(compraPendiente);
 		transaction.commit();

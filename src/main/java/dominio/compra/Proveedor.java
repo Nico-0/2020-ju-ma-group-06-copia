@@ -1,12 +1,19 @@
 package dominio.compra;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import org.apache.commons.lang3.Validate;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
+import dominio.presupuestos.CompraPendiente;
+import dominio.presupuestos.Presupuesto;
 
 @Entity
 public class Proveedor {
@@ -65,4 +72,36 @@ public class Proveedor {
 	public String getUrlDelete() {
 		return "proveedores/" + getId() + "/borrar"; 
 	}
+
+	public boolean tieneCompras() {
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		List<Compra> compras = entityManager.createQuery("select compra "
+				+ "from Compra as compra "
+				+ "left outer join compra.proveedor as proveedorBuscado "
+				+ "where proveedorBuscado.id="
+				+ String.valueOf(this.id)).getResultList();
+		return !compras.isEmpty();
+	}
+
+	public boolean tienePresupuestos() {
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		List<Presupuesto> presupuestos = entityManager.createQuery("select presupuesto "
+				+ "from Presupuesto as presupuesto "
+				+ "left outer join presupuesto.proveedor as proveedorBuscado "
+				+ "where proveedorBuscado.id="
+				+ String.valueOf(this.id)).getResultList();
+		return !presupuestos.isEmpty();
+	}
+		
+	public boolean tieneComprasPendientes() {	
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		List<CompraPendiente> comprasPendientes = entityManager.createQuery("select compraPendiente "
+				+ "from CompraPendiente as compraPendiente "
+				+ "left outer join compraPendiente.proveedor as proveedorBuscado "
+				+ "where proveedorBuscado.id="
+				+ String.valueOf(this.id)).getResultList();
+		return !comprasPendientes.isEmpty();
+	}
+
+
 }

@@ -6,6 +6,8 @@ import javax.persistence.EntityTransaction;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.compra.Proveedor;
+import dominio.entidad.Entidad;
+import repositorios.RepositorioEntidades;
 import repositorios.RepositorioProveedores;
 import spark.ModelAndView;
 import spark.Request;
@@ -19,10 +21,25 @@ public class MenuProveedores {
 	
 	public ModelAndView borrarProveedor(Request req, Response res) {
 		Long id = new Long(req.params("id"));
+		Proveedor proveedor = RepositorioProveedores.getInstance().getProveedor(id);		
 		
-		Proveedor proveedor = RepositorioProveedores.getInstance().getProveedor(id);
+		if(proveedor.tieneCompras()) {
+			res.redirect("/proveedores#popupTieneCompras");
+			return null;
+		}
+		
+		if(proveedor.tieneComprasPendientes()) {
+			res.redirect("/proveedores#popupTieneComprasPendientes");
+			return null;
+		}
+
+		if(proveedor.tienePresupuestos()) {
+			res.redirect("/proveedores#popupTienePresupuestos");
+			return null;
+		}		
+	
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
+		final EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		entityManager.remove(proveedor);
 		transaction.commit();

@@ -9,6 +9,7 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.compra.DocumentoComercial;
 import dominio.compra.Item;
+import dominio.compra.Proveedor;
 import dominio.compra.TipoDocumentoComercial;
 import dominio.presupuestos.CompraPendiente;
 import dominio.presupuestos.Detalle;
@@ -87,14 +88,20 @@ public class EditarPresupuestoDeCompraPendiente {
 		Long idCompra = new Long(req.params("id_compra_pendiente"));
 		Long idPresupuesto = new Long(req.params("id_presupuesto"));
 		CompraPendiente compraPendiente = RepositorioComprasPendientes.getInstance().getCompraPendiente(idCompra);
-		
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		final EntityTransaction transaction = entityManager.getTransaction();
 		Presupuesto presupuesto = (Presupuesto) entityManager
 				.createQuery("from Presupuesto where id = :id")
 				.setParameter("id", idPresupuesto)
 				.getSingleResult();
 		
+		Proveedor proveedorCompraPendiente = compraPendiente.getProveedor();
+		
+		if(proveedorCompraPendiente!=null && proveedorCompraPendiente.equals(presupuesto.getProveedor())) {
+			res.redirect(compraPendiente.getUrlView()+"#popupTieneMismoProveedor");
+			return null;
+		}
+		
+		final EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		compraPendiente.quitarPresupuesto(presupuesto);
 		presupuesto.setProveedor(null);

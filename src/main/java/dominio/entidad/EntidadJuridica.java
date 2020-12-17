@@ -159,4 +159,8 @@ public abstract class EntidadJuridica extends Entidad {
     public boolean perteneceAEntidadJuridica() {
     	return false;
     }
+    
+    public boolean tieneEntidadesBase() {
+    	return !entidadesBase.isEmpty();
+    }
 }

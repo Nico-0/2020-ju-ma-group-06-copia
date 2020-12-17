@@ -1,17 +1,38 @@
 {{#partial "contenido"}}
 
-        <section class = "content">
-            <div>
-            	{{{ tablaComprasPendientes }}}
-            </div>
-            <div>
-            	<form action="/compras_pendientes/validar" method="post">
-            		<input class = "submit_azul" type="submit" value="Validar todas las comprasPendientes" onclick="alert('Se validan las compras, chequee la bandeja de entrada. (Falta convertir exitosas en compras definitivas)')">
-            	</form>
-            </div>
-            <a class = "link_boton_2" href = "/compras_pendientes/crear">  Crear Compra Pendiente  </a>
-            <a class = "link_boton_2" href = "/">  Volver  </a>
-        </section>
+<section class = "content">
+	<div>
+		{{{ tablaComprasPendientes }}}
+	</div>
+	<div>
+		<form action="/compras_pendientes/validar" method="post">
+			<input class = "submit_azul" type="submit" value="Validar todas las comprasPendientes" onclick="alert('Se validan las compras, chequee la bandeja de entrada.')">
+		</form>
+	</div>
+            
+	<div id="popupTienePresupuestos" class="overlay">
+		<div class="popup">
+			<h2>ERROR. No se puede borrar la compra pendiente</h2>
+			<a class="close" href="#">&times;</a>
+			<div class="content">
+				No se puede borrar compras pendientes que tienen presupuestos.
+			</div>
+		</div>
+	</div>
+	
+	<div id="popupTieneUsuariosRevisores" class="overlay">
+		<div class="popup">
+			<h2>ERROR. No se puede borrar la compra pendiente</h2>
+			<a class="close" href="#">&times;</a>
+			<div class="content">
+				No se puede borrar compras pendientes que tienen usuarios revisores.
+			</div>
+		</div>
+	</div>
+	
+    <a class = "link_boton_2" href = "/compras_pendientes/crear">  Crear Compra Pendiente  </a>
+    <a class = "link_boton_2" href = "/">  Volver  </a>
+</section>
 
 {{/partial}}
 

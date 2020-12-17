@@ -38,7 +38,6 @@ public class MenuEntidadesController {
 	
 	public ModelAndView borrarEntidad(Request req, Response res) {
 		Long id = new Long(req.params("id"));
-		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		Entidad entidad = RepositorioEntidades.getInstance().getEntidad(id);
 		
 		if(entidad.tieneCompras()) {
@@ -51,6 +50,17 @@ public class MenuEntidadesController {
 			return null;
 		}
 		
+		if(entidad.tieneComprasPendientes()) {
+			res.redirect("/entidades#popupTieneComprasPendientes");
+			return null;
+		}
+		
+		if(entidad.tieneEntidadesBase()) {
+			res.redirect("/entidades#popupTieneEntidadesBase");
+			return null;
+		}
+		
+		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		final EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		entityManager.remove(entidad);

@@ -266,7 +266,8 @@ public class CompraPendiente {
 					"Provincia: " + proveedor.getDireccionPostal().getProvincia() + "</br>" + 
 					"Ciudad: " + proveedor.getDireccionPostal().getCiudad() + "</br>" + 
 					"Direccion: " + proveedor.getDireccionPostal().getDireccion() + "</br>" + 
-					"<a class = \"link_boton\" href = \"/compras_pendientes/" + this.getId() + "/seleccionar_proveedor\">  Cambiar proveedor </a>";
+					"<a class = \"link_boton\" href = \"/compras_pendientes/" + this.getId() + "/seleccionar_proveedor\">  Cambiar proveedor </a>"+ 
+					"<a class = \"link_boton\" href = \"/compras_pendientes/" + this.getId() + "/quitar_proveedor\">  Quitar proveedor </a>";
 		else
 			return "<legend>PROVEEDOR</legend>" + 
 					"Falta seleccionar un proveedor" + 
@@ -280,7 +281,8 @@ public class CompraPendiente {
 					"Id: " + entidad.getId() + "</br>" + 
 					"Nombre: " + entidad.getNombre() + "</br>" + 
 					"<a class = \"link_boton\" href = " + entidad.getUrlView() + ">  Ver entidad </a>" + 
-					"<a class = \"link_boton\" href = \"/compras_pendientes/" + this.getId() + "/seleccionar_entidad\">  Cambiar entidad </a>";
+					"<a class = \"link_boton\" href = \"/compras_pendientes/" + this.getId() + "/seleccionar_entidad\">  Cambiar entidad </a>"+
+					"<a class = \"link_boton\" href = \"/compras_pendientes/" + this.getId() + "/quitar_entidad\">  Quitar entidad </a>";
 		else
 			return "<legend>ENTIDAD</legend>" + 
 					"Falta seleccionar una entidad" + 
@@ -299,23 +301,24 @@ public class CompraPendiente {
     			"<th> Direccion </th>" + 
     			"<th></th>" + 
     			"</tr>";
-		List<Proveedor> proveedores = presupuestos.stream().map(presupuesto -> presupuesto.getProveedor()).collect(Collectors.toList());
+		List<Proveedor> proveedores = presupuestos.stream().map(presupuesto -> presupuesto.getProveedor())
+				.filter(presupuesto -> presupuesto != null).collect(Collectors.toList());
 
-    	proveedores.stream().forEach((proveedor) -> {tabla = tabla + 
+    	proveedores.stream().forEach((prov) -> {tabla = tabla + 
 			    			"<tr>" + 
-			    			"   <td> " + proveedor.getId() + "</td>" + 
-			    			"   <td> " + proveedor.getRazonSocial() + "</td>" + 
-			    			"   <td> " + proveedor.getDniCuilCuit() + "</td>" +
-			    			"   <td> " + proveedor.getDireccionPostal().getPais() + "</td>" +
-			    			"   <td> " + proveedor.getDireccionPostal().getProvincia() + "</td>" +
-			    			"   <td> " + proveedor.getDireccionPostal().getCiudad() + "</td>" +
-			    			"   <td> " + proveedor.getDireccionPostal().getDireccion() + "</td>" +
-			    			"   <td> " + proveedor.getRazonSocial() + "</td>";
-    	if(this.proveedor == proveedor)
+			    			"   <td> " + prov.getId() + "</td>" + 
+			    			"   <td> " + prov.getRazonSocial() + "</td>" + 
+			    			"   <td> " + prov.getDniCuilCuit() + "</td>" +
+			    			"   <td> " + prov.getDireccionPostal().getPais() + "</td>" +
+			    			"   <td> " + prov.getDireccionPostal().getProvincia() + "</td>" +
+			    			"   <td> " + prov.getDireccionPostal().getCiudad() + "</td>" +
+			    			"   <td> " + prov.getDireccionPostal().getDireccion() + "</td>" +
+			    			"   <td> " + prov.getRazonSocial() + "</td>";
+    	if(this.proveedor == prov)
     		tabla = tabla + "   <td> Proveedor seleccionado </th>" +
     				"</tr>";
     	else
-    		tabla = tabla + "   <td><a href = \"/compras_pendientes/" + this.getId() + "/seleccionar_proveedor/" + proveedor.getId() + "\"> Seleccionar </a></th>" +
+    		tabla = tabla + "   <td><a href = \"/compras_pendientes/" + this.getId() + "/seleccionar_proveedor/" + prov.getId() + "\"> Seleccionar </a></th>" +
     				"</tr>";
 		});
     	return tabla + "</table>";
@@ -397,5 +400,13 @@ public class CompraPendiente {
 
 	public void quitarPresupuesto(Presupuesto presupuesto) {
 		presupuestos.remove(presupuesto);		
+	}
+
+	public boolean tienePresupuestos() {
+		return !presupuestos.isEmpty();
+	}
+
+	public boolean tieneUsuariosRevisores() {
+		return !usuariosRevisores.isEmpty();
 	}
 }
