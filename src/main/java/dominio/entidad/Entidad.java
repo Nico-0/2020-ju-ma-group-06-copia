@@ -40,8 +40,8 @@ public abstract class Entidad {
 	
 	private LocalDate fecha = LocalDate.now();
 	
-	@Transient
-	private GeneradorReporte reporte;
+	@OneToMany
+	private List<Reporte> reportes = new ArrayList<Reporte>();
 	
 	@Transient
 	String tabla;
@@ -69,9 +69,22 @@ public abstract class Entidad {
 		return compras.stream().mapToDouble(compra -> compra.valor_total()).sum();
 	}
 
+	/*
 	public HashMap<String, List<Compra>> generarReporte(){
-		reporte = new GeneradorReporte();
-		return reporte.generarReporte(compras);
+		return new GeneradorReporte().generarReporte(compras);
+	}
+	*/
+	
+	public void agregarReporte(Reporte reporte) {
+		reportes.add(reporte);
+	}
+	
+	public Reporte generarReporte(){
+		return new GeneradorReporte().generarReporte(compras);
+	}
+	
+	public List<Reporte> getReportesMensuales() {
+		return reportes;
 	}
 
 	public void agregarCategoria(Categoria categoria) {
@@ -106,6 +119,24 @@ public abstract class Entidad {
     
     public String getFecha() {
     	return fecha.toString();
+    }
+    
+    
+    public String getTablaReportesMensuales() {
+    	tabla = "<table>" + 
+    			"    	<tr>" + 
+    			"            <th></th>" + 
+    			"            <th> Mes </th>" + 
+    			"            <th> A&ntildeo </th>" + 
+    			"        </tr>";
+    	reportes.stream().forEach((reporte) -> {tabla = tabla + 
+			"<tr>" + 
+			"   <td><a href = " + this.getUrlView() + "reportes_mensuales/"+ reporte.getId() + ">Ver reporte</a></th>" +
+			"   <td> " + reporte.getMes() + "</td>" + 
+			"   <td> " + reporte.getAnio() + "</td>" + 
+			
+			"</tr>";});
+    	return tabla + "</table>";
     }
     
     public String getTablaCategorias() {
@@ -173,4 +204,8 @@ public abstract class Entidad {
 	}
 
 	public abstract boolean tieneEntidadesBase();
+	
+	public String getUrlReportesMensuales() {
+		return this.getUrlView() + "reportes_mensuales";
+	}
 }

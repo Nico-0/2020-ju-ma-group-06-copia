@@ -39,8 +39,9 @@ public class GeneradorReporte {
 		this.mesActual = this.mes();
 	}
 	
-	public HashMap<String, List<Compra>> generarReporte(List<Compra> compras){
-		return this.categorizar(this.sonDelMes(compras));
+	public Reporte generarReporte(List<Compra> compras){
+		Reporte reporte = new Reporte(this.categorizar(this.sonDelMes(compras)), fecha);
+		return reporte;
 	}
 
 	public HashMap<String, List<Compra>> categorizar(List<Compra> compras){

@@ -32,6 +32,7 @@ import controllers.SeleccionarProveedorDeCompraPendiente;
 import controllers.SeleccionarProveedorDePresupuesto;
 import controllers.MenuEntidadesController;
 import controllers.MenuProveedores;
+import controllers.MenuReportesMensuales;
 import controllers.LoginController;
 import controllers.MenuCategorias;
 import spark.Spark;
@@ -78,6 +79,9 @@ public class Router {
 		CrearEmpresa crearEmpresa = new CrearEmpresa();
 		EditarCategoriasDeEntidad editarCategoriasDeEntidad = new EditarCategoriasDeEntidad();
 		EditarEntidadesBaseDeEntidad editarEntidadesBaseDeEntidad = new EditarEntidadesBaseDeEntidad();
+		
+		// Reportes Mensuales
+		MenuReportesMensuales menuReportesMensuales = new MenuReportesMensuales();
 		
 		// Categorias
 		MenuCategorias menuCategorias = new MenuCategorias();
@@ -177,8 +181,8 @@ public class Router {
 		
 		Spark.get("/compras/:id_compra/etiquetas/agregar", editarEtiquetas::show, engine);
 		Spark.post("/compras/:id_compra/etiquetas/agregar", editarEtiquetas::agregarEtiqueta, engine);
-		Spark.get("/compras/:id_compra/etiquetas/:etiqueta/quitar", editarEtiquetas::quitarEtiqueta, engine);		
-		
+		Spark.get("/compras/:id_compra/etiquetas/:etiqueta/quitar", editarEtiquetas::quitarEtiqueta, engine);
+			
 		// Menu login
 		Spark.get("/usuario/crear", usuario::crear,engine);
 		Spark.post("/usuario/crear", usuario::creacion);
@@ -198,12 +202,18 @@ public class Router {
 		Spark.post("/entidades/crear_empresa", crearEmpresa::crear,engine);
 		Spark.post("/entidades/crear_organizacion_social", crearOrganizacionSocial::crear,engine);
 		Spark.post("/entidades/crear_entidad_base", crearEntidadBase::crear,engine);
-		
+	
 		Spark.get("/entidades/:id/delete", entidad::borrarEntidad, engine);
 		
 		Spark.get("/entidades/organizaciones_sociales/:id/", entidad::mostrarOrganizacionSocial, engine);
 		Spark.get("/entidades/empresas/:id/", entidad::mostrarEmpresa,engine);
 		Spark.get("/entidades/entidades_base/:id/", entidad::mostrarEntidadBase,engine);
+		
+		Spark.get("/entidades/generar_reportes", entidad::generarReportes, engine);
+		
+		// Menu Reportes Mensuales
+		Spark.get("/entidades/:tipo_entidad/:id_entidad/reportes_mensuales", menuReportesMensuales::show, engine);
+		Spark.get("/entidades/:tipo_entidad/:id_entidad/reportes_mensuales/:id_reporte_mensual", menuReportesMensuales::mostrarReporteMensual, engine);
 		
 		// Menu categorias
 		Spark.get("/categorias", menuCategorias::show, engine);

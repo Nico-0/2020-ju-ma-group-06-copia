@@ -7,9 +7,8 @@ import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
-import dominio.entidad.Categoria;
 import dominio.entidad.Entidad;
-import repositorios.RepositorioCategorias;
+import dominio.entidad.Reporte;
 import repositorios.RepositorioEntidades;
 import spark.ModelAndView;
 import spark.Request;
@@ -65,6 +64,23 @@ public class MenuEntidadesController {
 		transaction.begin();
 		entityManager.remove(entidad);
 		transaction.commit();
+		res.redirect("/entidades");
+		return null;
+	}
+	
+	public ModelAndView generarReportes(Request req, Response res){
+		List<Entidad> entidades = RepositorioEntidades.getInstance().getEntidades();
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		
+		transaction.begin();
+		entidades.stream().forEach((entidad) -> {
+			Reporte reporte = entidad.generarReporte();
+			entityManager.persist(reporte);
+			entidad.agregarReporte(reporte);
+		});
+		transaction.commit();
+		
 		res.redirect("/entidades");
 		return null;
 	}
