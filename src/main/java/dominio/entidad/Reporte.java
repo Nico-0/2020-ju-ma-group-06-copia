@@ -1,14 +1,13 @@
 package dominio.entidad;
 
 import java.time.LocalDate;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import dominio.compra.Compra;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity
 public class Reporte {
@@ -19,15 +18,23 @@ public class Reporte {
 	
 	private LocalDate fecha;
 	
-	private HashMap<String, List<Compra>> comprasPorEtiqueta = new HashMap<String, List<Compra>>();
+	@Transient
+	String tabla;
 	
+	@OneToMany
+	private List<ListaDeCompras> comprasPorEtiqueta = new ArrayList<ListaDeCompras>();
+		
 	public Reporte() {
 		
 	}
 	
-	public Reporte(HashMap<String, List<Compra>> comprasPorEtiqueta, LocalDate fecha) {
+	public Reporte(List<ListaDeCompras> comprasPorEtiqueta, LocalDate fecha) {
 		this.comprasPorEtiqueta = comprasPorEtiqueta;
 		this.fecha = fecha;
+	}
+	
+	public List<ListaDeCompras> getComprasPorEtiqueta() {
+		return comprasPorEtiqueta;
 	}
 	
 	public String getId() {
@@ -56,5 +63,17 @@ public class Reporte {
 		if(gringo.contentEquals("FEBRUARY"))	return "FEBRERO";
 		if(gringo.contentEquals("JANUARY")) 	return "ENERO";
 		return "";
+	}
+	
+	public String getTablaCompras() {
+		tabla = "";
+		comprasPorEtiqueta.stream().forEach((listaDeCompras) -> {
+			tabla = tabla + listaDeCompras.getTabla();				
+		});
+		return tabla;
+	}
+
+	public boolean tieneMismaFecha(Reporte reporte) {
+		return this.getMes().equals(reporte.getMes()) && this.getAnio().equals(reporte.getAnio());
 	}
 }

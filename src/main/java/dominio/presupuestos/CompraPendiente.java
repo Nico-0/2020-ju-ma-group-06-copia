@@ -312,8 +312,7 @@ public class CompraPendiente {
 			    			"   <td> " + prov.getDireccionPostal().getPais() + "</td>" +
 			    			"   <td> " + prov.getDireccionPostal().getProvincia() + "</td>" +
 			    			"   <td> " + prov.getDireccionPostal().getCiudad() + "</td>" +
-			    			"   <td> " + prov.getDireccionPostal().getDireccion() + "</td>" +
-			    			"   <td> " + prov.getRazonSocial() + "</td>";
+			    			"   <td> " + prov.getDireccionPostal().getDireccion() + "</td>";
     	if(this.proveedor == prov)
     		tabla = tabla + "   <td> Proveedor seleccionado </th>" +
     				"</tr>";

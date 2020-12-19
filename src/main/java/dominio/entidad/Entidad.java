@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -76,6 +77,18 @@ public abstract class Entidad {
 	*/
 	
 	public void agregarReporte(Reporte reporte) {
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		List<Reporte> reportesViejos = reportes.stream().filter(unReporte -> unReporte.tieneMismaFecha(reporte)).collect(Collectors.toList());
+		reportesViejos.forEach(unReporte -> {
+				unReporte.getComprasPorEtiqueta()
+					.forEach(listaDeCompras -> {
+						listaDeCompras.quitarTodasLasCompras();
+						entityManager.remove(listaDeCompras);
+					});
+				unReporte.getComprasPorEtiqueta().clear();
+				reportes.remove(unReporte);
+				entityManager.remove(unReporte);
+			});
 		reportes.add(reporte);
 	}
 	

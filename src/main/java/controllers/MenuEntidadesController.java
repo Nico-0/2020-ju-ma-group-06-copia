@@ -76,8 +76,11 @@ public class MenuEntidadesController {
 		transaction.begin();
 		entidades.stream().forEach((entidad) -> {
 			Reporte reporte = entidad.generarReporte();
+			//EntityTransaction transaction = entityManager.getTransaction();
+			//transaction.begin();
 			entityManager.persist(reporte);
 			entidad.agregarReporte(reporte);
+			//transaction.commit();
 		});
 		transaction.commit();
 		

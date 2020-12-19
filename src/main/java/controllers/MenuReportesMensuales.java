@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -33,13 +34,17 @@ public class MenuReportesMensuales {
 	public ModelAndView mostrarReporteMensual(Request req, Response res){
 		this.verificarTipoEntidad(req.params("tipo_entidad"), res);
 		Long idReporte = new Long(req.params("id_reporte_mensual"));
-		
+		Long idEntidad = new Long(req.params("id_entidad"));
+		Entidad entidad = RepositorioEntidades.getInstance().getEntidad(idEntidad);
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		Reporte reporte = (Reporte) entityManager
 				.createQuery("from Reporte where id = :id")
 				.setParameter("id", idReporte)
 				.getSingleResult();
-		return new ModelAndView(reporte, "mostrarReporteMensual.hbs");
+		HashMap<String,Object> model = new HashMap<String,Object>();
+		model.put("entidad",entidad);
+		model.put("reporte",reporte);
+		return new ModelAndView(model, "mostrarReporteMensual.hbs");
 	}
 	
 	public void verificarTipoEntidad(String tipoEntidad, Response res) {

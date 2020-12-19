@@ -121,7 +121,7 @@ public class Router {
 		
 		Spark.get("/entidades", entidad::show, engine);
 		Spark.get("/bandeja_de_entrada", bandejaDeEntrada::bandejaDeEntrada,engine);
-		Spark.post("/bandeja_de_entrada/limpiar", bandejaDeEntrada::limpiar_bandeja);
+		Spark.get("/bandeja_de_entrada/limpiar", bandejaDeEntrada::limpiar_bandeja);
 		
 		// Menu Compras Pendientes
 		

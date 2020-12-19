@@ -6,20 +6,16 @@ import java.time.Month;
 import java.time.format.TextStyle;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.MapKey;
-import javax.persistence.Transient;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.compra.*;
 
@@ -32,7 +28,7 @@ public class GeneradorReporte {
 	private String mesActual;
 	private LocalDate fecha;
 	 
-	private HashMap<String, List<Compra>> categorias = new HashMap<String, List<Compra>>();
+	private List<ListaDeCompras> categorias = new ArrayList<ListaDeCompras>();
 	
 	public GeneradorReporte() {
 		this.fecha = LocalDate.now();
@@ -40,15 +36,22 @@ public class GeneradorReporte {
 	}
 	
 	public Reporte generarReporte(List<Compra> compras){
+		etiquetas = this.etiquetas(compras);
 		Reporte reporte = new Reporte(this.categorizar(this.sonDelMes(compras)), fecha);
 		return reporte;
 	}
 
-	public HashMap<String, List<Compra>> categorizar(List<Compra> compras){
+	public List<ListaDeCompras> categorizar(List<Compra> compras){
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		//EntityTransaction transaction = entityManager.getTransaction();
+		//transaction.begin();
 		this.convertir();
 		for (int i=0; i<this.cantidadDeEtiquetas(); i++) {
-			categorias.put(this.etiq(i), this.comprasDeEtiq(this.etiq(i), compras));
+			ListaDeCompras listaDeCompras = new ListaDeCompras(this.etiq(i), this.comprasDeEtiq(this.etiq(i), compras));
+			entityManager.persist(listaDeCompras);
+			categorias.add(listaDeCompras);
 		}
+		//transaction.commit();
 		return categorias;
 	}
 	

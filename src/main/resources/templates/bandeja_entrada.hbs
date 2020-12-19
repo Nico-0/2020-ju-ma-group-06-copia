@@ -15,12 +15,22 @@
 	</table>
     </div>
     <br/>
-    <form action="/bandeja_de_entrada/limpiar" method="post">
-            <input class = "submit_gris" type="submit" value="Limpiar bandeja de mensajes" onclick="alert('Descartando todos los mensajes!')">
-    </form>
+    <a class = "link_boton" href = "/bandeja_de_entrada/limpiar" onclick="return confirm('Se descartar&aacuten todos los mensajes. Seguro que desea continuar?')">  Limpiar bandeja de mensajes  </a>
     <br/>
     <a class = "link_boton" href = "/">  Volver  </a>
 </section>
+
+<script>
+function myFunction() {
+  var txt;
+  if (confirm("Se descartarán todos los mensajes. Seguro que desea continuar?")) {
+    txt = "si";
+  } else {
+    txt = "no";
+  }
+  document.getElementById("demo").innerHTML = txt;
+}
+</script>
 
 {{/partial}}
 

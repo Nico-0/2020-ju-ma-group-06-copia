@@ -1,0 +1,17 @@
+{{#partial "contenido"}}
+
+<section class = "content">
+	Reporte Mensual
+	</br>
+	ID: {{reporte.id}}
+	</br>
+    <div>
+    	{{{ reporte.tablaCompras }}}
+    </div>
+</section>
+<br/>
+    <a class = "link_boton" href = "{{entidad.urlView}}reportes_mensuales">  Volver al men&uacute de reportes  </a>
+
+{{/partial}}
+
+{{>layout.hbs}}
