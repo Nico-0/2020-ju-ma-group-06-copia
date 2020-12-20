@@ -1,13 +1,18 @@
 package dominio.entidad;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+
+import converter.LocalDateTimeConverter;
 
 @Entity
 public class Reporte {
@@ -16,7 +21,9 @@ public class Reporte {
 	@GeneratedValue
 	protected Long id;
 	
-	private LocalDate fecha;
+	@Column
+	@Convert(converter = LocalDateTimeConverter.class)
+	private LocalDateTime fecha;
 	
 	@Transient
 	String tabla;
@@ -28,7 +35,7 @@ public class Reporte {
 		
 	}
 	
-	public Reporte(List<ListaDeCompras> comprasPorEtiqueta, LocalDate fecha) {
+	public Reporte(List<ListaDeCompras> comprasPorEtiqueta, LocalDateTime fecha) {
 		this.comprasPorEtiqueta = comprasPorEtiqueta;
 		this.fecha = fecha;
 	}

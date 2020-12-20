@@ -1,15 +1,9 @@
 package dominio.entidad;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
-
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.compra.Compra;
+import dominio.presupuestos.CompraPendiente;
 
 @Entity
 public class CategoriaDefault extends Categoria {
@@ -37,6 +31,10 @@ public class CategoriaDefault extends Categoria {
             throw new RuntimeException("La entidad ha superado el limite de "+egresosMaximos+
                                         " egresos totales. No se puede agregar la compra");
         }
+    }
+    
+    public boolean sePuedeAgregarCompra(Entidad entidad, CompraPendiente unaCompra) {
+        return !(bloquearNuevasCompras && entidad.egresosSuperan(egresosMaximos - unaCompra.getCostoTotal()));
     }
 
 	public void setBloquearNuevosEgresos(boolean bloquearNuevasCompras) {

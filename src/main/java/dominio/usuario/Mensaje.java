@@ -12,22 +12,24 @@ public class Mensaje {
 	@Id
 	@GeneratedValue
 	private Long id;
-	/*
-	@ManyToOne
-	CompraPendiente unaCompra;
-	TODO volver a incluir, se hace un lio para borrar las compras que son referenciadas por mensajes*/
+	
+	private Long idCompraPendiente;
 	
 	String unMensaje;
 	
 	public Mensaje() {}
 	
-	public Mensaje(CompraPendiente unaCompra, String unMensaje){
-		//this.unaCompra = unaCompra;TODO incluir
+	public Mensaje(String unMensaje, Long idCompraPendiente){
 		this.unMensaje = unMensaje;
+		this.idCompraPendiente = idCompraPendiente;
 	}
 	
 	public void enviarseBandejaMensajes(BandejaDeMensajes unaBandeja) {
 		unaBandeja.agregarMensaje(this);
+	}
+	
+	public Long getIdCompraPendiente() {
+		return idCompraPendiente;
 	}
 	
 	public Long getId() {

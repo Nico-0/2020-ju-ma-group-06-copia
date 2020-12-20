@@ -1,11 +1,12 @@
 package dominio.entidad;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ import javax.persistence.Transient;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
+import converter.LocalDateTimeConverter;
 import dominio.compra.Compra;
 import dominio.presupuestos.CompraPendiente;
 import repositorios.RepositorioCategorias;
@@ -39,7 +41,9 @@ public abstract class Entidad {
 	@ManyToMany
 	public List<Categoria> categorias = new ArrayList<Categoria>();
 	
-	private LocalDate fecha = LocalDate.now();
+	@Column
+	@Convert(converter = LocalDateTimeConverter.class)
+	private LocalDateTime fecha = LocalDateTime.now();
 	
 	@OneToMany
 	private List<Reporte> reportes = new ArrayList<Reporte>();
@@ -60,6 +64,10 @@ public abstract class Entidad {
 	public void agregarCompra(Compra unaCompra) {
 		categorias.stream().forEach(categoria -> categoria.validarAgregarCompra(this, unaCompra));
 		compras.add(unaCompra);
+	}
+	
+	public boolean sePuedeAgregarCompra(CompraPendiente unaCompra) {
+		return categorias.stream().allMatch(categoria -> categoria.sePuedeAgregarCompra(this, unaCompra));
 	}
 
 	public boolean egresosSuperan(double valor){

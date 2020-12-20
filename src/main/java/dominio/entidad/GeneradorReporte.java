@@ -1,7 +1,7 @@
 package dominio.entidad;
 
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.TextStyle;
 
@@ -13,7 +13,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
@@ -26,12 +25,13 @@ public class GeneradorReporte {
 	private List<String> etiq = new ArrayList<String>();
 	
 	private String mesActual;
-	private LocalDate fecha;
+	
+	private LocalDateTime fecha;
 	 
 	private List<ListaDeCompras> categorias = new ArrayList<ListaDeCompras>();
 	
 	public GeneradorReporte() {
-		this.fecha = LocalDate.now();
+		this.fecha = LocalDateTime.now();
 		this.mesActual = this.mes();
 	}
 	

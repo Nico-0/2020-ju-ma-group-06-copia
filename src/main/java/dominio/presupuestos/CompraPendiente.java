@@ -1,8 +1,7 @@
 package dominio.presupuestos;
 
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -10,12 +9,11 @@ import javax.persistence.*;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
+import converter.LocalDateTimeConverter;
 import dominio.compra.*;
 import dominio.entidad.Entidad;
 import dominio.usuario.*;
 import repositorios.RepositorioEntidades;
-import repositorios.RepositorioProveedores;
-import repositorios.RepositorioUsuarios;
 
 @Entity
 public class CompraPendiente {
@@ -37,7 +35,10 @@ public class CompraPendiente {
 	private CriterioDeSeleccionPresupuesto criterioDeSeleccion = CriterioDeSeleccionPresupuesto.SinCriterioDeSeleccion;
 	
     private int cantidadPresupuestosRequeridos = 0;
-    private LocalDate fecha = LocalDate.now();
+    
+	@Column
+	@Convert(converter = LocalDateTimeConverter.class)
+    private LocalDateTime fecha = LocalDateTime.now();
     
     @ManyToOne(optional = true, cascade = {CascadeType.ALL})
     private MedioPago medioPago;
@@ -118,7 +119,7 @@ public class CompraPendiente {
     	this.medioPago = medioPago;
     }
     
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(LocalDateTime fecha) {
     	this.fecha = fecha;
     }
     
@@ -156,9 +157,14 @@ public class CompraPendiente {
     									"El presupuesto del proveedor elegido no es el mï¿½s barato");
     }
     
+    public boolean verificarEntidadPuedeAgregarCompra(){
+    	return validarCondicion(entidad.sePuedeAgregarCompra(this),
+    									"La entidad ha superado la cantidad máxima de egresos");
+    }
+    
     public boolean validarCondicion(boolean condicion, String mensaje) {
     	if(!condicion) {
-    		enviarMensajeRevisores(mensaje+" para la compra "+this.getId());
+    		enviarMensajeRevisores(mensaje);
     		return false;
     	}
     	return true;
@@ -198,7 +204,7 @@ public class CompraPendiente {
     
     public void enviarMensajeRevisores(String texto) {
     	usuariosRevisores.stream().forEach(unUsuario -> {
-    		Mensaje unMensaje = new Mensaje(this, texto);
+    		Mensaje unMensaje = new Mensaje(texto, this.id);
     		unUsuario.recibirMensaje(unMensaje);
     	}); 
     }
@@ -215,7 +221,8 @@ public class CompraPendiente {
     	return verificarParametrosNotNull() &&
                 verificarCantidadPresupuestos() &&
     			verificarDetallePresupuesto() &&
-    			verificarCriterioDeSeleccion();
+    			verificarCriterioDeSeleccion() && 
+    			verificarEntidadPuedeAgregarCompra();
     }
     
     public void validarCompra() {
@@ -230,7 +237,7 @@ public class CompraPendiente {
 			entityManager.persist(documentoComercial);
 			entityManager.persist(compra);
 			entidad.agregarCompra(compra);
-			enviarMensajeRevisores("La compra "+this.getId()+" fue validada.");
+			enviarMensajeRevisores("La compra fue validada.");
 			this.proveedor = null;
 			this.medioPago = null;
 			this.fecha = null;
@@ -407,5 +414,9 @@ public class CompraPendiente {
 
 	public boolean tieneUsuariosRevisores() {
 		return !usuariosRevisores.isEmpty();
+	}
+
+	public double getCostoTotal() {
+		return detalle.getTotal();
 	}
 }

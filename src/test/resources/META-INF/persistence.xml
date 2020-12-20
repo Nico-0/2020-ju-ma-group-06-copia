@@ -31,6 +31,7 @@
 		<class>dominio.entidad.TipoEmpresa</class>
 		<class>dominio.entidad.Reporte</class>
 		<class>dominio.entidad.ListaDeCompras</class>
+		<class>dominio.converter.LocalDateTimeConverter</class>
 		
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>

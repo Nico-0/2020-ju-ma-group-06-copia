@@ -1,9 +1,8 @@
 package prueba;
 
 import static org.junit.Assert.*;
-import org.junit.Assert;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -22,7 +21,7 @@ import dominio.entidad.*;
 public class Test_entrega_3 {
 	private MedioPago unMedioDePago;
 	private MedioPago otroMedioDePago;
-	private LocalDate fechaEstaMes, otraFechaEsteMes, fechaEnero;
+	private LocalDateTime fechaEstaMes, otraFechaEsteMes, fechaEnero;
 	private Presupuesto presupuesto, PRESUPUESTO_BARATO, PRESUPUESTO_CARO;
 	private List<Presupuesto> listaPresupuestos = new ArrayList<>();
 	private List<Usuario> usuariosRevisores = new ArrayList<>();
@@ -48,9 +47,9 @@ public class Test_entrega_3 {
 	public void setUp() throws Exception {
 		unMedioDePago = new MedioPago(TipoPago.EFECTIVO,"2193829183928");
 		otroMedioDePago = new MedioPago(TipoPago.TARJETA_CREDITO,"2193829183928");
-		fechaEstaMes = LocalDate.of( 2020, LocalDate.now().getMonth(), 9 );
-		otraFechaEsteMes = LocalDate.of( 2020, LocalDate.now().getMonth(), 12 );
-		fechaEnero = LocalDate.of( 2020, Month.JANUARY, 23 );
+		fechaEstaMes = LocalDateTime.of( 2020, LocalDateTime.now().getMonth(), 9, 0, 0);
+		otraFechaEsteMes = LocalDateTime.of( 2020, LocalDateTime.now().getMonth(), 12, 0, 0);
+		fechaEnero = LocalDateTime.of( 2020, Month.JANUARY, 23, 0, 0);
 		etiquetaAmoblamiento = "Amoblamiento";
 		etiquetaIndumentaria = "Indumentaria";
 		direccionPostal = new DireccionPostal();

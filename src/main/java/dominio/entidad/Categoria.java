@@ -3,16 +3,13 @@ package dominio.entidad;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
-
 import dominio.compra.Compra;
+import dominio.presupuestos.CompraPendiente;
 import repositorios.RepositorioCategorias;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -45,4 +42,5 @@ public abstract class Categoria {
     }
     
 	protected abstract String getUrlView();
+	protected abstract boolean sePuedeAgregarCompra(Entidad entidad, CompraPendiente unaCompra);
 }

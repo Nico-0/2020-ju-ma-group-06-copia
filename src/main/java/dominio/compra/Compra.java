@@ -1,20 +1,18 @@
 package dominio.compra;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.Validate;
 
-import dominio.entidad.Entidad;
+import converter.LocalDateTimeConverter;
 import dominio.presupuestos.Detalle;
 import dominio.presupuestos.Presupuesto;
 import dominio.usuario.Usuario;
-import repositorios.RepositorioEntidades;
 
 import javax.persistence.*;
 
@@ -40,7 +38,9 @@ public class Compra {
 	@OneToOne
 	private DocumentoComercial documentoComercial;
 	
-	private LocalDate fecha = LocalDate.now();
+	@Column
+	@Convert(converter = LocalDateTimeConverter.class)
+	private LocalDateTime fecha = LocalDateTime.now();
 	
 	@ManyToMany
 	private List<Usuario> usuariosRevisores = new ArrayList<>();
@@ -97,7 +97,7 @@ public class Compra {
 	
 	public Compra(Proveedor proveedor, 
 				  MedioPago medioPago, 
-				  LocalDate fecha,
+				  LocalDateTime fecha,
 				  List<Presupuesto> presupuestos,
 				  Detalle detalle,
 				  List<Usuario> usuariosRevisores,

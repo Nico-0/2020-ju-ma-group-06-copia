@@ -24,10 +24,11 @@ import repositorios.RepositorioUsuarios;
 
 public class Bootstrap extends AbstractPersistenceTest implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps{
 
+	/*
 	public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException {
 		new Bootstrap().init();
 	}
-	
+	*/
 	public static void init() throws NoSuchAlgorithmException, InvalidKeySpecException, IOException{
 		final EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		final EntityTransaction transaction = entityManager.getTransaction();
@@ -35,7 +36,7 @@ public class Bootstrap extends AbstractPersistenceTest implements WithGlobalEnti
 		CompraPendiente compra = entityManager.createQuery("from CompraPendiente", CompraPendiente.class).getResultList().get(0);
 		if(compra == null) {
 			compra = new CompraPendiente();
-			compra.setFecha(LocalDate.now());
+			compra.setFecha(LocalDateTime.now());
 			compra.getDetalle().setMoneda("ninguna");
 		}*/
 		Usuario usuario = RepositorioUsuarios.getInstance().getUsuario("pepe");
@@ -55,6 +56,5 @@ public class Bootstrap extends AbstractPersistenceTest implements WithGlobalEnti
 		//transaction.commit();
 		//usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 1"));
 		//usuario.recibirMensaje(new Mensaje(compra, "Mensaje numero 2"));
-		//TareaProgramada tareaProgramada = new TareaProgramada(600000); // Cada 10 minutos
 	}
 }

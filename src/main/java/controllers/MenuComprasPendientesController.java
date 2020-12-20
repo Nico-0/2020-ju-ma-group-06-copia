@@ -1,28 +1,17 @@
 package controllers;
 
-import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
-import dominio.compra.Compra;
-import dominio.compra.DocumentoComercial;
 import dominio.compra.MedioPago;
-import dominio.compra.Proveedor;
 import dominio.compra.TipoPago;
-import dominio.entidad.Entidad;
 import dominio.presupuestos.CompraPendiente;
-import dominio.presupuestos.Detalle;
-import dominio.presupuestos.Presupuesto;
 import dominio.usuario.Usuario;
-import repositorios.RepositorioCategorias;
 import repositorios.RepositorioComprasPendientes;
-import repositorios.RepositorioUsuarios;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -94,55 +83,6 @@ public class MenuComprasPendientesController {
 		transaction.commit();
 		res.redirect("/compras_pendientes/" + compraPendiente.getId());
 		return null;
-		
-		/*
-		EntityManager em = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = em.getTransaction();
-		
-		int cant_presupuestos = new Integer(req.queryParams("cant_presup"));
-		Long detalle_id = new Long(req.queryParams("detalle"));
-		Long proveedor_id = new Long(req.queryParams("proveedor"));
-		Long medioPago_id = new Long(req.queryParams("medio_pago"));
-		Long entidad_id = new Long(req.queryParams("entidad"));
-		Long criterio_pago_id = new Long(req.queryParams("criterio"));
-		
-		Detalle detalle = em.find(Detalle.class, detalle_id);
-		if(detalle == null) {
-			res.redirect("/compras/error/errordetalle");
-			return null;
-		}
-		Proveedor proveedor = em.find(Proveedor.class, proveedor_id);
-		if(proveedor == null) {
-			res.redirect("/compras/error/errorproveedor");
-			return null;
-		}
-		MedioPago medio_pago = em.find(MedioPago.class, medioPago_id);
-		if(medio_pago == null) {
-			res.redirect("/compras/error/errormediopago");
-			return null;
-		}
-		Entidad entidad = em.find(Entidad.class, entidad_id);
-		if(entidad == null) {
-			res.redirect("/compras/error/errorentidad");
-			return null;
-		}
-		
-		CompraPendiente compra = new CompraPendiente();
-		
-		compra.setFecha(LocalDate.now());
-		compra.setCantidadPresupuestosRequeridos(cant_presupuestos);
-		compra.setProveedor(proveedor);
-		compra.setMedioPago(medio_pago);
-		compra.setDetalle(detalle);
-		compra.setCriterioSeleccion(criterio_pago_id);
-		compra.setEntidad(entidad);
-		
-		transaction.begin();
-		em.persist(compra);
-		transaction.commit();
-		
-		res.redirect("/compras_pendientes");
-		return null;	*/
 	}
 	
 	public ModelAndView validar_compras(Request req, Response res){	
@@ -152,7 +92,6 @@ public class MenuComprasPendientesController {
 		transaction.begin();
 		comprasPendientes.stream().forEach(compraPendiente -> compraPendiente.validarCompra());
 		transaction.commit();
-		//RepositorioComprasPendientes.getInstance().validarCompras();
 		res.redirect("/compras_pendientes");
 		return null;
 	}
